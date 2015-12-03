@@ -4,7 +4,7 @@ import sys
 import logging
 import argparse
 
-from client import application
+from jasper import application
 
 parser = argparse.ArgumentParser(description='Jasper Voice Control Center')
 parser.add_argument('--local', action='store_true',

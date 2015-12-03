@@ -7,7 +7,7 @@ try:
 except:
     pass
 
-from client import paths
+from jasper import paths
 from .g2p import PhonetisaurusG2P
 
 
