@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8-*-
+# -*- coding: utf-8
 
 import os
 import sys
@@ -8,21 +8,38 @@ import logging
 
 import yaml
 import argparse
+import locale, gettext
 
 from client import tts, stt, jasperpath, diagnose
 from client.conversation import Conversation
 
+
+''' prepare l10n '''
+locale.setlocale(locale.LC_ALL,	'')
+loc = locale.getlocale()[0][0:2]
+filename = "res/Macsen_%s.mo" % loc
+
+try:
+    trans = gettext.GNUTranslations(open( filename, "rb"))
+except IOError:
+    print ("Locale %s not found. Will use default locale strings" % loc)
+    trans = gettext.NullTranslations()
+
+trans.install()
+''' end of preparing l10n '''
+
+
 # Add jasperpath.LIB_PATH to sys.path
 sys.path.append(jasperpath.LIB_PATH)
 
-parser = argparse.ArgumentParser(description='Jasper Voice Control Center')
+parser = argparse.ArgumentParser(description=_('Macsen Voice Control Center'))
 parser.add_argument('--local', action='store_true',
-                    help='Use text input instead of a real microphone')
+                    help=_('Use text input instead of a real microphone'))
 parser.add_argument('--no-network-check', action='store_true',
-                    help='Disable the network connection check')
+                    help=_('Disable the network connection check'))
 parser.add_argument('--diagnose', action='store_true',
-                    help='Run diagnose and exit')
-parser.add_argument('--debug', action='store_true', help='Show debug messages')
+                    help=_('Run diagnose and exit'))
+parser.add_argument('--debug', action='store_true', help=_('Show debug messages'))
 args = parser.parse_args()
 
 if args.local:
@@ -32,6 +49,7 @@ else:
 
 
 class Jasper(object):
+
     def __init__(self):
         self._logger = logging.getLogger(__name__)
 
@@ -46,8 +64,7 @@ class Jasper(object):
 
         # Check if config dir is writable
         if not os.access(jasperpath.CONFIG_PATH, os.W_OK):
-            self._logger.critical("Config dir %s is not writable. Jasper " +
-                                  "won't work correctly.",
+            self._logger.critical("Config dir %s is not writable. Jasper won't work correctly", 
                                   jasperpath.CONFIG_PATH)
 
         # FIXME: For backwards compatibility, move old config file to newly
@@ -106,19 +123,29 @@ class Jasper(object):
                        stt_passive_engine_class.get_passive_instance(),
                        stt_engine_class.get_active_instance())
 
+
     def run(self):
         if 'first_name' in self.config:
-            salutation = ("How can I be of service, %s?"
+            salutation = (_("How can I be of service, %s?")
                           % self.config["first_name"])
         else:
-            salutation = "How can I be of service?"
+            salutation = _("How can I be of service?")
         self.mic.say(salutation)
 
-        conversation = Conversation("JASPER", self.mic, self.config)
+        conversation = Conversation("MACSEN", self.mic, self.config)
         conversation.handleForever()
 
 if __name__ == "__main__":
 
+    print("*******************************************************")
+    print(_("      MACSEN - THE MULTILINGUAL TALKING COMPUTER      *"))
+    print(" (c) 2016 Prifysgol BANGOR University                 *")
+    print(_(" Initial Developers:                                  *"))
+    print(" Dewi Bryn Jones (techiaith@Bangor)                   *")
+    print(" Stefano Ghazzali (techiaith@Bangor)                  *")
+    print("                                                      *")
+    print(_("MACSEN is based on :                                            *")) 
+    print("*                                                     *") 
     print("*******************************************************")
     print("*             JASPER - THE TALKING COMPUTER           *")
     print("* (c) 2015 Shubhro Saha, Charlie Marsh & Jan Holthuis *")

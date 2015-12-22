@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8-*-
+# -*- coding: utf-8
 import unittest
 import mock
 from client import brain, test_mic

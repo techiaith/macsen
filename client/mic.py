@@ -1,4 +1,4 @@
-# -*- coding: utf-8-*-
+# -*- coding: utf-8
 """
     The Mic class handles all interactions with the microphone and speaker.
 """
@@ -22,8 +22,7 @@ class Mic:
 
         Arguments:
         speaker -- handles platform-independent audio output
-        passive_stt_engine -- performs STT while Jasper is in passive listen
-                              mode
+        passive_stt_engine -- performs STT while Jasper is in passive listen mode
         acive_stt_engine -- performs STT while Jasper is in active listen mode
         """
         self._logger = logging.getLogger(__name__)
@@ -194,11 +193,9 @@ class Mic:
         if options:
             return options[0]
 
-    def activeListenToAllOptions(self, THRESHOLD=None, LISTEN=True,
-                                 MUSIC=False):
+    def activeListenToAllOptions(self, THRESHOLD=None, LISTEN=True, MUSIC=False):
         """
             Records until a second of silence or times out after 12 seconds
-
             Returns a list of the matching options or None
         """
 

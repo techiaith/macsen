@@ -65,3 +65,5 @@ target/
 
 # SublimeLinter config file
 .sublimelinterrc
+
+.idea

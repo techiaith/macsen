@@ -1,4 +1,4 @@
-# -*- coding: utf-8-*-
+# -*- coding: utf-8
 import logging
 import pkgutil
 import jasperpath
@@ -31,7 +31,6 @@ class Brain(object):
         them by the PRIORITY key. If no PRIORITY is defined for a given
         module, a priority of 0 is assumed.
         """
-
         logger = logging.getLogger(__name__)
         locations = [jasperpath.PLUGIN_PATH]
         logger.debug("Looking for modules in: %s",
@@ -74,8 +73,8 @@ class Brain(object):
                     except:
                         self._logger.error('Failed to execute module',
                                            exc_info=True)
-                        self.mic.say("I'm sorry. I had some trouble with " +
-                                     "that operation. Please try again later.")
+                        self.mic.say(_("I'm sorry. I had some trouble with that operation")) 
+			self.mic.say(_("Please try again later."))
                     else:
                         self._logger.debug("Handling of phrase '%s' by " +
                                            "module '%s' completed", text,
