@@ -1,4 +1,3 @@
 #!/bin/bash
-
-find . -iname "*.py" | xargs xgettext --from-code=UTF-8 --default-domain=Macsen
+find . -path ./client/modules -prune -o -iname "*.py" -print | xargs xgettext --from-code=UTF-8 --default-domain=Macsen
 
