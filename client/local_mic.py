@@ -1,4 +1,4 @@
-# -*- coding: utf-8
+# -*- coding: utf-8 -*-
 """
 A drop-in replacement for the Mic class that allows for all I/O to occur
 over the terminal. Useful for debugging. Unlike with the typical Mic
@@ -15,10 +15,8 @@ class Mic:
     def passiveListen(self, PERSONA):
         return True, "JASPER"
 
-    def activeListenToAllOptions(self, THRESHOLD=None, LISTEN=True,
-                                 MUSIC=False):
-        return [self.activeListen(THRESHOLD=THRESHOLD, LISTEN=LISTEN,
-                                  MUSIC=MUSIC)]
+    def activeListenToAllOptions(self, THRESHOLD=None, LISTEN=True, MUSIC=False):
+        return [self.activeListen(THRESHOLD=THRESHOLD, LISTEN=LISTEN, MUSIC=MUSIC)]
 
     def activeListen(self, THRESHOLD=None, LISTEN=True, MUSIC=False):
         if not LISTEN:

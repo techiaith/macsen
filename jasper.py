@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8
+# -*- coding: utf-8 -*-
 
 import os
 import sys
@@ -8,44 +8,26 @@ import logging
 
 import yaml
 import argparse
-import locale, gettext
+import gettext
 
 from client import tts, stt, jasperpath, diagnose
 from client.conversation import Conversation
+import client.language
 
 
-''' prepare l10n '''
-locale.setlocale(locale.LC_ALL,	'')
-loc = locale.getlocale()[0][0:2]
-filename = "res/Macsen_%s.mo" % loc
+def init_internationalization():
+    ''' prepare l10n '''
+    loc=client.language.lang
+    filename = "res/Macsen_%s.mo" % loc
 
-try:
-    trans = gettext.GNUTranslations(open( filename, "rb"))
-except IOError:
-    print ("Locale %s not found. Will use default locale strings" % loc)
-    trans = gettext.NullTranslations()
+    try:
+        trans = gettext.GNUTranslations(open( filename, "rb"))
+    except IOError:
+        print ("Locale %s not found. Will use default locale strings" % loc)
+        trans = gettext.NullTranslations()
 
-trans.install()
+    trans.install()
 ''' end of preparing l10n '''
-
-
-# Add jasperpath.LIB_PATH to sys.path
-sys.path.append(jasperpath.LIB_PATH)
-
-parser = argparse.ArgumentParser(description=_('Macsen Voice Control Center'))
-parser.add_argument('--local', action='store_true',
-                    help=_('Use text input instead of a real microphone'))
-parser.add_argument('--no-network-check', action='store_true',
-                    help=_('Disable the network connection check'))
-parser.add_argument('--diagnose', action='store_true',
-                    help=_('Run diagnose and exit'))
-parser.add_argument('--debug', action='store_true', help=_('Show debug messages'))
-args = parser.parse_args()
-
-if args.local:
-    from client.local_mic import Mic
-else:
-    from client.mic import Mic
 
 
 class Jasper(object):
@@ -136,6 +118,23 @@ class Jasper(object):
         conversation.handleForever()
 
 if __name__ == "__main__":
+
+    init_internationalization()
+
+    # Add jasperpath.LIB_PATH to sys.path
+    sys.path.append(jasperpath.LIB_PATH)
+
+    parser = argparse.ArgumentParser(description=_('Macsen Voice Control Center'))
+    parser.add_argument('--local', action='store_true', help=_('Use text input instead of a real microphone'))
+    parser.add_argument('--no-network-check', action='store_true', help=_('Disable the network connection check'))
+    parser.add_argument('--diagnose', action='store_true', help=_('Run diagnose and exit'))
+    parser.add_argument('--debug', action='store_true', help=_('Show debug messages'))
+    args = parser.parse_args()
+
+    if args.local:
+        from client.local_mic import Mic
+    else:
+        from client.mic import Mic
 
     print("*******************************************************")
     print(_("      MACSEN - THE MULTILINGUAL TALKING COMPUTER      *"))
