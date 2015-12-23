@@ -8,27 +8,10 @@ import logging
 
 import yaml
 import argparse
-import gettext
 
 from client import tts, stt, jasperpath, diagnose
 from client.conversation import Conversation
-import client.language
-
-
-def init_internationalization():
-    ''' prepare l10n '''
-    loc=client.language.lang
-    filename = "res/Macsen_%s.mo" % loc
-
-    try:
-        trans = gettext.GNUTranslations(open( filename, "rb"))
-    except IOError:
-        print ("Locale %s not found. Will use default locale strings" % loc)
-        trans = gettext.NullTranslations()
-
-    trans.install()
-''' end of preparing l10n '''
-
+import client.l10n
 
 class Jasper(object):
 
@@ -49,34 +32,17 @@ class Jasper(object):
             self._logger.critical("Config dir %s is not writable. Jasper won't work correctly", 
                                   jasperpath.CONFIG_PATH)
 
-        # FIXME: For backwards compatibility, move old config file to newly
-        #        created config dir
-        old_configfile = os.path.join(jasperpath.LIB_PATH, 'profile.yml')
-        new_configfile = jasperpath.config('profile.yml')
-        if os.path.exists(old_configfile):
-            if os.path.exists(new_configfile):
-                self._logger.warning("Deprecated profile file found: '%s'. " +
-                                     "Please remove it.", old_configfile)
-            else:
-                self._logger.warning("Deprecated profile file found: '%s'. " +
-                                     "Trying to copy it to new location '%s'.",
-                                     old_configfile, new_configfile)
-                try:
-                    shutil.copy2(old_configfile, new_configfile)
-                except shutil.Error:
-                    self._logger.error("Unable to copy config file. " +
-                                       "Please copy it manually.",
-                                       exc_info=True)
-                    raise
-
+        configFileName = 'profile.%s.yml' % client.language.lang
+        configfile = jasperpath.config(configFileName)
         # Read config
-        self._logger.debug("Trying to read config file: '%s'", new_configfile)
+        self._logger.debug("Trying to read config file: '%s'", configfile)
         try:
-            with open(new_configfile, "r") as f:
+            with open(configfile, "r") as f:
                 self.config = yaml.safe_load(f)
         except OSError:
-            self._logger.error("Can't open config file: '%s'", new_configfile)
+            self._logger.error("Can't open config file: '%s'", configfile)
             raise
+
 
         try:
             stt_engine_slug = self.config['stt_engine']
@@ -119,7 +85,7 @@ class Jasper(object):
 
 if __name__ == "__main__":
 
-    init_internationalization()
+    client.l10n.init_internationalization()
 
     # Add jasperpath.LIB_PATH to sys.path
     sys.path.append(jasperpath.LIB_PATH)

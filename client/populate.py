@@ -6,7 +6,7 @@ import yaml
 from pytz import timezone
 import feedparser
 import jasperpath
-
+import l10n
 
 def run():
     profile = {}
@@ -121,10 +121,13 @@ def run():
     print(_("Writing to profile..."))
     if not os.path.exists(jasperpath.CONFIG_PATH):
         os.makedirs(jasperpath.CONFIG_PATH)
-    outputFile = open(jasperpath.config("profile.yml"), "w")
+    outputFileName = 'profile.%s.yml' % language.lang
+    outputFile = open(jasperpath.config(outputFileName), "w")
     yaml.dump(profile, outputFile, default_flow_style=False)
     print(_("Done."))
 
 if __name__ == "__main__":
+
+    l10n.init_internationalization()
     run()
 
