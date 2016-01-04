@@ -1,5 +1,6 @@
-# -*- coding: utf-8-*-
+# -*- coding: utf-8 -*-
 import os
+import sys
 import re
 from getpass import getpass
 import yaml
@@ -8,10 +9,11 @@ import feedparser
 import jasperpath
 import l10n
 
-def run():
+def run(macsen_language):
+
     profile = {}
 
-    print(_("Welcome to the profile populator"))
+    print(_("Welcome to the profile populator for language %s" % macsen_language))
     print(_("If, at any step, you'd prefer not to enter the requested information, just hit 'Enter' with a blank field to continue."))
 
     def simple_request(var, cleanVar, cleanInput=None):
@@ -98,7 +100,8 @@ def run():
 
     stt_engines = {
         "sphinx": None,
-        "google": "GOOGLE_SPEECH"
+        "google": "GOOGLE_SPEECH",
+	"julius": None
     }
 
     print("\n")
@@ -121,13 +124,24 @@ def run():
     print(_("Writing to profile..."))
     if not os.path.exists(jasperpath.CONFIG_PATH):
         os.makedirs(jasperpath.CONFIG_PATH)
-    outputFileName = 'profile.%s.yml' % language.lang
+    outputFileName = 'profile.%s.yml' % macsen_language
     outputFile = open(jasperpath.config(outputFileName), "w")
     yaml.dump(profile, outputFile, default_flow_style=False)
     print(_("Done."))
 
 if __name__ == "__main__":
 
+    import argparse
+
     l10n.init_internationalization()
-    run()
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-lang', help='profile language - en / cy', dest='language', action='store')
+    
+    args = parser.parse_args(sys.argv[1:])
+
+    if args.language is None:
+	args.language = l10n.macsen_language
+
+    run(args.language)
 

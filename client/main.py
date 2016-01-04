@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# -*- coding: utf-8-*-
+# -*- coding: utf-8 -*-
 # This file exists for backwards compatibility with older versions of jasper.
 # It might be removed in future versions.
 import os

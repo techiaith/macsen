@@ -4,16 +4,16 @@ import locale
 import gettext
 
 locale.setlocale(locale.LC_ALL,'')
-lang = locale.getlocale()[0][0:2]
+macsen_language = locale.getlocale()[0][0:2]
 
 def init_internationalization():
     ''' prepare l10n '''
-    filename = "res/Macsen_%s.mo" % lang
+    filename = "res/Macsen_%s.mo" % macsen_language
 
     try:
         trans = gettext.GNUTranslations(open( filename, "rb"))
     except IOError:
-        print ("Locale %s not found. Will use default locale strings" % lang)
+        print ("Locale %s not found. Will use default locale strings" % macsen_language)
         trans = gettext.NullTranslations()
 
     trans.install()

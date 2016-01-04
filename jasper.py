@@ -32,7 +32,7 @@ class Jasper(object):
             self._logger.critical("Config dir %s is not writable. Jasper won't work correctly", 
                                   jasperpath.CONFIG_PATH)
 
-        configFileName = 'profile.%s.yml' % client.language.lang
+        configFileName = 'profile.%s.yml' % client.l10n.macsen_language
         configfile = jasperpath.config(configFileName)
         # Read config
         self._logger.debug("Trying to read config file: '%s'", configfile)

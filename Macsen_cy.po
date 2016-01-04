@@ -1,0 +1,216 @@
+# Welsh translations for PACKAGE package.
+# Copyright (C) 2016 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Gallu <gallu@sarah-lenovo-g510>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-04 15:28+0000\n"
+"PO-Revision-Date: 2016-01-04 15:28+0000\n"
+"Last-Translator: Gallu <gallu@sarah-lenovo-g510>\n"
+"Language-Team: Welsh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cy\n"
+
+#: client/brain.py:76
+msgid "I'm sorry. I had some trouble with that operation"
+msgstr "Rwy'n sorry. rwyf wedi rhai problemau gyda' r weithred ddod"
+
+#: client/brain.py:77
+msgid "Please try again later."
+msgstr "Ceisiwch eto yn ddiweddarach."
+
+#: client/populate.py:16
+#, python-format
+msgid "Welcome to the profile populator for language %s"
+msgstr "Croeso i'r proffil populator iaith ar gyfer% S"
+
+#: client/populate.py:17
+msgid ""
+"If, at any step, you'd prefer not to enter the requested information, just "
+"hit 'Enter' with a blank field to continue."
+msgstr ""
+"Os, yn unrhyw un cam, nid yw'r flaen i gyflwyno' r wybodaeth angenrheidiol, "
+"goerau'n cyrraedd'enter' r maes gyda wag i barhau."
+
+#: client/populate.py:32
+msgid "Jasper uses your GMail to send notifications."
+msgstr "Jasper yn defnyddio eich Gmail i anfon hysbysiadau."
+
+#: client/populate.py:33
+msgid ""
+"Alternatively, you can skip this step (or just fill in the email address if "
+"you want to receive email notifications) and setup a Mailgun account, as at "
+"http://jasperproject.github.io/documentation/software/#mailgun."
+msgstr ""
+"Fel arall, gallwch hepgor y cam (neu Llenwch y cyfeiriad e-bost os ydych "
+"eisiau derbyn e-bost hysbysu) a gosod mailgun cyfrif, fel yn http: / / "
+"jasperproject.github.io / dogfennaeth / meddalwedd / # mailgun."
+
+#: client/populate.py:42
+msgid ""
+"Phone number (no country code). Any dashes or spaces will be removed for "
+"you: "
+msgstr ""
+"Rhif ffôn (dim gwlad cod). unrhyw dashes neu bylchau yn cael ei thynnu ar "
+"eich cyfer:"
+
+#: client/populate.py:47
+msgid "Phone carrier (for sending text notifications)."
+msgstr "Ffôn (darparwr ar gyfer anfon hysbysiadau Testun)."
+
+#: client/populate.py:48
+msgid ""
+"If you have a US phone number, you can enter one of the following: 'AT&T', "
+"'Verizon', 'T-Mobile' (without the quotes). "
+msgstr ""
+"Os oes gennych ni rhif ffôn, mae modd i chi roi un o'r canlynol:' yn & yn','"
+" verizon',' yn'-symudol (heb sengl)."
+
+#: client/populate.py:49
+msgid ""
+"If your carrier isn't listed or you have an international number, go to "
+"http://www.emailtextmessages.com and enter the email suffix for your carrier"
+msgstr ""
+"Os yw eich darparwr nid yw'n cael eu dangos neu ryngwladol rhif, ewch i "
+"http: / / www.emailtextmessages.com a' i gyflwyno'r e-bost suffix i' ch "
+"darparwr"
+
+#: client/populate.py:50
+msgid ""
+"(e.g., for Virgin Mobile, enter 'vmobl.com'; for T-Mobile Germany, enter "
+"'t-d1-sms.de')."
+msgstr ""
+"(e.e., ar gyfer Virgin symudol, rhowch'vmobl.com'; am ddim-symudol yr "
+"Almaen, rhowch nid oes-d1-sms.de')."
+
+#: client/populate.py:51
+msgid "Carrier: "
+msgstr "Darparwr:"
+
+#: client/populate.py:69
+msgid "Location saved as "
+msgstr "Cadw fel lleoliad"
+
+#: client/populate.py:73
+msgid "Location should be a 5-digit US zipcode (e.g., 08544)."
+msgstr "Lleoliad ddylai gael ei a 5-digit ni cod post (e.e., 08544)."
+
+#: client/populate.py:74
+msgid ""
+"If you are outside the US, insert the name of your nearest big town/city. "
+"For weather requests."
+msgstr ""
+"Os ydych yn tu allan i'r ni, mewnosod enw eich nearest Big town / city. ar "
+"gyfer y tywydd geisiadau."
+
+#: client/populate.py:75 client/populate.py:78
+msgid "Location: "
+msgstr "Lleoliad:"
+
+#: client/populate.py:77
+msgid "Weather not found. Please try another location."
+msgstr "Nid yw'r tywydd found. dewiswch un arall."
+
+#: client/populate.py:84
+msgid ""
+"Please enter a timezone from the list located in the TZ* column at "
+"http://en.wikipedia.org/wiki/List_of_tz_database_time_zones, or none at all."
+msgstr ""
+"Rhowch enw'r cylch amser o' r rhestr lleoli yn y tz * colofn yn http: / / "
+"en.wikipedia.org / wiki / rhestr _ of _ tz _ gronfa ddata _ time _ zones, "
+"neu dim yn y cyfan."
+
+#: client/populate.py:85 client/populate.py:93
+msgid "Timezone: "
+msgstr "Cylch amser:"
+
+#: client/populate.py:92
+msgid "Not a valid timezone. Try again."
+msgstr "Nid yw'n ddilys timezone. ceisiwch eto."
+
+#: client/populate.py:96
+msgid ""
+"Would you prefer to have notifications sent by email (E) or text message "
+"(T)? "
+msgstr ""
+"Hoffech chi flaen hysbysiadau i gael ei anfon drwy e-bost (e) neu neges "
+"testun (dim)?"
+
+#: client/populate.py:98
+msgid "Please choose email (E) or text message (T): "
+msgstr "Dewiswch e-bost (e) neu neges testun (dim):"
+
+#: client/populate.py:108
+msgid ""
+"If you would like to choose a specific STT engine, please specify which."
+msgstr "Os hoffech chi ddewis penodol peiriant stt, pennwch pa."
+
+#: client/populate.py:110
+#, python-format
+msgid ""
+"Available implementations: %s. (Press Enter to default to PocketSphinx): "
+msgstr ""
+"Ar gael implementations:% S. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
+
+#: client/populate.py:117
+msgid "Please enter your API key: "
+msgstr "Rhowch eich API allwedd:"
+
+#: client/populate.py:120
+#, python-format
+msgid "Unrecognized STT engine. Available implementations: %s"
+msgstr "Heb ei adnabod stt engine. ar gael implementations:% S"
+
+#: client/populate.py:124
+msgid "Writing to profile..."
+msgstr "Ysgrifennu i'r proffil..."
+
+#: client/populate.py:130
+msgid "Done."
+msgstr "Gorffen."
+
+#: jasper.py:77
+#, python-format
+msgid "How can I be of service, %s?"
+msgstr "Sut fedra i fod o'r gwasanaeth,% S?"
+
+#: jasper.py:80
+msgid "How can I be of service?"
+msgstr "Sut fedra i fod o'r gwasanaeth?"
+
+#: jasper.py:93
+msgid "Macsen Voice Control Center"
+msgstr "Canolfan Rheoli macsen llais"
+
+#: jasper.py:94
+msgid "Use text input instead of a real microphone"
+msgstr "Defnyddio'r testun mewnbwn yn lle darlun Meicroffon"
+
+#: jasper.py:95
+msgid "Disable the network connection check"
+msgstr "Analluogi'r cysylltiad rhwydwaith gwiriwch"
+
+#: jasper.py:96
+msgid "Run diagnose and exit"
+msgstr "Rhedeg ddadansoddi a gadael"
+
+#: jasper.py:97
+msgid "Show debug messages"
+msgstr "Dangos dadfygio'r negeseuon"
+
+#: jasper.py:106
+msgid "      MACSEN - THE MULTILINGUAL TALKING COMPUTER      *"
+msgstr "Cyfrifiadur - macsen multilingual talking *"
+
+#: jasper.py:108
+msgid " Initial Developers:                                  *"
+msgstr "Datblygwyr * cychwynnol:"
+
+#: jasper.py:112
+msgid "MACSEN is based on :                                            *"
+msgstr "Macsen yn seiliedig ar *:"
