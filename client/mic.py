@@ -35,6 +35,10 @@ class Mic:
         self._audio = pyaudio.PyAudio()
         self._logger.info("Initialization of PyAudio completed.")
 
+   
+    def set_tts_default_voice(self, default_voice):
+	self.speaker.default_voice(default_voice)
+ 
     def __del__(self):
         self._audio.terminate()
 

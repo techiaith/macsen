@@ -21,7 +21,8 @@ fi
 
 python l10n/mt_translate.py
 
-msgfmt -o res/Macsen_cy.mo res/Macsen_cy.mo
+msgfmt Macsen_en.po -o res/Macsen_en.mo
+msgfmt Macsen_cy.po -o res/Macsen_cy.mo 
 
 
 

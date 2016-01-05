@@ -6,6 +6,9 @@ pytz==2014.10
 PyYAML==3.11
 requests==2.5.0
 
+# Festival TTS Engine
+pyfestival==0.5
+
 # Pocketsphinx STT engine
 cmuclmtk==0.1.5
 

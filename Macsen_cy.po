@@ -27,7 +27,7 @@ msgstr "Ceisiwch eto yn ddiweddarach."
 #: client/populate.py:16
 #, python-format
 msgid "Welcome to the profile populator for language %s"
-msgstr "Croeso i'r proffil populator iaith ar gyfer% S"
+msgstr "Croeso i'r proffil populator iaith ar gyfer %s"
 
 #: client/populate.py:17
 msgid ""
@@ -155,7 +155,7 @@ msgstr "Os hoffech chi ddewis penodol peiriant stt, pennwch pa."
 msgid ""
 "Available implementations: %s. (Press Enter to default to PocketSphinx): "
 msgstr ""
-"Ar gael implementations:% S. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
+"Ar gael implementations: %s. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
 
 #: client/populate.py:117
 msgid "Please enter your API key: "
@@ -164,7 +164,7 @@ msgstr "Rhowch eich API allwedd:"
 #: client/populate.py:120
 #, python-format
 msgid "Unrecognized STT engine. Available implementations: %s"
-msgstr "Heb ei adnabod stt engine. ar gael implementations:% S"
+msgstr "Heb ei adnabod stt engine. ar gael implementations: %s"
 
 #: client/populate.py:124
 msgid "Writing to profile..."
@@ -177,7 +177,7 @@ msgstr "Gorffen."
 #: jasper.py:77
 #, python-format
 msgid "How can I be of service, %s?"
-msgstr "Sut fedra i fod o'r gwasanaeth,% S?"
+msgstr "Sut fedra i fod o'r gwasanaeth, %s?"
 
 #: jasper.py:80
 msgid "How can I be of service?"

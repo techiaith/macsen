@@ -71,6 +71,15 @@ class Jasper(object):
                        stt_passive_engine_class.get_passive_instance(),
                        stt_engine_class.get_active_instance())
 
+	if tts_engine_slug == 'festival-tts':	
+		try:
+			tts_engine_default_voice = self.config['tts_default_voice']
+			self.mic.set_tts_default_voice(tts_engine_default_voice)
+		except KeyError:
+			logger.warning("Festival tts_engine default voice not specified in profile. " +
+				       "Will use default provided by Festival installation")
+
+
 
     def run(self):
         if 'first_name' in self.config:

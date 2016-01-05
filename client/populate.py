@@ -98,15 +98,22 @@ def run(macsen_language):
         response = raw_input(_("Please choose email (E) or text message (T): "))
     profile['prefers_email'] = (response == 'E')
 
-    stt_engines = {
-        "sphinx": None,
-        "google": "GOOGLE_SPEECH",
-	"julius": None
-    }
+
+    # speech to text configuration
+    if macsen_language == 'cy':
+	stt_engines = {
+		"julius": None
+	}
+    else:
+    	stt_engines = {
+        	"sphinx": None,
+        	"google": "GOOGLE_SPEECH"
+    	}
 
     print("\n")
+    print _("Speech Recognition Configuration")
+    print _("Available implementations: %s. (Press Enter to default to PocketSphinx): ") 
     response = raw_input(_("If you would like to choose a specific STT engine, please specify which.") +
-			"\n" + 
 			 _("Available implementations: %s. (Press Enter to default to PocketSphinx): ") % stt_engines.keys())
 
     if (response in stt_engines):
@@ -120,6 +127,33 @@ def run(macsen_language):
         print(_("Unrecognized STT engine. Available implementations: %s") % stt_engines.keys())
         profile["stt_engine"] = "sphinx"
 
+
+    # Text to Speech Configuration
+    if macsen_language == 'cy':
+        tts_engines = {
+                "festival-tts": "voice_cb_cy_llg_diphone"
+        }
+    else:
+        tts_engines = {
+                "festival-tts": "voice_kal_diphone" 
+        }
+
+    print("\n")
+    print _("Text-to-Speech Configuration")
+    print _("Available implementations: %s. (Press Enter to default to E-speak):")
+    response = raw_input(_("If you would like to choose a specific TTS engine, please specify which.") +
+			 _("Available implementations: %s. (Press Enter to default to E-speak): ") % tts_engines.keys())
+    if (response in tts_engines):
+	profile["tts_engine"] = response
+	if response == "festival-tts":
+		profile["tts_default_voice"] = tts_engines[response]
+    else:
+	print(_("Unrecognized TTS engine. Available implementations: %s") % tts_engines.keys())
+	profile["tts_engine"]="espeak-tts"		
+
+
+
+ 
     # write to profile
     print(_("Writing to profile..."))
     if not os.path.exists(jasperpath.CONFIG_PATH):
