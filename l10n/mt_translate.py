@@ -1,5 +1,7 @@
-import polib
+import os, polib
 from techiaith_api import cyfieithu_testun
+
+print os.getcwd()
 
 po = polib.pofile('Macsen_cy.po')
 

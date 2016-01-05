@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-04 15:28+0000\n"
+"POT-Creation-Date: 2016-01-05 17:01+0000\n"
 "PO-Revision-Date: 2016-01-04 15:28+0000\n"
 "Last-Translator: Gallu <gallu@sarah-lenovo-g510>\n"
 "Language-Team: Welsh\n"
@@ -124,71 +124,99 @@ msgstr ""
 msgid "Please choose email (E) or text message (T): "
 msgstr ""
 
-#: client/populate.py:108
+#: client/populate.py:108 client/populate.py:116
 msgid ""
 "If you would like to choose a specific STT engine, please specify which."
 msgstr ""
 
-#: client/populate.py:110
+#: client/populate.py:110 client/populate.py:115 client/populate.py:117
 #, python-format
 msgid ""
 "Available implementations: %s. (Press Enter to default to PocketSphinx): "
 msgstr ""
 
-#: client/populate.py:117
+#: client/populate.py:117 client/populate.py:124
 msgid "Please enter your API key: "
 msgstr ""
 
-#: client/populate.py:120
+#: client/populate.py:120 client/populate.py:127
 #, python-format
 msgid "Unrecognized STT engine. Available implementations: %s"
 msgstr ""
 
-#: client/populate.py:124
+#: client/populate.py:124 client/populate.py:158
 msgid "Writing to profile..."
 msgstr ""
 
-#: client/populate.py:130
+#: client/populate.py:130 client/populate.py:164
 msgid "Done."
 msgstr ""
 
-#: jasper.py:77
+#: jasper.py:77 jasper.py:86
 #, python-format
 msgid "How can I be of service, %s?"
 msgstr ""
 
-#: jasper.py:80
+#: jasper.py:80 jasper.py:89
 msgid "How can I be of service?"
 msgstr ""
 
-#: jasper.py:93
+#: jasper.py:93 jasper.py:102
 msgid "Macsen Voice Control Center"
 msgstr ""
 
-#: jasper.py:94
+#: jasper.py:94 jasper.py:103
 msgid "Use text input instead of a real microphone"
 msgstr ""
 
-#: jasper.py:95
+#: jasper.py:95 jasper.py:104
 msgid "Disable the network connection check"
 msgstr ""
 
-#: jasper.py:96
+#: jasper.py:96 jasper.py:105
 msgid "Run diagnose and exit"
 msgstr ""
 
-#: jasper.py:97
+#: jasper.py:97 jasper.py:106
 msgid "Show debug messages"
 msgstr ""
 
-#: jasper.py:106
+#: jasper.py:106 jasper.py:115
 msgid "      MACSEN - THE MULTILINGUAL TALKING COMPUTER      *"
 msgstr ""
 
-#: jasper.py:108
+#: jasper.py:108 jasper.py:117
 msgid " Initial Developers:                                  *"
 msgstr ""
 
-#: jasper.py:112
+#: jasper.py:112 jasper.py:121
 msgid "MACSEN is based on :                                            *"
+msgstr ""
+
+#: client/populate.py:114
+msgid "Speech Recognition Configuration"
+msgstr ""
+
+#: client/populate.py:142
+msgid "Text-to-Speech Configuration"
+msgstr ""
+
+#: client/populate.py:143
+#, python-format
+msgid "Available implementations: %s. (Press Enter to default to E-speak):"
+msgstr ""
+
+#: client/populate.py:144
+msgid ""
+"If you would like to choose a specific TTS engine, please specify which."
+msgstr ""
+
+#: client/populate.py:145
+#, python-format
+msgid "Available implementations: %s. (Press Enter to default to E-speak): "
+msgstr ""
+
+#: client/populate.py:151
+#, python-format
+msgid "Unrecognized TTS engine. Available implementations: %s"
 msgstr ""

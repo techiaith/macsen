@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-04 15:28+0000\n"
+"POT-Creation-Date: 2016-01-05 17:05+0000\n"
 "PO-Revision-Date: 2016-01-04 15:28+0000\n"
 "Last-Translator: Gallu <gallu@sarah-lenovo-g510>\n"
 "Language-Team: Welsh\n"
@@ -42,10 +42,11 @@ msgid "Jasper uses your GMail to send notifications."
 msgstr "Jasper yn defnyddio eich Gmail i anfon hysbysiadau."
 
 #: client/populate.py:33
+#, fuzzy
 msgid ""
 "Alternatively, you can skip this step (or just fill in the email address if "
 "you want to receive email notifications) and setup a Mailgun account, as at "
-"http://jasperproject.github.io/documentation/software/#mailgun."
+"http://jasperproject.github.io/documentation/software/#mailgun.\n"
 msgstr ""
 "Fel arall, gallwch hepgor y cam (neu Llenwch y cyfeiriad e-bost os ydych "
 "eisiau derbyn e-bost hysbysu) a gosod mailgun cyfrif, fel yn http: / / "
@@ -145,72 +146,103 @@ msgstr ""
 msgid "Please choose email (E) or text message (T): "
 msgstr "Dewiswch e-bost (e) neu neges testun (dim):"
 
-#: client/populate.py:108
+#: client/populate.py:108 client/populate.py:116
 msgid ""
 "If you would like to choose a specific STT engine, please specify which."
 msgstr "Os hoffech chi ddewis penodol peiriant stt, pennwch pa."
 
-#: client/populate.py:110
+#: client/populate.py:110 client/populate.py:115 client/populate.py:117
 #, python-format
 msgid ""
 "Available implementations: %s. (Press Enter to default to PocketSphinx): "
 msgstr ""
 "Ar gael implementations: %s. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
 
-#: client/populate.py:117
+#: client/populate.py:117 client/populate.py:124
 msgid "Please enter your API key: "
 msgstr "Rhowch eich API allwedd:"
 
-#: client/populate.py:120
+#: client/populate.py:120 client/populate.py:127
 #, python-format
 msgid "Unrecognized STT engine. Available implementations: %s"
 msgstr "Heb ei adnabod stt engine. ar gael implementations: %s"
 
-#: client/populate.py:124
+#: client/populate.py:124 client/populate.py:158
 msgid "Writing to profile..."
 msgstr "Ysgrifennu i'r proffil..."
 
-#: client/populate.py:130
+#: client/populate.py:130 client/populate.py:164
 msgid "Done."
 msgstr "Gorffen."
 
-#: jasper.py:77
+#: jasper.py:77 jasper.py:86
 #, python-format
 msgid "How can I be of service, %s?"
 msgstr "Sut fedra i fod o'r gwasanaeth, %s?"
 
-#: jasper.py:80
+#: jasper.py:80 jasper.py:89
 msgid "How can I be of service?"
 msgstr "Sut fedra i fod o'r gwasanaeth?"
 
-#: jasper.py:93
+#: jasper.py:93 jasper.py:102
 msgid "Macsen Voice Control Center"
 msgstr "Canolfan Rheoli macsen llais"
 
-#: jasper.py:94
+#: jasper.py:94 jasper.py:103
 msgid "Use text input instead of a real microphone"
 msgstr "Defnyddio'r testun mewnbwn yn lle darlun Meicroffon"
 
-#: jasper.py:95
+#: jasper.py:95 jasper.py:104
 msgid "Disable the network connection check"
 msgstr "Analluogi'r cysylltiad rhwydwaith gwiriwch"
 
-#: jasper.py:96
+#: jasper.py:96 jasper.py:105
 msgid "Run diagnose and exit"
 msgstr "Rhedeg ddadansoddi a gadael"
 
-#: jasper.py:97
+#: jasper.py:97 jasper.py:106
 msgid "Show debug messages"
 msgstr "Dangos dadfygio'r negeseuon"
 
-#: jasper.py:106
+#: jasper.py:106 jasper.py:115
 msgid "      MACSEN - THE MULTILINGUAL TALKING COMPUTER      *"
 msgstr "Cyfrifiadur - macsen multilingual talking *"
 
-#: jasper.py:108
+#: jasper.py:108 jasper.py:117
 msgid " Initial Developers:                                  *"
 msgstr "Datblygwyr * cychwynnol:"
 
-#: jasper.py:112
+#: jasper.py:112 jasper.py:121
 msgid "MACSEN is based on :                                            *"
 msgstr "Macsen yn seiliedig ar *:"
+
+#: client/populate.py:114
+msgid "Speech Recognition Configuration"
+msgstr "Graddfa dderbyn ffurfweddiad"
+
+#: client/populate.py:142
+msgid "Text-to-Speech Configuration"
+msgstr "Testun-i-graddfa ffurfweddiad"
+
+#: client/populate.py:143
+#, fuzzy, python-format
+msgid "Available implementations: %s. (Press Enter to default to E-speak):"
+msgstr ""
+"Ar gael implementations: %s. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
+
+#: client/populate.py:144
+#, fuzzy
+msgid ""
+"If you would like to choose a specific TTS engine, please specify which."
+msgstr "Os hoffech chi ddewis penodol peiriant stt, pennwch pa."
+
+#: client/populate.py:145
+#, fuzzy, python-format
+msgid "Available implementations: %s. (Press Enter to default to E-speak): "
+msgstr ""
+"Ar gael implementations: %s. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
+
+#: client/populate.py:151
+#, fuzzy, python-format
+msgid "Unrecognized TTS engine. Available implementations: %s"
+msgstr "Heb ei adnabod stt engine. ar gael implementations: %s"
