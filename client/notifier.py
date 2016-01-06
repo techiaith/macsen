@@ -5,7 +5,6 @@ from modules import Gmail
 from apscheduler.schedulers.background import BackgroundScheduler
 import logging
 
-
 class Notifier(object):
 
     class NotificationClient(object):
@@ -20,7 +19,7 @@ class Notifier(object):
     def __init__(self, profile):
         self._logger = logging.getLogger(__name__)
         self.q = Queue.Queue()
-        self.profile = profile
+	self.profile = profile
         self.notifiers = []
 
         if 'gmail_address' in profile and 'gmail_password' in profile:

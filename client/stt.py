@@ -15,7 +15,7 @@ import yaml
 import jasperpath
 import diagnose
 import vocabcompiler
-
+import jasperprofile
 
 class AbstractSTTEngine(object):
     """
@@ -33,9 +33,8 @@ class AbstractSTTEngine(object):
     def get_instance(cls, vocabulary_name, phrases):
         config = cls.get_config()
         if cls.VOCABULARY_TYPE:
-            vocabulary = cls.VOCABULARY_TYPE(vocabulary_name,
-                                             path=jasperpath.config(
-                                                 'vocabularies'))
+            vocabulary = cls.VOCABULARY_TYPE(vocabulary_name, 
+					     path=jasperpath.config('vocabularies'))
             if not vocabulary.matches_phrases(phrases):
                 vocabulary.compile(phrases)
             config['vocabulary'] = vocabulary
@@ -134,15 +133,11 @@ class PocketSphinxSTT(AbstractSTTEngine):
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.yml')
-
-        if os.path.exists(profile_path):
-            with open(profile_path, 'r') as f:
-                profile = yaml.safe_load(f)
-                try:
-                    config['hmm_dir'] = profile['pocketsphinx']['hmm_dir']
-                except KeyError:
-                    pass
+	profile = jasperprofile.profile.get_yml()
+        try:
+        	config['hmm_dir'] = profile['pocketsphinx']['hmm_dir']
+        except KeyError:
+        	pass
 
         return config
 
@@ -195,6 +190,8 @@ class JuliusSTT(AbstractSTTEngine):
         self._tiedlist = tiedlist
         self._pattern = re.compile(r'sentence(\d+): <s> (.+) </s>')
 
+	self._logger.info("Loading JuliusSTT with hmmdefs %s and tiedlist %s " % (hmmdefs, tiedlist))
+
         # Inital test run: we run this command once to log errors/warnings
         cmd = ['julius',
                '-input', 'stdin',
@@ -226,17 +223,14 @@ class JuliusSTT(AbstractSTTEngine):
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.yml')
-
-        if os.path.exists(profile_path):
-            with open(profile_path, 'r') as f:
-                profile = yaml.safe_load(f)
-                if 'julius' in profile:
-                    if 'hmmdefs' in profile['julius']:
-                        config['hmmdefs'] = profile['julius']['hmmdefs']
-                    if 'tiedlist' in profile['julius']:
+	profile = jasperprofile.profile.get_yml()
+        if 'julius' in profile:
+        	if 'hmmdefs' in profile['julius']:
+                	config['hmmdefs'] = profile['julius']['hmmdefs']
+                if 'tiedlist' in profile['julius']:
                         config['tiedlist'] = profile['julius']['tiedlist']
-        return config
+       
+	return config
 
     def transcribe(self, fp, mode=None):
         cmd = ['julius',
@@ -357,12 +351,9 @@ class GoogleSTT(AbstractSTTEngine):
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.yml')
-        if os.path.exists(profile_path):
-            with open(profile_path, 'r') as f:
-                profile = yaml.safe_load(f)
-                if 'keys' in profile and 'GOOGLE_SPEECH' in profile['keys']:
-                    config['api_key'] = profile['keys']['GOOGLE_SPEECH']
+	profile=jasperprofile.profile.get_yml()
+        if 'keys' in profile and 'GOOGLE_SPEECH' in profile['keys']:
+        	config['api_key'] = profile['keys']['GOOGLE_SPEECH']
         return config
 
     def transcribe(self, fp):
@@ -455,14 +446,11 @@ class AttSTT(AbstractSTTEngine):
         # FIXME: Replace this as soon as we have a config module
         config = {}
         # Try to get AT&T app_key/app_secret from config
-        profile_path = jasperpath.config('profile.yml')
-        if os.path.exists(profile_path):
-            with open(profile_path, 'r') as f:
-                profile = yaml.safe_load(f)
-                if 'att-stt' in profile:
-                    if 'app_key' in profile['att-stt']:
-                        config['app_key'] = profile['att-stt']['app_key']
-                    if 'app_secret' in profile['att-stt']:
+	profile=jasperprofile.profile.get_yml()
+        if 'att-stt' in profile:
+        	if 'app_key' in profile['att-stt']:
+                	config['app_key'] = profile['att-stt']['app_key']
+                if 'app_secret' in profile['att-stt']:
                         config['app_secret'] = profile['att-stt']['app_secret']
         return config
 
@@ -560,14 +548,10 @@ class WitAiSTT(AbstractSTTEngine):
         # FIXME: Replace this as soon as we have a config module
         config = {}
         # Try to get wit.ai Auth token from config
-        profile_path = jasperpath.config('profile.yml')
-        if os.path.exists(profile_path):
-            with open(profile_path, 'r') as f:
-                profile = yaml.safe_load(f)
-                if 'witai-stt' in profile:
-                    if 'access_token' in profile['witai-stt']:
-                        config['access_token'] = \
-                            profile['witai-stt']['access_token']
+	profile = jasperprofile.profile.get_yml()
+        if 'witai-stt' in profile:
+        	if 'access_token' in profile['witai-stt']:
+                	config['access_token'] = profile['witai-stt']['access_token'] 
         return config
 
     @property

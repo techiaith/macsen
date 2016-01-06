@@ -415,13 +415,13 @@ class JuliusVocabulary(AbstractVocabulary):
                 word_defs['WORD'].append((word, phoneme))
         return word_defs
 
-    def _compile_vocabulary(self, phrases):
+    def _compile_vocabulary(self, phrases, language):
         prefix = 'jasper'
         tmpdir = tempfile.mkdtemp()
 
         lexicon_file = jasperpath.data('julius-stt', 'VoxForge.tgz')
         lexicon_archive_member = 'VoxForge/VoxForgeDict'
-        profile_path = jasperpath.config('profile.yml')
+        profile_path = jasperpath.config('profile.%s.yml' % language)
         if os.path.exists(profile_path):
             with open(profile_path, 'r') as f:
                 profile = yaml.safe_load(f)

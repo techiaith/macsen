@@ -12,58 +12,21 @@ import argparse
 from client import tts, stt, jasperpath, diagnose
 from client.conversation import Conversation
 import client.l10n
+import client.jasperprofile
 
 class Jasper(object):
 
     def __init__(self):
+
         self._logger = logging.getLogger(__name__)
 
-        # Create config dir if it does not exist yet
-        if not os.path.exists(jasperpath.CONFIG_PATH):
-            try:
-                os.makedirs(jasperpath.CONFIG_PATH)
-            except OSError:
-                self._logger.error("Could not create config dir: '%s'",
-                                   jasperpath.CONFIG_PATH, exc_info=True)
-                raise
-
-        # Check if config dir is writable
-        if not os.access(jasperpath.CONFIG_PATH, os.W_OK):
-            self._logger.critical("Config dir %s is not writable. Jasper won't work correctly", 
-                                  jasperpath.CONFIG_PATH)
-
-        configFileName = 'profile.%s.yml' % client.l10n.macsen_language
-        configfile = jasperpath.config(configFileName)
-        # Read config
-        self._logger.debug("Trying to read config file: '%s'", configfile)
-        try:
-            with open(configfile, "r") as f:
-                self.config = yaml.safe_load(f)
-        except OSError:
-            self._logger.error("Can't open config file: '%s'", configfile)
-            raise
-
-
-        try:
-            stt_engine_slug = self.config['stt_engine']
-        except KeyError:
-            stt_engine_slug = 'sphinx'
-            logger.warning("stt_engine not specified in profile, defaulting " +
-                           "to '%s'", stt_engine_slug)
+	stt_engine_slug = client.jasperprofile.profile.get('stt_engine', 'sphinx')
         stt_engine_class = stt.get_engine_by_slug(stt_engine_slug)
 
-        try:
-            slug = self.config['stt_passive_engine']
-            stt_passive_engine_class = stt.get_engine_by_slug(slug)
-        except KeyError:
-            stt_passive_engine_class = stt_engine_class
+	stt_passive_engine_slug = client.jasperprofile.profile.get('stt_passive_engine', stt_engine_slug)
+        stt_passive_engine_class = stt.get_engine_by_slug(stt_passive_engine_slug)
 
-        try:
-            tts_engine_slug = self.config['tts_engine']
-        except KeyError:
-            tts_engine_slug = tts.get_default_engine_slug()
-            logger.warning("tts_engine not specified in profile, defaulting " +
-                           "to '%s'", tts_engine_slug)
+        tts_engine_slug = client.jasperprofile.profile.get('tts_engine', tts.get_default_engine_slug())
         tts_engine_class = tts.get_engine_by_slug(tts_engine_slug)
 
         # Initialize Mic
@@ -72,24 +35,24 @@ class Jasper(object):
                        stt_engine_class.get_active_instance())
 
 	if tts_engine_slug == 'festival-tts':	
-		try:
-			tts_engine_default_voice = self.config['tts_default_voice']
+		tts_engine_default_voice = client.jasperprofile.profile.get('tts_default_voice','')
+		if tts_engine_default_voice:
 			self.mic.set_tts_default_voice(tts_engine_default_voice)
-		except KeyError:
-			logger.warning("Festival tts_engine default voice not specified in profile. " +
-				       "Will use default provided by Festival installation")
+		else:
 
-
+			self._logger.warning("Profile does not contain a default voice for Festival." +
+					     " Will use the Festival installation default")
 
     def run(self):
-        if 'first_name' in self.config:
-            salutation = (_("How can I be of service, %s?")
-                          % self.config["first_name"])
+	first_name = client.jasperprofile.profile.get('first_name','')
+        if first_name:
+            salutation = (_("How can I be of service, %s?") % first_name)
         else:
             salutation = _("How can I be of service?")
+
         self.mic.say(salutation)
 
-        conversation = Conversation("MACSEN", self.mic, self.config)
+        conversation = Conversation("MACSEN", self.mic, client.jasperprofile.profile.get_yml())
         conversation.handleForever()
 
 if __name__ == "__main__":

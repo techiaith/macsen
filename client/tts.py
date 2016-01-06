@@ -154,12 +154,12 @@ class EspeakTTS(AbstractTTSEngine):
         self.words_per_minute = words_per_minute
 
     @classmethod
-    def get_config(cls):
+    def get_config(cls, language):
         # FIXME: Replace this as soon as we have a config module
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.yml')
+        profile_path = jasperpath.config('profile.%s.yml' % language)
         if os.path.exists(profile_path):
             with open(profile_path, 'r') as f:
                 profile = yaml.safe_load(f)
@@ -270,12 +270,12 @@ class FliteTTS(AbstractTTSEngine):
         return voices
 
     @classmethod
-    def get_config(cls):
+    def get_config(cls, language):
         # FIXME: Replace this as soon as we have a config module
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.yml')
+        profile_path = jasperpath.config('profile.%s.yml' % language)
         if os.path.exists(profile_path):
             with open(profile_path, 'r') as f:
                 profile = yaml.safe_load(f)
@@ -367,12 +367,12 @@ class PicoTTS(AbstractTTSEngine):
                 diagnose.check_executable('pico2wave'))
 
     @classmethod
-    def get_config(cls):
+    def get_config(cls, language):
         # FIXME: Replace this as soon as we have a config module
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.yml')
+        profile_path = jasperpath.config('profile.%s.yml' % language)
         if os.path.exists(profile_path):
             with open(profile_path, 'r') as f:
                 profile = yaml.safe_load(f)
@@ -439,12 +439,12 @@ class GoogleTTS(AbstractMp3TTSEngine):
                 diagnose.check_network_connection())
 
     @classmethod
-    def get_config(cls):
+    def get_config(cls, language):
         # FIXME: Replace this as soon as we have a config module
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.yml')
+        profile_path = jasperpath.config('profile.%s.yml' % language)
         if os.path.exists(profile_path):
             with open(profile_path, 'r') as f:
                 profile = yaml.safe_load(f)
@@ -516,12 +516,12 @@ class MaryTTS(AbstractTTSEngine):
         return [line.split()[0] for line in r.text.splitlines()]
 
     @classmethod
-    def get_config(cls):
+    def get_config(cls, language):
         # FIXME: Replace this as soon as we have a config module
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.yml')
+        profile_path = jasperpath.config('profile.%s.yml' % language)
         if os.path.exists(profile_path):
             with open(profile_path, 'r') as f:
                 profile = yaml.safe_load(f)
@@ -595,12 +595,12 @@ class IvonaTTS(AbstractMp3TTSEngine):
             self._pyvonavoice.sentence_break = sentence_break
 
     @classmethod
-    def get_config(cls):
+    def get_config(cls, language):
         # FIXME: Replace this as soon as we have a config module
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.yml')
+        profile_path = jasperpath.config('profile.%s.yml' % language)
         if os.path.exists(profile_path):
             with open(profile_path, 'r') as f:
                 profile = yaml.safe_load(f)

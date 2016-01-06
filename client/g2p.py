@@ -64,14 +64,14 @@ class PhonetisaurusG2P(object):
         return result
 
     @classmethod
-    def get_config(cls):
+    def get_config(cls, language):
         # FIXME: Replace this as soon as pull request
         # jasperproject/jasper-client#128 has been merged
 
         conf = {'fst_model': os.path.join(jasperpath.APP_PATH, os.pardir,
                                           'phonetisaurus', 'g014b2b.fst')}
         # Try to get fst_model from config
-        profile_path = jasperpath.config('profile.yml')
+        profile_path = jasperpath.config('profile.%s.yml' % language)
         if os.path.exists(profile_path):
             with open(profile_path, 'r') as f:
                 profile = yaml.safe_load(f)
