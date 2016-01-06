@@ -118,11 +118,17 @@ def run(macsen_language):
 
     if (response in stt_engines):
         profile["stt_engine"] = response
+	if response == 'julius':
+		profile["julius"]=dict(
+			hmmdefs='/usr/share/julius/acoustic/%s/hmmdefs' % macsen_language,
+		        tiedlist='/usr/share/julius/acoustic/%s/tiedlist' % macsen_language
+		)
         api_key_name = stt_engines[response]
         if api_key_name:
 	    print ("\n")
             key = raw_input(_("Please enter your API key: "))
             profile["keys"] = {api_key_name: key}
+
     else:
         print(_("Unrecognized STT engine. Available implementations: %s") % stt_engines.keys())
         profile["stt_engine"] = "sphinx"
