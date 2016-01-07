@@ -236,8 +236,6 @@ class JuliusSTT(AbstractSTTEngine):
                 	config['hmmdefs'] = profile['julius']['hmmdefs']
                 if 'tiedlist' in profile['julius']:
                         config['tiedlist'] = profile['julius']['tiedlist']
-		if 'lexicon' in profile['julius']:
-			config['lexicon'] = profile['julius']['lexicon']
        
 	return config
 

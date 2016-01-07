@@ -499,8 +499,9 @@ def get_keyword_phrases():
         A list of keyword phrases.
     """
     phrases = []
-
-    with open(jasperpath.data('keyword_phrases'), mode="r") as f:
+    keyword_phrases_file = os.path.join(jasperpath.data(), 'language', l10n.macsen_language, 'keyword_phrases') 
+    print "Opening keyword_phrases file %s" % keyword_phrases_file
+    with open(keyword_phrases_file, mode="r") as f:
         for line in f:
             phrase = line.strip()
             if phrase:
