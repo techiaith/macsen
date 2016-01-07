@@ -122,6 +122,8 @@ def run(macsen_language):
 		profile["julius"]=dict(
 			hmmdefs='/usr/share/julius/acoustic/%s/hmmdefs' % macsen_language,
 		        tiedlist='/usr/share/julius/acoustic/%s/tiedlist' % macsen_language
+			lexicon='/usr/share/julius/lexicon/%s/lexicon.tgz' % macsen_language
+			lexicon_archive_member='lexicon'
 		)
         api_key_name = stt_engines[response]
         if api_key_name:

@@ -191,6 +191,7 @@ class JuliusSTT(AbstractSTTEngine):
         self._pattern = re.compile(r'sentence(\d+): <s> (.+) </s>')
 
 	self._logger.info("Loading JuliusSTT with hmmdefs %s and tiedlist %s " % (hmmdefs, tiedlist))
+	self._logger.info("dfa file %s" % self._vocabulary.dfa_file)
 
         # Inital test run: we run this command once to log errors/warnings
         cmd = ['julius',
@@ -200,6 +201,7 @@ class JuliusSTT(AbstractSTTEngine):
                '-h', self._hmmdefs,
                '-hlist', self._tiedlist,
                '-forcedict']
+
         cmd = [str(x) for x in cmd]
         self._logger.debug('Executing: %r', cmd)
         with tempfile.SpooledTemporaryFile() as out_f:
@@ -229,6 +231,8 @@ class JuliusSTT(AbstractSTTEngine):
                 	config['hmmdefs'] = profile['julius']['hmmdefs']
                 if 'tiedlist' in profile['julius']:
                         config['tiedlist'] = profile['julius']['tiedlist']
+		if 'lexicon' in profile['julius']:
+			config['lexicon'] = profile['julius']['lexicon']
        
 	return config
 

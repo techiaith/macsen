@@ -332,6 +332,7 @@ class PocketsphinxVocabulary(AbstractVocabulary):
 
 
 class JuliusVocabulary(AbstractVocabulary):
+
     class VoxForgeLexicon(object):
         def __init__(self, fname, membername=None):
             self._dict = {}
