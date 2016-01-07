@@ -31,13 +31,18 @@ class AbstractSTTEngine(object):
 
     @classmethod
     def get_instance(cls, vocabulary_name, phrases):
-        config = cls.get_config()
+	print "AbstractSTTEngine with %s %s " % (vocabulary_name,phrases)
+	config = cls.get_config()
+
         if cls.VOCABULARY_TYPE:
             vocabulary = cls.VOCABULARY_TYPE(vocabulary_name, 
 					     path=jasperpath.config('vocabularies'))
+
             if not vocabulary.matches_phrases(phrases):
                 vocabulary.compile(phrases)
+
             config['vocabulary'] = vocabulary
+
         instance = cls(**config)
         return instance
 

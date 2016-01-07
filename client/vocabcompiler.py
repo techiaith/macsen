@@ -19,6 +19,9 @@ import yaml
 import brain
 import jasperpath
 
+import l10n
+import jasperprofile
+
 from g2p import PhonetisaurusG2P
 try:
     import cmuclmtk
@@ -416,23 +419,21 @@ class JuliusVocabulary(AbstractVocabulary):
                 word_defs['WORD'].append((word, phoneme))
         return word_defs
 
-    def _compile_vocabulary(self, phrases, language):
+    def _compile_vocabulary(self, phrases):
         prefix = 'jasper'
         tmpdir = tempfile.mkdtemp()
 
         lexicon_file = jasperpath.data('julius-stt', 'VoxForge.tgz')
         lexicon_archive_member = 'VoxForge/VoxForgeDict'
-        profile_path = jasperpath.config('profile.%s.yml' % language)
-        if os.path.exists(profile_path):
-            with open(profile_path, 'r') as f:
-                profile = yaml.safe_load(f)
-                if 'julius' in profile:
-                    if 'lexicon' in profile['julius']:
-                        lexicon_file = profile['julius']['lexicon']
-                    if 'lexicon_archive_member' in profile['julius']:
-                        lexicon_archive_member = \
-                            profile['julius']['lexicon_archive_member']
 
+	profile = jasperprofile.profile.get_yml()
+        if 'julius' in profile:
+        	if 'lexicon' in profile['julius']:
+                	lexicon_file = profile['julius']['lexicon']
+                if 'lexicon_archive_member' in profile['julius']:
+                	lexicon_archive_member = \
+                        profile['julius']['lexicon_archive_member']
+	
         lexicon = JuliusVocabulary.VoxForgeLexicon(lexicon_file,
                                                    lexicon_archive_member)
 

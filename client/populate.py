@@ -121,8 +121,8 @@ def run(macsen_language):
 	if response == 'julius':
 		profile["julius"]=dict(
 			hmmdefs='/usr/share/julius/acoustic/%s/hmmdefs' % macsen_language,
-		        tiedlist='/usr/share/julius/acoustic/%s/tiedlist' % macsen_language
-			lexicon='/usr/share/julius/lexicon/%s/lexicon.tgz' % macsen_language
+		        tiedlist='/usr/share/julius/acoustic/%s/tiedlist' % macsen_language,
+			lexicon='/usr/share/julius/lexicon/%s/lexicon.tgz' % macsen_language,
 			lexicon_archive_member='lexicon'
 		)
         api_key_name = stt_engines[response]
@@ -160,8 +160,6 @@ def run(macsen_language):
 	profile["tts_engine"]="espeak-tts"		
 
 
-
- 
     # write to profile
     print(_("Writing to profile..."))
     if not os.path.exists(jasperpath.CONFIG_PATH):

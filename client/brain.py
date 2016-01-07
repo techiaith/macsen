@@ -3,6 +3,7 @@ import logging
 import pkgutil
 import jasperpath
 
+import l10n
 
 class Brain(object):
 
@@ -32,7 +33,7 @@ class Brain(object):
         module, a priority of 0 is assumed.
         """
         logger = logging.getLogger(__name__)
-        locations = [jasperpath.PLUGIN_PATH]
+        locations = [jasperpath.PLUGIN_PATH + '/' + l10n.macsen_language]
         logger.debug("Looking for modules in: %s",
                      ', '.join(["'%s'" % location for location in locations]))
         modules = []
