@@ -205,6 +205,7 @@ class JuliusSTT(AbstractSTTEngine):
                '-v', self._vocabulary.dict_file,
                '-h', self._hmmdefs,
                '-hlist', self._tiedlist,
+	       '-smpFreq', 48000,
                '-forcedict']
 
         cmd = [str(x) for x in cmd]
