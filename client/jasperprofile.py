@@ -20,7 +20,7 @@ class JasperProfile(object):
             		except OSError:
                 		self._logger.error("Could not create config dir: '%s'",
                                    		   jasperpath.CONFIG_PATH, exc_info=True)
-                	raise
+                		raise
 
       		# Check if config dir is writable
         	if not os.access(jasperpath.CONFIG_PATH, os.W_OK):
