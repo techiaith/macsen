@@ -102,7 +102,7 @@ def run(macsen_language):
     # speech to text configuration
     if macsen_language == 'cy':
 	stt_engines = {
-		"julius": None
+		"bangor": None
 	}
     else:
     	stt_engines = {
@@ -114,12 +114,16 @@ def run(macsen_language):
     print _("Speech Recognition Configuration")
     print _("Available implementations: %s. (Press Enter to default to PocketSphinx): ") 
     response = raw_input(_("If you would like to choose a specific STT engine, please specify which.") +
+			"\n" +
 			 _("Available implementations: %s. (Press Enter to default to PocketSphinx): ") % stt_engines.keys())
 
     if (response in stt_engines):
         profile["stt_engine"] = response
-	if response == 'julius':
-		profile["julius"]=dict(
+	if response == 'bangor':
+                profile["stt_passive_engine"] = profile["stt_engine"]
+		profile["bangor"]=dict(
+                        # julius-cy is installed at $HOME/src/julius-cy, which contains a jconf
+                        jconf=os.path.join(os.getenv('HOME'),'src/julius-cy/julius.jconf'),
 			hmmdefs='/usr/share/julius/acoustic/%s/hmmdefs' % macsen_language,
 		        tiedlist='/usr/share/julius/acoustic/%s/tiedlist' % macsen_language,
 			lexicon='/usr/share/julius/lexicon/%s/lexicon.tgz' % macsen_language,
@@ -150,6 +154,7 @@ def run(macsen_language):
     print _("Text-to-Speech Configuration")
     print _("Available implementations: %s. (Press Enter to default to E-speak):")
     response = raw_input(_("If you would like to choose a specific TTS engine, please specify which.") +
+			 "\n" +
 			 _("Available implementations: %s. (Press Enter to default to E-speak): ") % tts_engines.keys())
     if (response in tts_engines):
 	profile["tts_engine"] = response

@@ -16,6 +16,7 @@ import jasperpath
 import diagnose
 import vocabcompiler
 import jasperprofile
+import datetime
 
 class AbstractSTTEngine(object):
     """
@@ -206,7 +207,102 @@ class JuliusSTT(AbstractSTTEngine):
                '-h', self._hmmdefs,
                '-hlist', self._tiedlist,
 	       '-smpFreq', 48000,
-               '-forcedict']
+               '-forcedict',
+	       '-lv', 4000]
+
+        cmd = [str(x) for x in cmd]
+        self._logger.debug('Executing: %r', cmd)
+        with tempfile.SpooledTemporaryFile() as out_f:
+            with tempfile.SpooledTemporaryFile() as f:
+                with tempfile.SpooledTemporaryFile() as err_f:
+                    subprocess.call(cmd, stdin=f, stdout=out_f, stderr=err_f)
+
+            out_f.seek(0)
+
+            for line in out_f.read().splitlines():
+                line = line.strip()
+                if len(line) > 7 and line[:7].upper() == 'ERROR: ':
+                    if not line[7:].startswith('adin_'):
+                        self._logger.error(line[7:])
+                elif len(line) > 9 and line[:9].upper() == 'WARNING: ':
+                    self._logger.warning(line[9:])
+                elif len(line) > 6 and line[:6].upper() == 'STAT: ':
+                    self._logger.debug(line[6:])
+
+    @classmethod
+    def get_config(cls):
+        # FIXME: Replace this as soon as we have a config module
+        config = {}
+        # HMM dir
+        # Try to get hmm_dir from config
+	profile = jasperprofile.profile.get_yml()
+        if 'julius' in profile:
+        	if 'hmmdefs' in profile['julius']:
+                	config['hmmdefs'] = profile['julius']['hmmdefs']
+                if 'tiedlist' in profile['julius']:
+                        config['tiedlist'] = profile['julius']['tiedlist']
+       
+	return config
+    
+    def transcribe(self, fp, mode=None):
+
+        cmd = ['julius',
+               '-input', 'stdin',
+               '-dfa', self._vocabulary.dfa_file,
+               '-v', self._vocabulary.dict_file,
+               '-h', self._hmmdefs,
+               '-hlist', self._tiedlist,
+	       '-smpFreq', 48000,
+               '-forcedict',
+	       '-lv',4000]
+
+        cmd = [str(x) for x in cmd]
+
+        self._logger.debug('Executing: %r', cmd)
+
+        with tempfile.SpooledTemporaryFile() as out_f:
+            with tempfile.SpooledTemporaryFile() as err_f:
+                subprocess.call(cmd, stdin=fp, stdout=out_f, stderr=err_f)
+            out_f.seek(0)
+            results = [(int(i), text) for i, text in
+                       self._pattern.findall(out_f.read())]
+            self._logger.info("Julius results %s" % results) 
+
+        transcribed = [text for i, text in
+                       sorted(results, key=lambda x: x[0])
+                       if text]
+
+        if not transcribed:
+            transcribed.append('')
+
+        self._logger.info('Transcribed: %r', transcribed)
+
+        return transcribed
+
+    @classmethod
+    def is_available(cls):
+        return diagnose.check_executable('julius')
+
+
+
+class BangorSTT(AbstractSTTEngine):
+    """
+    A Speech-to-Text for Welsh engine using an adapted Julius.
+    """
+    SLUG = 'bangor'
+   
+    def __init__(self, jconf):
+
+        self._logger = logging.getLogger(__name__)
+        self._jconf = jconf
+        self._pattern = re.compile(r'sentence(\d+): <s> (.+) </s>')
+
+	self._logger.info("Loading BangorSTT with jconf %s " % jconf)
+	
+        cmd = ['julius',
+                '-input', 'stdin',
+                '-lv',10000,
+                '-C',self._jconf]
 
         cmd = [str(x) for x in cmd]
         self._logger.debug('Executing: %r', cmd)
@@ -232,43 +328,50 @@ class JuliusSTT(AbstractSTTEngine):
         # HMM dir
         # Try to get hmm_dir from config
 	profile = jasperprofile.profile.get_yml()
-        if 'julius' in profile:
-        	if 'hmmdefs' in profile['julius']:
-                	config['hmmdefs'] = profile['julius']['hmmdefs']
-                if 'tiedlist' in profile['julius']:
-                        config['tiedlist'] = profile['julius']['tiedlist']
-       
+        if 'bangor' in profile:
+                if 'jconf' in profile['bangor']:
+                        config['jconf'] = profile['bangor']['jconf']
+
 	return config
 
     def transcribe(self, fp, mode=None):
+
+        logfilename = os.path.join(os.getcwd(), "julius-" + str(int(datetime.datetime.now().strftime("%s"))) + ".log")
+ 
+        self._logger.info('BangorSTT transcribe : %s' % logfilename)
+       
         cmd = ['julius',
-               '-quiet',
-               '-nolog',
-               '-input', 'stdin',
-               '-dfa', self._vocabulary.dfa_file,
-               '-v', self._vocabulary.dict_file,
-               '-h', self._hmmdefs,
-               '-hlist', self._tiedlist,
-               '-forcedict']
+                '-input', 'stdin',
+                '-lv',10000,
+                '-C',self._jconf]
+
         cmd = [str(x) for x in cmd]
-        self._logger.debug('Executing: %r', cmd)
+
+        self._logger.info('BangorSTT transcribe executing: %r', cmd)
+
         with tempfile.SpooledTemporaryFile() as out_f:
             with tempfile.SpooledTemporaryFile() as err_f:
                 subprocess.call(cmd, stdin=fp, stdout=out_f, stderr=err_f)
             out_f.seek(0)
+            #print out_f.read()
             results = [(int(i), text) for i, text in
                        self._pattern.findall(out_f.read())]
+
         transcribed = [text for i, text in
                        sorted(results, key=lambda x: x[0])
                        if text]
+
         if not transcribed:
             transcribed.append('')
-        self._logger.info('Transcribed: %r', transcribed)
+
+        self._logger.info('BangorSTT transcribed: %r', transcribed)
+
         return transcribed
 
     @classmethod
     def is_available(cls):
         return diagnose.check_executable('julius')
+
 
 
 class GoogleSTT(AbstractSTTEngine):

@@ -223,25 +223,9 @@ class FestivalTTS(AbstractTTSEngine):
 
     def say(self, phrase):
         self._logger.debug("Saying '%s' with '%s' and voice '%s'", phrase, self.SLUG, self.voice)
-        festival.sayText(phrase)	
-
-        #cmd = ['text2wave']
-        #with tempfile.NamedTemporaryFile(suffix='.wav') as out_f:
-        #    with tempfile.SpooledTemporaryFile() as in_f:
-        #        in_f.write(phrase)
-        # 	 in_f.write(' -eval("' + self.voice + '")')
-        #        in_f.seek(0)
-        #        with tempfile.SpooledTemporaryFile() as err_f:
-        #            self._logger.debug('Executing %s',
-        #                               ' '.join([pipes.quote(arg)
-        #                                         for arg in cmd]))
-        #            subprocess.call(cmd, stdin=in_f, stdout=out_f,
-        #                            stderr=err_f)
-        #            err_f.seek(0)
-        #            output = err_f.read()
-        #            if output:
-        #                self._logger.debug("Output was: '%s'", output)
-        #    self.play(out_f.name)
+        wavFileName = festival.textToWavFile(phrase)
+        self._logger.info("Wav file created: %s" % wavFileName)
+        self.play(wavFileName)
 
 
 class FliteTTS(AbstractTTSEngine):

@@ -50,8 +50,9 @@ class Mic:
     def fetchThreshold(self):
 
         # TODO: Consolidate variables from the next three functions
+        # TODO: load a RATE from the profile. (bangor needs 48000)
         THRESHOLD_MULTIPLIER = 1.8
-        RATE = 16000
+        RATE = 48000
         CHUNK = 1024
 
         # number of seconds to allow to establish threshold
@@ -94,9 +95,9 @@ class Mic:
         Listens for PERSONA in everyday sound. Times out after LISTEN_TIME, so
         needs to be restarted.
         """
-
+        # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
         THRESHOLD_MULTIPLIER = 1.8
-        RATE = 16000
+        RATE = 48000
         CHUNK = 1024
 
         # number of seconds to allow to establish threshold
@@ -105,32 +106,14 @@ class Mic:
         # number of seconds to listen before forcing restart
         LISTEN_TIME = 10
 
+        THRESHOLD=self.fetchThreshold()
+
         # prepare recording stream
         stream = self._audio.open(format=pyaudio.paInt16,
                                   channels=1,
                                   rate=RATE,
                                   input=True,
                                   frames_per_buffer=CHUNK)
-
-        # stores the audio data
-        frames = []
-
-        # stores the lastN score values
-        lastN = [i for i in range(30)]
-
-        # calculate the long run average, and thereby the proper threshold
-        for i in range(0, RATE / CHUNK * THRESHOLD_TIME):
-
-            data = stream.read(CHUNK)
-            frames.append(data)
-
-            # save this data point as a score
-            lastN.pop(0)
-            lastN.append(self.getScore(data))
-            average = sum(lastN) / len(lastN)
-
-        # this will be the benchmark to cause a disturbance over!
-        THRESHOLD = average * THRESHOLD_MULTIPLIER
 
         # save some memory for sound data
         frames = []
@@ -152,6 +135,7 @@ class Mic:
         # no use continuing if no flag raised
         if not didDetect:
             print "No disturbance detected"
+            self._logger.info("No disturbance detected")
             stream.stop_stream()
             stream.close()
             return (None, None)
@@ -202,8 +186,8 @@ class Mic:
             Records until a second of silence or times out after 12 seconds
             Returns a list of the matching options or None
         """
-
-        RATE = 16000
+        # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
+        RATE = 48000
         CHUNK = 1024
         LISTEN_TIME = 12
 
@@ -211,6 +195,7 @@ class Mic:
         if THRESHOLD is None:
             THRESHOLD = self.fetchThreshold()
 
+        self._logger.info("Play beep_hi.wav")        
         self.speaker.play(jasperpath.data('audio', 'beep_hi.wav'))
 
         # prepare recording stream
@@ -221,9 +206,12 @@ class Mic:
                                   frames_per_buffer=CHUNK)
 
         frames = []
+
         # increasing the range # results in longer pause after command
         # generation
         lastN = [THRESHOLD * 1.2 for i in range(30)]
+        print lastN
+        self._logger.info("Audio capture of range 0 to %s" % (RATE / CHUNK * LISTEN_TIME))
 
         for i in range(0, RATE / CHUNK * LISTEN_TIME):
 
@@ -237,9 +225,13 @@ class Mic:
             average = sum(lastN) / float(len(lastN))
 
             # TODO: 0.8 should not be a MAGIC NUMBER!
+            # TODO: this test is cutting off active listen too soon
             if average < THRESHOLD * 0.8:
+                print lastN
+                self._logger.info("Average %s less than 0.8 of threshold %s after i %s" % (average,THRESHOLD,i))
                 break
 
+        self._logger.info("Play beep_lo.wav")        
         self.speaker.play(jasperpath.data('audio', 'beep_lo.wav'))
 
         # save the audio data
