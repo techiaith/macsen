@@ -5,12 +5,11 @@ import struct
 import urllib
 import feedparser
 import requests
-import bs4
+from bs4 import BeautifulSoup
 from client.app_utils import getTimezone
 from semantic.dates import DateService
 
 WORDS = ["NEWYDDION"]
-
 
 def handle(text, mic, profile):
     """
@@ -24,7 +23,17 @@ def handle(text, mic, profile):
         profile -- contains information related to the user (e.g., phone
                    number)
     """
-    mic.say("Heddiw ennillodd Cymru Cwpan y Byd Peldroed")
+    r = requests.get("http://www.golwg360.com")
+    data=r.text
+    soup=BeautifulSoup(data)
+
+    mic.say("Dyma penawdau gwefan newyddion golwg 3 6 0")
+    
+    for entry in soup(attrs={'class':'headline'}):
+	for headline in entry.find_all('a'):
+		testun_pennawd = ''.join([x for x in headline.text if ord(x) < 128])
+		print testun_pennawd
+		mic.say(testun_pennawd)
 
 
 def isValid(text):
