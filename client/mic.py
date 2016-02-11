@@ -198,6 +198,9 @@ class Mic:
         self._logger.info("Play beep_hi.wav")        
         self.speaker.play(jasperpath.data('audio', 'beep_hi.wav'))
 
+        frames = []
+        didDetect = False
+
         # prepare recording stream
         stream = self._audio.open(format=pyaudio.paInt16,
                                   channels=1,
@@ -205,16 +208,34 @@ class Mic:
                                   input=True,
                                   frames_per_buffer=CHUNK)
 
-        frames = []
+        # detect when speaker starts speaking
+        # start listening for disturbance above threshold
+        for i in range(0, RATE / CHUNK * LISTEN_TIME):
+            data = stream.read(CHUNK)
+            frames.append(data)
+            score = self.getScore(data)
+
+            if score > THRESHOLD:
+                didDetect = True
+                break
+
+        # no use continuing if no flag raised
+        if not didDetect:
+            stream.stop_stream()
+            stream.close()
+            self._logger.info("No disturbance detected")
+            self.speaker.say("Sori nes i ddim clywed chi")
+            return None
+
+        # cutoff any recording before this disturbance was detected
+        frames = frames[-20:]
 
         # increasing the range # results in longer pause after command
         # generation
         lastN = [THRESHOLD * 1.2 for i in range(30)]
-        print lastN
         self._logger.info("Audio capture of range 0 to %s" % (RATE / CHUNK * LISTEN_TIME))
 
         for i in range(0, RATE / CHUNK * LISTEN_TIME):
-
             data = stream.read(CHUNK)
             frames.append(data)
             score = self.getScore(data)
@@ -225,9 +246,7 @@ class Mic:
             average = sum(lastN) / float(len(lastN))
 
             # TODO: 0.8 should not be a MAGIC NUMBER!
-            # TODO: this test is cutting off active listen too soon
             if average < THRESHOLD * 0.8:
-                print lastN
                 self._logger.info("Average %s less than 0.8 of threshold %s after i %s" % (average,THRESHOLD,i))
                 break
 
@@ -247,6 +266,7 @@ class Mic:
             wav_fp.close()
             f.seek(0)
             return self.active_stt_engine.transcribe(f)
+
 
     def say(self, phrase,
             OPTIONS=" -vdefault+m3 -p 40 -s 160 --stdout > say.wav"):
