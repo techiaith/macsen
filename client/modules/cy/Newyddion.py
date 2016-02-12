@@ -23,6 +23,8 @@ def handle(text, mic, profile):
         profile -- contains information related to the user (e.g., phone
                    number)
     """
+    mic.say("Gad i mi weld")
+
     r = requests.get("http://www.golwg360.com")
     data=r.text
     soup=BeautifulSoup(data)

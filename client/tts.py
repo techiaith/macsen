@@ -23,6 +23,10 @@ from abc import ABCMeta, abstractmethod
 import argparse
 import yaml
 
+import jasperprofile
+import time
+import subprocess 
+
 try:
     import mad
 except ImportError:
@@ -42,6 +46,7 @@ try:
     import festival
 except ImportError:
     pass
+
 
 import diagnose
 import jasperpath
@@ -102,20 +107,26 @@ class AbstractMp3TTSEngine(AbstractTTSEngine):
         return (super(AbstractMp3TTSEngine, cls).is_available() and
                 diagnose.check_python_import('mad'))
 
-    def play_mp3(self, filename):
-        mf = mad.MadFile(filename)
-        with tempfile.NamedTemporaryFile(suffix='.wav') as f:
-            wav = wave.open(f, mode='wb')
-            wav.setframerate(mf.samplerate())
-            wav.setnchannels(1 if mf.mode() == mad.MODE_SINGLE_CHANNEL else 2)
-            # 4L is the sample width of 32 bit audio
-            wav.setsampwidth(4L)
-            frame = mf.read()
-            while frame is not None:
-                wav.writeframes(frame)
-                frame = mf.read()
-            wav.close()
-            self.play(f.name)
+    
+    def play_mp3(self, filename):  
+        DEVNULL=open(os.devnull,'w')          
+        p = subprocess.call(["mpg123","-K",filename], stdin=subprocess.PIPE,stdout=DEVNULL,stderr=subprocess.STDOUT)
+
+        #mf = mad.MadFile(filename)
+        #with tempfile.NamedTemporaryFile(suffix='.wav') as f:
+        #    wav = wave.open(f, mode='wb')
+        #    wav.setframerate(mf.samplerate())
+        #    wav.setnchannels(1 if mf.mode() == mad.MODE_SINGLE_CHANNEL else 2)
+        #    # 4L is the sample width of 32 bit audio
+        #    wav.setsampwidth(4L)
+        #    frame = mf.read()
+        #    while frame is not None:
+        #        wav.writeframes(frame)
+        #        frame = mf.read()
+        #    wav.close()
+        #    self.play(f.name)
+
+
 
 
 class DummyTTS(AbstractTTSEngine):
@@ -564,12 +575,14 @@ class IvonaTTS(AbstractMp3TTSEngine):
 
     SLUG = "ivona-tts"
 
-    def __init__(self, access_key='', secret_key='', region=None,
+    def __init__(self, access_key='', secret_key='', language=None, region=None,
                  voice=None, speech_rate=None, sentence_break=None):
         super(self.__class__, self).__init__()
         self._pyvonavoice = pyvona.Voice(access_key, secret_key)
         self._pyvonavoice.codec = "mp3"
-        if region:
+        if language:
+            self._pyvonavoice.language = language 
+	if region:
             self._pyvonavoice.region = region
         if voice:
             self._pyvonavoice.voice_name = voice
@@ -579,47 +592,52 @@ class IvonaTTS(AbstractMp3TTSEngine):
             self._pyvonavoice.sentence_break = sentence_break
 
     @classmethod
-    def get_config(cls, language):
-        # FIXME: Replace this as soon as we have a config module
+    def get_config(cls):
         config = {}
-        # HMM dir
-        # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.%s.yml' % language)
-        if os.path.exists(profile_path):
-            with open(profile_path, 'r') as f:
-                profile = yaml.safe_load(f)
-                if 'ivona-tts' in profile:
-                    if 'access_key' in profile['ivona-tts']:
-                        config['access_key'] = \
-                            profile['ivona-tts']['access_key']
-                    if 'secret_key' in profile['ivona-tts']:
-                        config['secret_key'] = \
-                            profile['ivona-tts']['secret_key']
-                    if 'region' in profile['ivona-tts']:
-                        config['region'] = profile['ivona-tts']['region']
-                    if 'voice' in profile['ivona-tts']:
-                        config['voice'] = profile['ivona-tts']['voice']
-                    if 'speech_rate' in profile['ivona-tts']:
-                        config['speech_rate'] = \
-                            profile['ivona-tts']['speech_rate']
-                    if 'sentence_break' in profile['ivona-tts']:
-                        config['sentence_break'] = \
-                            profile['ivona-tts']['sentence_break']
+        profile = jasperprofile.profile.get_yml()
+        if 'ivona-tts' in profile:
+                if 'access_key' in profile['ivona-tts']:
+                    config['access_key'] = profile['ivona-tts']['access_key']
+                if 'secret_key' in profile['ivona-tts']:
+                    config['secret_key'] = profile['ivona-tts']['secret_key']                    
+                if 'language' in profile['ivona-tts']:
+                    config['language']=profile['ivona-tts']['language']
+                if 'region' in profile['ivona-tts']:
+                    config['region'] = profile['ivona-tts']['region']
+                if 'voice' in profile['ivona-tts']:
+                    config['voice'] = profile['ivona-tts']['voice']
+                if 'speech_rate' in profile['ivona-tts']:
+                    config['speech_rate'] = profile['ivona-tts']['speech_rate']
+                if 'sentence_break' in profile['ivona-tts']:
+                    config['sentence_break'] = profile['ivona-tts']['sentence_break']
+
+        print ("Ivona TTS Config %s" % config)
+
         return config
+
+    def default_voice(self, voice):
+	pass
 
     @classmethod
     def is_available(cls):
-        return (super(cls, cls).is_available() and
-                diagnose.check_python_import('pyvona') and
-                diagnose.check_network_connection())
+        return True
+        #return (super(cls, cls).is_available() and
+        #        diagnose.check_python_import('pyvona') and
+        #        diagnose.check_network_connection())
 
     def say(self, phrase):
+
         self._logger.debug("Saying '%s' with '%s'", phrase, self.SLUG)
+
         with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as f:
             tmpfile = f.name
         self._pyvonavoice.fetch_voice(phrase, tmpfile)
+        self._logger.debug("Play mp3 %s" % tmpfile)
         self.play_mp3(tmpfile)
-        os.remove(tmpfile)
+        #os.remove(tmpfile)
+        
+        #self._pyvonavoice.speak(phrase)
+        
 
 
 def get_default_engine_slug():

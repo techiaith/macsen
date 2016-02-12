@@ -143,7 +143,8 @@ def run(macsen_language):
     # Text to Speech Configuration
     if macsen_language == 'cy':
         tts_engines = {
-                "festival-tts": "voice_cb_cy_llg_diphone"
+                "festival-tts": "voice_cb_cy_llg_diphone",
+		"ivona-tts":None
         }
     else:
         tts_engines = {
@@ -160,6 +161,15 @@ def run(macsen_language):
 	profile["tts_engine"] = response
 	if response == "festival-tts":
 		profile["tts_default_voice"] = tts_engines[response]
+	if response == "ivona-tts":
+		pyvona_accesskey = raw_input(_("Enter your Ivona access key : "))
+		pyvona_secretkey = raw_input(_("Enter your Ivona secret key : "))		
+		profile["ivona-tts"] = dict(
+                        access_key = pyvona_accesskey,
+                        secret_key = pyvona_secretkey,
+                        voice = "Geraint",
+                        language = "cy-GB"
+                )
     else:
 	print(_("Unrecognized TTS engine. Available implementations: %s") % tts_engines.keys())
 	profile["tts_engine"]="espeak-tts"		

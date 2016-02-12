@@ -39,7 +39,6 @@ class Jasper(object):
 		if tts_engine_default_voice:
 			self.mic.set_tts_default_voice(tts_engine_default_voice)
 		else:
-
 			self._logger.warning("Profile does not contain a default voice for Festival." +
 					     " Will use the Festival installation default")
 
