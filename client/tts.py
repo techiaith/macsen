@@ -110,7 +110,7 @@ class AbstractMp3TTSEngine(AbstractTTSEngine):
     
     def play_mp3(self, filename):  
         DEVNULL=open(os.devnull,'w')          
-        p = subprocess.call(["mpg123","-K",filename], stdin=subprocess.PIPE,stdout=DEVNULL,stderr=subprocess.STDOUT)
+        p = subprocess.call(["mpg123",filename], stdin=subprocess.PIPE,stdout=DEVNULL,stderr=subprocess.STDOUT)
 
         #mf = mad.MadFile(filename)
         #with tempfile.NamedTemporaryFile(suffix='.wav') as f:

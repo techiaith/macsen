@@ -10,6 +10,8 @@ import pyaudio
 import alteration
 import jasperpath
 
+import wave
+import datetime
 
 class Mic:
 
@@ -53,7 +55,7 @@ class Mic:
         # TODO: load a RATE from the profile. (bangor needs 48000)
         THRESHOLD_MULTIPLIER = 1.8
         RATE = 48000
-        CHUNK = 1024
+        CHUNK = 512 #1024
 
         # number of seconds to allow to establish threshold
         THRESHOLD_TIME = 1
@@ -98,7 +100,7 @@ class Mic:
         # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
         THRESHOLD_MULTIPLIER = 1.8
         RATE = 48000
-        CHUNK = 1024
+        CHUNK = 512 #1024
 
         # number of seconds to allow to establish threshold
         THRESHOLD_TIME = 1
@@ -154,6 +156,15 @@ class Mic:
         stream.stop_stream()
         stream.close()
 
+	now=datetime.datetime.now()
+        wavfilename = "passive_%s%s%s_%s%s%s.wav" % (now.year, now.month, now.day, now.hour, now.minute, now.second)	
+        wf=wave.open(wavfilename,'wb')
+        wf.setnchannels(1)
+        wf.setsampwidth(pyaudio.get_sample_size(pyaudio.paInt16))
+        wf.setframerate(RATE)
+        wf.writeframes(''.join(frames))
+        wf.close() 
+ 
         with tempfile.NamedTemporaryFile(mode='w+b') as f:
             wav_fp = wave.open(f, 'wb')
             wav_fp.setnchannels(1)
@@ -188,7 +199,7 @@ class Mic:
         """
         # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
         RATE = 48000
-        CHUNK = 1024
+        CHUNK = 512 #1024
         LISTEN_TIME = 12
 
         # check if no threshold provided

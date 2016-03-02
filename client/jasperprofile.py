@@ -4,7 +4,8 @@ import os, sys, shutil
 import logging
 import yaml
 
-from client import jasperpath
+#from client import jasperpath
+import jasperpath
 import l10n
 
 class JasperProfile(object):

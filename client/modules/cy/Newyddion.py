@@ -7,7 +7,6 @@ import feedparser
 import requests
 from bs4 import BeautifulSoup
 from client.app_utils import getTimezone
-from semantic.dates import DateService
 
 WORDS = ["NEWYDDION"]
 

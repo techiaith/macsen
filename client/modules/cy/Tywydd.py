@@ -7,10 +7,8 @@ import feedparser
 import requests
 import bs4
 from client.app_utils import getTimezone
-from semantic.dates import DateService
 
 WORDS = ["TYWYDD"]
-
 
 def handle(text, mic, profile):
     """

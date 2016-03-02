@@ -6,7 +6,6 @@ import urllib
 import feedparser
 import requests
 from client.app_utils import getTimezone
-from semantic.dates import DateService
 
 WORDS = ["DIHAREB"]
 
