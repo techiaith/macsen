@@ -308,7 +308,7 @@ class BangorSTT(AbstractSTTEngine):
         self._pattern = re.compile(r'sentence1: <s> (.+) </s>')
 	self._logger.info("Loading BangorSTT with jconf %s " % jconf)
         self._logger.info('Starting: julius -input mic -lv 10000 -C ' + self._jconf)
-        self._child = pexpect.spawn('julius -input mic -lv 10000 -C ' + self._jconf, timeout=30)
+        self._child = pexpect.spawn('julius -input mic -lv 10000 -C ' + self._jconf, timeout=None)
 	
     @classmethod
     def get_config(cls):
