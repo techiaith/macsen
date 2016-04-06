@@ -103,7 +103,7 @@ class Mic:
 
         if self.passive_stt_engine.has_mic()==True:
             transcribed = self.passive_stt_engine.transcribe(None)
-            if len(transcribed) > 0:
+            if transcribed and len(transcribed) > 0:
                 THRESHOLD=True
         else:
             # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
@@ -164,15 +164,6 @@ class Mic:
             stream.stop_stream()
             stream.close()
 
-            #now=datetime.datetime.now()
-            #wavfilename = "passive_%s%s%s_%s%s%s.wav" % (now.year, now.month, now.day, now.hour, now.minute, now.second)	
-            #wf=wave.open(wavfilename,'wb')
-            #wf.setnchannels(1)
-            #wf.setsampwidth(pyaudio.get_sample_size(pyaudio.paInt16))
-            #wf.setframerate(RATE)
-            #wf.writeframes(''.join(frames))
-            #wf.close() 
- 
             with tempfile.NamedTemporaryFile(mode='w+b') as f:
                 wav_fp = wave.open(f, 'wb')
                 wav_fp.setnchannels(1)
@@ -201,18 +192,16 @@ class Mic:
         self.speaker.play(jasperpath.data('audio', 'beep_hi.wav'))
 
         if self.active_stt_engine.has_mic()==True:
-            result = self.active_stt_engine.transcribe(None)
+            transcribed = self.active_stt_engine.transcribe(None)
         else:
-            options = self.activeListenToAllOptions(THRESHOLD, LISTEN, MUSIC)
-            if options:
-                result = options[0]
+            transcribed = self.activeListenToAllOptions(THRESHOLD, LISTEN, MUSIC)
 
         self._logger.info("Play beep_lo.wav")        
         self.speaker.play(jasperpath.data('audio', 'beep_lo.wav'))
 
         self._logger.info("#### Active Listen End..... ##### ")  
 
-        return result
+        return transcribed
 
 
     def activeListenToAllOptions(self, THRESHOLD=None, LISTEN=True, MUSIC=False):

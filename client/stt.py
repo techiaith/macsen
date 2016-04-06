@@ -330,7 +330,7 @@ class BangorSTT(AbstractSTTEngine):
     def process_julius_output(self, julius_text):
 
         self._logger.info('Processing Julius Result %s', julius_text)
-        result = None
+        transcribed = [] 
 
         match_res = re.match(r'(.*)sentence1(\.*)', julius_text, re.S)
         if match_res:           
@@ -344,30 +344,18 @@ class BangorSTT(AbstractSTTEngine):
                                 score1 = line
 
                 self._logger.info('sentence1: %s, cmscore1: %s, score1: %s' % (sentence1, cmscore1, score1))
-
-                cmscore_array = cmscore1.split()
-                err_flag = False
-                for score in cmscore_array:
-                        try:
-                                ns=float(score)
-                        except ValueError:
-                                continue
-
-                        if ns < 0.900 :
-                                self._logger.info("cmscore value too low")
-                                err_flag=True
-
+                err_flag= False
                 score1_val = float(score1.split()[1])
                 if score1_val < -28000:
                         self._logger.info("score value too low")
                         err_flag = True
 
                 if (not err_flag):
-                        result = self._pattern.findall(sentence1)                     
+                        transcribed=self._pattern.findall(sentence1)
 
-        self._logger.info('Completed Processing Julius Result :%s', result)
+        self._logger.info('Completed Processing Julius Result :%s', transcribed)
         
-        return result
+        return transcribed
 
        
     def transcribe(self, fp, mode=None):
@@ -375,12 +363,12 @@ class BangorSTT(AbstractSTTEngine):
         self._logger.info('BangorSTT : Please speak......')
 
         try:
-            while True:
-                self._child.expect("please speak")
-                juliusoutput=self._child.before                               
-                transcribed = self.process_julius_output(juliusoutput)
-                if transcribed:
-                    break
+            #while True:
+            self._child.expect("please speak")
+            juliusoutput=self._child.before                               
+            transcribed = self.process_julius_output(juliusoutput)
+            #    if transcribed:
+            #        break
 
             self._logger.info("BangorSTT results %s" % transcribed) 
 

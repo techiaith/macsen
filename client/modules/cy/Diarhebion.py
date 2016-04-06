@@ -36,5 +36,4 @@ def isValid(text):
         Arguments:
         text -- user-input, typically transcribed speech
     """
-    print("Diarhebion isValid......")
     return bool(re.search(r'\bdihareb\b', text, re.IGNORECASE))

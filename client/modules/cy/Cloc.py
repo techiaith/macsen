@@ -1,13 +1,6 @@
 # -*- coding: utf-8-*-
 import re
 import datetime
-import struct
-import urllib
-import feedparser
-import requests
-from client.app_utils import getTimezone
-from semantic.dates import DateService
-import datetime
 
 WORDS = ["GLOCH"]
 
@@ -23,8 +16,10 @@ def handle(text, mic, profile):
         profile -- contains information related to the user (e.g., phone
                    number)
     """
-       
-    mic.say("Mae hi'n %s:%s" % (datetime.datetime.now().time().hour, datetime.datetime.now().time().minute))
+    strhour='{:02d}'.format(datetime.datetime.now().time().hour)
+    strminute='{:02d}'.format(datetime.datetime.now().time().minute)
+   
+    mic.say("Mae hi'n %s:%s" % (strhour, strminute))
 
 
 def isValid(text):
@@ -34,5 +29,4 @@ def isValid(text):
         Arguments:
         text -- user-input, typically transcribed speech
     """
-    print("Cloc isValid......")
     return bool(re.search(r'\bgloch\b', text, re.IGNORECASE))
