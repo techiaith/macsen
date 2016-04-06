@@ -7,6 +7,7 @@ import feedparser
 import requests
 from client.app_utils import getTimezone
 from semantic.dates import DateService
+import datetime
 
 WORDS = ["GLOCH"]
 
@@ -22,7 +23,8 @@ def handle(text, mic, profile):
         profile -- contains information related to the user (e.g., phone
                    number)
     """
-    mic.say("Mae hi'n amser mynd i gwely")
+       
+    mic.say("Mae hi'n %s:%s" % (datetime.datetime.now().time().hour, datetime.datetime.now().time().minute))
 
 
 def isValid(text):
