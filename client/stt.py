@@ -17,6 +17,7 @@ import diagnose
 import vocabcompiler
 import jasperprofile
 import datetime
+import pexpect
 
 class AbstractSTTEngine(object):
     """
@@ -61,6 +62,11 @@ class AbstractSTTEngine(object):
     @abstractmethod
     def is_available(cls):
         return True
+
+    @classmethod
+    @abstractmethod
+    def has_mic(cls):
+        return False
 
     @abstractmethod
     def transcribe(self, fp):
@@ -293,34 +299,15 @@ class BangorSTT(AbstractSTTEngine):
    
     def __init__(self, jconf):
 
+        os.environ['ALSADEV'] = '/dev/dsp0'
+
         self._logger = logging.getLogger(__name__)
         self._jconf = jconf
-        self._pattern = re.compile(r'sentence(\d+): <s> (.+) </s>')
-
+        self._pattern = re.compile(r'sentence1: <s> (.+) </s>')
 	self._logger.info("Loading BangorSTT with jconf %s " % jconf)
+        self._logger.info('Starting: julius -input mic -lv 10000 -C ' + self._jconf)
+        self._child = pexpect.spawn('julius -input mic -lv 10000 -C ' + self._jconf, timeout=30)
 	
-        cmd = ['julius',
-                '-input', 'stdin',
-                '-lv',10000,
-                '-C',self._jconf]
-
-        cmd = [str(x) for x in cmd]
-        self._logger.debug('Executing: %r', cmd)
-        with tempfile.SpooledTemporaryFile() as out_f:
-            with tempfile.SpooledTemporaryFile() as f:
-                with tempfile.SpooledTemporaryFile() as err_f:
-                    subprocess.call(cmd, stdin=f, stdout=out_f, stderr=err_f)
-            out_f.seek(0)
-            for line in out_f.read().splitlines():
-                line = line.strip()
-                if len(line) > 7 and line[:7].upper() == 'ERROR: ':
-                    if not line[7:].startswith('adin_'):
-                        self._logger.error(line[7:])
-                elif len(line) > 9 and line[:9].upper() == 'WARNING: ':
-                    self._logger.warning(line[9:])
-                elif len(line) > 6 and line[:6].upper() == 'STAT: ':
-                    self._logger.debug(line[6:])
-
     @classmethod
     def get_config(cls):
         # FIXME: Replace this as soon as we have a config module
@@ -334,39 +321,77 @@ class BangorSTT(AbstractSTTEngine):
 
 	return config
 
+    @classmethod
+    def has_mic(cls):
+        return True
+
+    def process_julius_output(self, julius_text):
+
+        self._logger.info('Processing Julius Result %s', julius_text)
+        result = None
+
+        match_res = re.match(r'(.*)sentence1(\.*)', julius_text, re.S)
+        if match_res:           
+                julius_outtext_array = julius_text.split("\n")
+                for line in julius_outtext_array:
+                        if line.find('sentence1') != -1:
+                                sentence1 = line
+                        elif line.find('cmscore1') != -1:
+                                cmscore1 = line
+                        elif line.find('score1') != -1:
+                                score1 = line
+
+                self._logger.info('sentence1: %s, cmscore1: %s, score1: %s' % (sentence1, cmscore1, score1))
+
+                cmscore_array = cmscore1.split()
+                err_flag = False
+                for score in cmscore_array:
+                        try:
+                                ns=float(score)
+                        except ValueError:
+                                continue
+
+                        if ns < 0.900 :
+                                self._logger.info("cmscore value too low")
+                                err_flag=True
+
+                score1_val = float(score1.split()[1])
+                if score1_val < -28000:
+                        self._logger.info("score value too low")
+                        err_flag = True
+
+                if (not err_flag):
+                        result = self._pattern.findall(sentence1)                     
+
+        self._logger.info('Completed Processing Julius Result :%s', result)
+        
+        return result
+
+       
     def transcribe(self, fp, mode=None):
 
-        logfilename = os.path.join(os.getcwd(), "julius-" + str(int(datetime.datetime.now().strftime("%s"))) + ".log")
- 
-        self._logger.info('BangorSTT transcribe : %s' % logfilename)
-       
-        cmd = ['julius',
-                '-input', 'stdin',
-                '-lv',10000,
-                '-C',self._jconf]
+        self._logger.info('BangorSTT : Please speak......')
 
-        cmd = [str(x) for x in cmd]
+        try:
+            while True:
+                self._child.expect("please speak")
+                juliusoutput=self._child.before                               
+                transcribed = self.process_julius_output(juliusoutput)
+                if transcribed:
+                    break
 
-        self._logger.info('BangorSTT transcribe executing: %r', cmd)
+            self._logger.info("BangorSTT results %s" % transcribed) 
 
-        with tempfile.SpooledTemporaryFile() as out_f:
-            with tempfile.SpooledTemporaryFile() as err_f:
-                subprocess.call(cmd, stdin=fp, stdout=out_f, stderr=err_f)
-            out_f.seek(0)
-            #print out_f.read()
-            results = [(int(i), text) for i, text in
-                       self._pattern.findall(out_f.read())]
+            if not transcribed:
+                transcribed.append('')
 
-        transcribed = [text for i, text in
-                       sorted(results, key=lambda x: x[0])
-                       if text]
+            self._logger.info('BangorSTT transcribed: %r', transcribed)
 
-        if not transcribed:
-            transcribed.append('')
-
-        self._logger.info('BangorSTT transcribed: %r', transcribed)
+        except KeyboardInterrupt:
+            self._child.close(force=True)                
 
         return transcribed
+
 
     @classmethod
     def is_available(cls):

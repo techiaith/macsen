@@ -11,7 +11,7 @@ import os
 import platform
 import re
 import tempfile
-import subprocess
+import signal, subprocess
 import pipes
 import logging
 import wave
@@ -111,6 +111,9 @@ class AbstractMp3TTSEngine(AbstractTTSEngine):
     def play_mp3(self, filename):  
         DEVNULL=open(os.devnull,'w')          
         p = subprocess.call(["mpg123",filename], stdin=subprocess.PIPE,stdout=DEVNULL,stderr=subprocess.STDOUT)
+        #p = subprocess.Popen("mpg123 " + filename, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+        #os.kill(os.getpgid(p.pid), signal.SIGTERM)
+
 
         #mf = mad.MadFile(filename)
         #with tempfile.NamedTemporaryFile(suffix='.wav') as f:

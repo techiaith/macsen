@@ -29,10 +29,18 @@ class Jasper(object):
         tts_engine_slug = client.jasperprofile.profile.get('tts_engine', tts.get_default_engine_slug())
         tts_engine_class = tts.get_engine_by_slug(tts_engine_slug)
 
+        active_stt_engine_instance = stt_engine_class.get_active_instance()
+        if active_stt_engine_instance.has_mic()==True:
+                passive_stt_engine_instance = active_stt_engine_instance
+        else:
+                passive_stt_engine_instance = stt_passive_engine_class.get_passive_instance()
+
         # Initialize Mic
         self.mic = Mic(tts_engine_class.get_instance(),
-                       stt_passive_engine_class.get_passive_instance(),
-                       stt_engine_class.get_active_instance())
+                       passive_stt_engine_instance,
+                       active_stt_engine_instance)
+                       #stt_passive_engine_class.get_passive_instance(),
+                       #stt_engine_class.get_active_instance())
 
 	if tts_engine_slug == 'festival-tts':	
 		tts_engine_default_voice = client.jasperprofile.profile.get('tts_default_voice','')
