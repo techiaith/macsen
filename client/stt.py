@@ -299,7 +299,9 @@ class BangorSTT(AbstractSTTEngine):
    
     def __init__(self, jconf):
 
-        os.environ['ALSADEV'] = '/dev/dsp0'
+        #os.environ['ALSADEV'] = '/dev/dsp0'
+        profile = jasperprofile.profile.get_yml() 
+        os.environ['ALSADEV'] = profile['mic']
 
         self._logger = logging.getLogger(__name__)
         self._jconf = jconf

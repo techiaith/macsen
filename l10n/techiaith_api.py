@@ -21,9 +21,9 @@ import json
 # ==============================
 # Eich allwedd API - o https://api.techiaith.org
 # Your API Key - from https://api.techiaith.org
-# Cewch hefyd gadael hyn yn wag, a cadw'ch allwedd API mewn ffeil 'API_KEY'
-# You can also leave this empty and keep your API key in a file called 'API_KEY'
-API_KEY = "de6acbf7-c664-443c-8ade-5512e0a81aad"
+# Cewch hefyd gadael hyn yn wag, a cadw'ch allwedd API mewn ffeil 'TECHIAITH_MT_API_KEY'
+# You can also leave this empty and keep your API key in a file called 'TECHIAITH_MT_API_KEY'
+API_KEY = ""
 
 # Gellir defnyddio 'cy' neu 'en' ar gyfer iaith yr API
 # Api lang parameter can be either 'cy' or 'en'
