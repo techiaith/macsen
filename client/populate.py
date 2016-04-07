@@ -102,7 +102,8 @@ def run(macsen_language):
     # microphone hardware
     print("\n")
     print _("Microphone Configuration")
-    response=raw_input(_("Please state the microphone location. (Press Enter to default to 'plughw:1,0' and Raspberry Pi)\n")
+    print(_("Please state the microphone location. (Press Enter to default to 'plughw:1,0' for Raspberry Pi)")
+    response=raw_input(_("Microphone: "))
     if response:
         profile["mic"] = response
     else:
