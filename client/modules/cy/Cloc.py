@@ -2,6 +2,9 @@
 import re
 import datetime
 
+import jasperprofile
+
+
 WORDS = ["GLOCH"]
 
 def handle(text, mic, profile):
@@ -16,6 +19,10 @@ def handle(text, mic, profile):
         profile -- contains information related to the user (e.g., phone
                    number)
     """
+    profile=jasperprofile.profile.get_yml()
+    tz=profile["timezone"]
+
+
     strhour='{:02d}'.format(datetime.datetime.now().time().hour)
     strminute='{:02d}'.format(datetime.datetime.now().time().minute)
    

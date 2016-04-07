@@ -27,3 +27,6 @@ cd $HOME/src/julius-cy
 ./compile.sh
 cd -
 
+PYTHONPATH=${PYTHONPATH}:${HOME}/src/macsen/client
+export PYTHONPATH
+

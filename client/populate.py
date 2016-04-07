@@ -81,7 +81,7 @@ def run(macsen_language):
 
     # timezone
     print("\n")
-    print(_("Please enter a timezone from the list located in the TZ* column at http://en.wikipedia.org/wiki/List_of_tz_database_time_zones, or none at all."))
+    print(_("Please enter a timezone from the list located in the TZ* column at http://en.wikipedia.org/wiki/List_of_tz_database_time_zones, or none at all. E.g. 'Europe/London' for Wales"))
     tz = raw_input(_("Timezone: "))
     while tz:
         try:
