@@ -18,28 +18,28 @@ msgstr ""
 
 #: client/brain.py:76 client/brain.py:78
 msgid "I'm sorry. I had some trouble with that operation"
-msgstr "Rwy'n sorry. rwyf wedi rhai problemau gyda' r weithred ddod"
+msgstr "Mae’n flin gen i. Cefais broblem gyda' r weithred honno."
 
 #: client/brain.py:77 client/brain.py:79
 msgid "Please try again later."
-msgstr "Ceisiwch eto yn ddiweddarach."
+msgstr "Ceisiwch eto yn nes ymlaen."
 
 #: client/populate.py:16
 #, python-format
 msgid "Welcome to the profile populator for language %s"
-msgstr "Croeso i'r proffil populator iaith ar gyfer %s"
+msgstr "Croeso i'r poblogwr proffil ar gyfer yr iaith %s"
 
 #: client/populate.py:17
 msgid ""
 "If, at any step, you'd prefer not to enter the requested information, just "
 "hit 'Enter' with a blank field to continue."
 msgstr ""
-"Os, yn unrhyw un cam, nid yw'r flaen i gyflwyno' r wybodaeth angenrheidiol, "
-"goerau'n cyrraedd'enter' r maes gyda wag i barhau."
+"Os, ar unrhyw gam, byddai’n well gennych chi beidio rhoi' r wybodaeth ofynnol i mewn, "
+"pwyswch ‘Enter’ gyda’r maes yn wag i barhau."
 
 #: client/populate.py:32
 msgid "Jasper uses your GMail to send notifications."
-msgstr "Jasper yn defnyddio eich Gmail i anfon hysbysiadau."
+msgstr "Gall Jasper ddefnyddio eich cyfrif Gmail i anfon hysbysiadau."
 
 #: client/populate.py:33
 #, fuzzy
@@ -48,46 +48,45 @@ msgid ""
 "you want to receive email notifications) and setup a Mailgun account, as at "
 "http://jasperproject.github.io/documentation/software/#mailgun.\n"
 msgstr ""
-"Fel arall, gallwch hepgor y cam (neu Llenwch y cyfeiriad e-bost os ydych "
-"eisiau derbyn e-bost hysbysu) a gosod mailgun cyfrif, fel yn http: / / "
-"jasperproject.github.io / dogfennaeth / meddalwedd / # mailgun."
+"Neu fe allwch hepgor y cam hwn (neu lenwi'r maes cyfeiriad e-bost os ydych "
+"eisiau derbyn hysbysiadau e-bost) a gosod cyfrif Mailgun, fel yn "
+"http://jasperproject.github.io/documentation/software/#mailgun.\n"
 
 #: client/populate.py:42
 msgid ""
 "Phone number (no country code). Any dashes or spaces will be removed for "
 "you: "
 msgstr ""
-"Rhif ffôn (dim gwlad cod). unrhyw dashes neu bylchau yn cael ei thynnu ar "
+"Rhif ffôn (dim cod gwlad). Bydd unrhyw llinellau toriad neu fylchau yn cael eu tynnu ar "
 "eich cyfer:"
 
 #: client/populate.py:47
 msgid "Phone carrier (for sending text notifications)."
-msgstr "Ffôn (darparwr ar gyfer anfon hysbysiadau Testun)."
+msgstr "Darparwr ffôn (ar gyfer anfon hysbysiadau ar ffurf negeseuon testun)."
 
 #: client/populate.py:48
 msgid ""
-"If you have a US phone number, you can enter one of the following: 'AT&T', "
+"Os oes gennych rif ffôn UDA, mae modd i chi roi un o'r canlynol: 'AT&T', "
 "'Verizon', 'T-Mobile' (without the quotes). "
 msgstr ""
 "Os oes gennych ni rhif ffôn, mae modd i chi roi un o'r canlynol:' yn & yn','"
-" verizon',' yn'-symudol (heb sengl)."
+"'Verizon',' T-Mobile' (heb y dyfynnodau). "
 
 #: client/populate.py:49
 msgid ""
 "If your carrier isn't listed or you have an international number, go to "
 "http://www.emailtextmessages.com and enter the email suffix for your carrier"
 msgstr ""
-"Os yw eich darparwr nid yw'n cael eu dangos neu ryngwladol rhif, ewch i "
-"http: / / www.emailtextmessages.com a' i gyflwyno'r e-bost suffix i' ch "
-"darparwr"
+"Os nad yw eich darparwr yn cael ei ddangos neu bod gennych rif rhyngwladol, ewch i "
+"http://www.emailtextmessages.com a rhoi i mewn yr olddodiad e-bost ar gyfer eich darparwr"
 
 #: client/populate.py:50
 msgid ""
 "(e.g., for Virgin Mobile, enter 'vmobl.com'; for T-Mobile Germany, enter "
 "'t-d1-sms.de')."
 msgstr ""
-"(e.e., ar gyfer Virgin symudol, rhowch'vmobl.com'; am ddim-symudol yr "
-"Almaen, rhowch nid oes-d1-sms.de')."
+""(e.e., ar gyfer Virgin Mobile, rhowch 'vmobl.com'; am T-Mobile yr "
+"Almaen, rhowch 't-d1-sms.de'))."
 
 #: client/populate.py:51
 msgid "Carrier: "
@@ -95,19 +94,19 @@ msgstr "Darparwr:"
 
 #: client/populate.py:69
 msgid "Location saved as "
-msgstr "Cadw fel lleoliad"
+msgstr "Cadwyd y lleoliad fel"
 
 #: client/populate.py:73
 msgid "Location should be a 5-digit US zipcode (e.g., 08544)."
-msgstr "Lleoliad ddylai gael ei a 5-digit ni cod post (e.e., 08544)."
+msgstr "Dylai lleoliad fod yn god post 5-digid yr UDA (e.e., 08544)."
 
 #: client/populate.py:74
 msgid ""
 "If you are outside the US, insert the name of your nearest big town/city. "
 "For weather requests."
 msgstr ""
-"Os ydych yn tu allan i'r ni, mewnosod enw eich nearest Big town / city. ar "
-"gyfer y tywydd geisiadau."
+"Os ydych yn tu allan i'r UDA, rhowch enw eich tref fawr / dinas agosaf. "
+"Caiff ei ddefnyddio ar gyfer ceisiadau tywydd."
 
 #: client/populate.py:75 client/populate.py:78
 msgid "Location: "
@@ -115,42 +114,42 @@ msgstr "Lleoliad:"
 
 #: client/populate.py:77
 msgid "Weather not found. Please try another location."
-msgstr "Nid yw'r tywydd found. dewiswch un arall."
+msgstr "Heb ddod o hyd i ragolygon tywydd ar gyfer y lleoliad hwnnw. Dewiswch leoliad arall."
 
 #: client/populate.py:84
 msgid ""
 "Please enter a timezone from the list located in the TZ* column at "
 "http://en.wikipedia.org/wiki/List_of_tz_database_time_zones, or none at all."
 msgstr ""
-"Rhowch enw'r cylch amser o' r rhestr lleoli yn y tz * colofn yn http: / / "
-"en.wikipedia.org / wiki / rhestr _ of _ tz _ gronfa ddata _ time _ zones, "
-"neu dim yn y cyfan."
+"Rhowch gylchfa amser o' r rhestr a geir yn y golofn TZ * yn "
+"http://en.wikipedia.org/wiki/List_of_tz_database_time_zones, neu ddim o gwbl."
+
 
 #: client/populate.py:85 client/populate.py:93
 msgid "Timezone: "
-msgstr "Cylch amser:"
+msgstr "Cylchfa amser:"
 
 #: client/populate.py:92
 msgid "Not a valid timezone. Try again."
-msgstr "Nid yw'n ddilys timezone. ceisiwch eto."
+msgstr "Nid yw'n gylchfa amser ddilys. Ceisiwch eto."
 
 #: client/populate.py:96
 msgid ""
 "Would you prefer to have notifications sent by email (E) or text message "
 "(T)? "
 msgstr ""
-"Hoffech chi flaen hysbysiadau i gael ei anfon drwy e-bost (e) neu neges "
-"testun (dim)?"
+"Hoffech chi gael hysbysiadau wedi’u hanfon drwy e-bost (E) neu neges destun (T)?"
+
 
 #: client/populate.py:98
 msgid "Please choose email (E) or text message (T): "
-msgstr "Dewiswch e-bost (e) neu neges testun (dim):"
+msgstr "Dewiswch e-bost (E) neu neges destun (T):"
 
 #: client/populate.py:108 client/populate.py:116 client/populate.py:126
 #: client/populate.py:127
 msgid ""
 "If you would like to choose a specific STT engine, please specify which."
-msgstr "Os hoffech chi ddewis penodol peiriant stt, pennwch pa."
+msgstr "Os hoffech chi ddewis peiriant STT penodol, nodwch pa un."
 
 #: client/populate.py:110 client/populate.py:115 client/populate.py:117
 #: client/populate.py:125 client/populate.py:128 client/populate.py:126
@@ -159,7 +158,7 @@ msgstr "Os hoffech chi ddewis penodol peiriant stt, pennwch pa."
 msgid ""
 "Available implementations: %s. (Press Enter to default to PocketSphinx): "
 msgstr ""
-"Ar gael implementations: %s. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
+"Gweithrediadau ar gael: %s. (Pwyswch Enter iddo ragosod i PocketSphinx):"
 
 #: client/populate.py:117 client/populate.py:124 client/populate.py:145
 #: client/populate.py:146
@@ -170,7 +169,7 @@ msgstr "Rhowch eich API allwedd:"
 #: client/populate.py:150
 #, python-format
 msgid "Unrecognized STT engine. Available implementations: %s"
-msgstr "Heb ei adnabod stt engine. ar gael implementations: %s"
+msgstr "Peiriant STT heb ei adnabod. Gweithrediadau sydd ar gael: %s"
 
 #: client/populate.py:124 client/populate.py:158 client/populate.py:189
 #: client/populate.py:190
@@ -185,74 +184,74 @@ msgstr "Gorffen."
 #: jasper.py:77 jasper.py:86 jasper.py:56
 #, python-format
 msgid "How can I be of service, %s?"
-msgstr "Sut fedra i fod o'r gwasanaeth, %s?"
+msgstr "Sut fedra i helpu, %s?"
 
 #: jasper.py:80 jasper.py:89 jasper.py:58
 msgid "How can I be of service?"
-msgstr "Sut fedra i fod o'r gwasanaeth?"
+msgstr "Sut fedra i helpu?"
 
 #: jasper.py:93 jasper.py:102 jasper.py:72
 msgid "Macsen Voice Control Center"
-msgstr "Canolfan Rheoli macsen llais"
+msgstr "Canolfan Rheoli Llais Macsen"
 
 #: jasper.py:94 jasper.py:103 jasper.py:73
 msgid "Use text input instead of a real microphone"
-msgstr "Defnyddio'r testun mewnbwn yn lle darlun Meicroffon"
+msgstr "Defnyddio testun mewnbwn yn lle Meicroffon go iawn"
 
 #: jasper.py:95 jasper.py:104 jasper.py:74
 msgid "Disable the network connection check"
-msgstr "Analluogi'r cysylltiad rhwydwaith gwiriwch"
+msgstr "Analluogi gwirio'r cysylltiad rhwydwaith"
 
 #: jasper.py:96 jasper.py:105 jasper.py:75
 msgid "Run diagnose and exit"
-msgstr "Rhedeg ddadansoddi a gadael"
+msgstr "Rhedeg y dadansoddi a gadael"
 
 #: jasper.py:97 jasper.py:106 jasper.py:76
 msgid "Show debug messages"
-msgstr "Dangos dadfygio'r negeseuon"
+msgstr "Dangos negeseuon dadfygio"
 
 #: jasper.py:106 jasper.py:115 jasper.py:85
 msgid "      MACSEN - THE MULTILINGUAL TALKING COMPUTER      *"
-msgstr "Cyfrifiadur - macsen multilingual talking *"
+msgstr "      MACSEN - Y CYFRIFIADUR AMLIEITHOG SY'N SIARAD      *"
 
 #: jasper.py:108 jasper.py:117 jasper.py:87
 msgid " Initial Developers:                                  *"
-msgstr "Datblygwyr * cychwynnol:"
+msgstr "Datblygwyr cychwynnol:                                  "
 
 #: jasper.py:112 jasper.py:121 jasper.py:91
 msgid "MACSEN is based on :                                            *"
-msgstr "Macsen yn seiliedig ar *:"
+msgstr "Seiliwyd MACSEN ar :                                            *"
 
 #: client/populate.py:114 client/populate.py:124 client/populate.py:125
 msgid "Speech Recognition Configuration"
-msgstr "Graddfa dderbyn ffurfweddiad"
+msgstr "Ffurfweddiad Adnabod Lleferydd"
 
 #: client/populate.py:142 client/populate.py:165 client/populate.py:166
 msgid "Text-to-Speech Configuration"
-msgstr "Testun-i-graddfa ffurfweddiad"
+msgstr "Ffurfweddiad Testun-i-Leferydd"
 
 #: client/populate.py:143 client/populate.py:166 client/populate.py:167
 #, fuzzy, python-format
 msgid "Available implementations: %s. (Press Enter to default to E-speak):"
 msgstr ""
-"Ar gael implementations: %s. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
+"Gweithrediadau ar gael: %s. (Pwyswch Enter i'w ragosod i E-speak):"
 
 #: client/populate.py:144 client/populate.py:167 client/populate.py:168
 #, fuzzy
 msgid ""
 "If you would like to choose a specific TTS engine, please specify which."
-msgstr "Os hoffech chi ddewis penodol peiriant stt, pennwch pa."
+msgstr "Os hoffech chi ddewis peiriant TTS penodol, nodwch pa un."
 
 #: client/populate.py:145 client/populate.py:169 client/populate.py:170
 #, fuzzy, python-format
 msgid "Available implementations: %s. (Press Enter to default to E-speak): "
 msgstr ""
-"Ar gael implementations: %s. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
+"Gweithrediadau ar gael: %s. (Pwyswch Enter i'w ragosod i E-speak):"
 
 #: client/populate.py:151 client/populate.py:184 client/populate.py:185
 #, fuzzy, python-format
 msgid "Unrecognized TTS engine. Available implementations: %s"
-msgstr "Heb ei adnabod stt engine. ar gael implementations: %s"
+msgstr "Peiriant TTS heb ei adnabod. Gweithrediadau ar gael: %s"
 
 #: client/populate.py:84
 #, fuzzy
@@ -261,14 +260,14 @@ msgid ""
 "http://en.wikipedia.org/wiki/List_of_tz_database_time_zones, or none at all."
 " E.g. 'Europe/London' for Wales"
 msgstr ""
-"Rhowch enw'r cylch amser o' r rhestr lleoli yn y tz * colofn yn http: / / "
-"en.wikipedia.org / wiki / rhestr _ of _ tz _ gronfa ddata _ time _ zones, "
-"neu dim yn y cyfan."
+"Rhowch enw cylchfa amser o' r rhestr a geir yn y golofn TZ * yn "
+"http://en.wikipedia.org/wiki/List_of_tz_database_time_zones, neu ddim o gwbl."
+"E.e. 'Europe/London' ar gyfer Cymru"
 
 #: client/populate.py:104
 #, fuzzy
 msgid "Microphone Configuration"
-msgstr "Testun-i-graddfa ffurfweddiad"
+msgstr "Ffurfweddiad Microffon"
 
 #: client/populate.py:105
 #, fuzzy
@@ -276,16 +275,16 @@ msgid ""
 "Please state the microphone location. (Press Enter to default to "
 "'plughw:1,0' and Raspberry Pi)\n"
 msgstr ""
-"Rhowch'r cyflwr' r Meicroffon lleoliad. (pwyso Enter i'r rhagosodedig "
-"i'plughw: 1,0' a raspberry pi)"
+"Rhowch leoliad y microffon. (Pwyswch Enter i'w ragosod i "
+"i 'plughw: 1,0' a Raspberry Pi)"
 
 #: client/populate.py:175 client/populate.py:176
 msgid "Enter your Ivona access key : "
-msgstr "Rhowch eich ivona allwedd Mynediad:"
+msgstr "Rhowch eich allwedd mynediad Ivona:"
 
 #: client/populate.py:176 client/populate.py:177
 msgid "Enter your Ivona secret key : "
-msgstr "Rhowch eich ivona yn gyfrinach allwedd:"
+msgstr "Rhowch eich allwedd gyfrinachol Ivona:"
 
 #: client/populate.py:105
 #, fuzzy
@@ -293,12 +292,12 @@ msgid ""
 "Please state the microphone location. (Press Enter to default to "
 "'plughw:1,0' and Raspberry Pi)"
 msgstr ""
-"Rhowch'r cyflwr' r Meicroffon lleoliad. (pwyso Enter i'r rhagosodedig "
-"i'plughw: 1,0' a raspberry pi)"
+"Rhowch leoliad y microffon. (Pwyswch Enter i'w ragosod "
+"i 'plughw: 1,0' a raspberry pi)"
 
 #: client/populate.py:106
 msgid "Microphone:"
-msgstr "Meicroffon:"
+msgstr "Microffon:"
 
 #: client/populate.py:105
 #, fuzzy
@@ -306,10 +305,10 @@ msgid ""
 "Please state the microphone location. (Press Enter to default to "
 "'plughw:1,0' for Raspberry Pi)"
 msgstr ""
-"Rhowch'r cyflwr' r Meicroffon lleoliad. (pwyso Enter i'r rhagosodedig "
-"i'plughw: 1,0' a raspberry pi)"
+"Rhowch leoliad y microffon. (Pwyswch Enter i'w ragosod "
+"i 'plughw: 1,0' a Raspberry Pi)"
 
 #: client/populate.py:106
 #, fuzzy
 msgid "Microphone: "
-msgstr "Meicroffon:"
+msgstr "Microffon:"
