@@ -1,11 +1,12 @@
 #!/bin/bash
 sudo apt-get update
-sudo apt-get install python-dev festival festival-dev
+sudo apt-get install python-dev festival festival-dev gettext
 
 sudo easy_install --upgrade pip
 sudo pip install --upgrade setuptools
 sudo pip install -r client/requirements.txt
 sudo pip install python-dateutil feedparser
+sudo pip install polib
 
 sudo mkdir -p /usr/share/festival/voices/welsh
 cd /usr/share/festival/voices/welsh
