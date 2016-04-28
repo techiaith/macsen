@@ -30,4 +30,4 @@ $ python jasper.py
 
 ## Manylion Macsen
 
-Datblygwyd Macsen ar sail gwaith adnabod lleferydd Cymraeg Uned Technolegau Iaith, Prifysgol Bangor – julius-cy  - a Jasper. 
+Datblygwyd Macsen ar sail gwaith adnabod lleferydd Cymraeg Uned Technolegau Iaith, Prifysgol Bangor – [julius-cy](https://github.com/techiaith/julius-cy)  - a [Jasper](https://github.com/techiaith/macsen/blob/master/README-JASPER.md). 
