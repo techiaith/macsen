@@ -1,6 +1,6 @@
 MACSEN
 ======
-
+(*[click here](README_en.md) for the English version of this README*)
 
 Mae Macsen yn feddalwedd cynorthwyydd personol digidol Cymraeg cod agored. Mae'n rhedeg ar y Raspberry Pi. Yma ceir ffeiliau a sgriptiau yn ogystal â dogfennaeth ar gyfer gosod ac addasu Macsen eich hunain.
 
