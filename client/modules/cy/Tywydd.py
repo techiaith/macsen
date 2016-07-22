@@ -22,7 +22,7 @@ def handle(text, mic, profile):
         profile -- contains information related to the user (e.g., phone
                    number)
     """
-    mic.say("Mae'n bwrw glaw yn sobor iawn")
+    mic.say("Bydd heddiw yn ddiwrnod cymylog gydag ysbeidiau heulog")
 
 
 def isValid(text):

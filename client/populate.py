@@ -27,58 +27,6 @@ def run(macsen_language):
     simple_request('first_name', 'First name')
     simple_request('last_name', 'Last name')
 
-    # gmail
-    print ("\n")
-    print(_("Jasper uses your GMail to send notifications."))
-    print(_("Alternatively, you can skip this step (or just fill in the email address if you want to receive email notifications) and setup a Mailgun account, as at http://jasperproject.github.io/documentation/software/#mailgun.\n"))
-    simple_request('gmail_address', 'Gmail address')
-    profile['gmail_password'] = getpass()
-
-    # phone number
-    def clean_number(s):
-        return re.sub(r'[^0-9]', '', s)
-
-    print ("\n")
-    phone_number = clean_number(raw_input(_("Phone number (no country code). Any dashes or spaces will be removed for you: ")))
-    profile['phone_number'] = phone_number
-
-    # carrier
-    print("\n")
-    print(_("Phone carrier (for sending text notifications)."))
-    print(_("If you have a US phone number, you can enter one of the following: 'AT&T', 'Verizon', 'T-Mobile' (without the quotes). "))
-    print(_("If your carrier isn't listed or you have an international number, go to http://www.emailtextmessages.com and enter the email suffix for your carrier"))
-    print(_("(e.g., for Virgin Mobile, enter 'vmobl.com'; for T-Mobile Germany, enter 't-d1-sms.de')."))
-    carrier = raw_input(_('Carrier: '))
-    if carrier == 'AT&T':
-        profile['carrier'] = 'txt.att.net'
-    elif carrier == 'Verizon':
-        profile['carrier'] = 'vtext.com'
-    elif carrier == 'T-Mobile':
-        profile['carrier'] = 'tmomail.net'
-    else:
-        profile['carrier'] = carrier
-
-    # location
-    def verifyLocation(place):
-        feed = feedparser.parse('http://rss.wunderground.com/auto/rss_full/' +
-                                place)
-        numEntries = len(feed['entries'])
-        if numEntries == 0:
-            return False
-        else:
-            print(_("Location saved as ") + feed['feed']['description'][33:])
-            return True
-
-    print ("\n")
-    print(_("Location should be a 5-digit US zipcode (e.g., 08544)."))
-    print(_("If you are outside the US, insert the name of your nearest big town/city. For weather requests."))
-    location = raw_input(_("Location: "))
-    while location and not verifyLocation(location):
-        print(_("Weather not found. Please try another location."))
-        location = raw_input(_("Location: "))
-    if location:
-        profile['location'] = location
-
     # timezone
     print("\n")
     print(_("Please enter a timezone from the list located in the TZ* column at http://en.wikipedia.org/wiki/List_of_tz_database_time_zones, or none at all. E.g. 'Europe/London' for Wales"))
@@ -91,12 +39,6 @@ def run(macsen_language):
         except:
             print(_("Not a valid timezone. Try again."))
             tz = raw_input(_("Timezone: "))
-
-    print("\n")
-    response = raw_input(_("Would you prefer to have notifications sent by email (E) or text message (T)? "))
-    while not response or (response != 'E' and response != 'T'):
-        response = raw_input(_("Please choose email (E) or text message (T): "))
-    profile['prefers_email'] = (response == 'E')
 
 
     # microphone hardware

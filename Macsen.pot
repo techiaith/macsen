@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-07 10:38+0000\n"
+"POT-Creation-Date: 2016-07-22 14:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,267 +17,155 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: client/brain.py:76 client/brain.py:78 client/brain.py:78
-msgid "I'm sorry. I had some trouble with that operation"
+#: jasper.py:56
+#, python-format
+msgid "How can I be of service, %s?"
 msgstr ""
 
-#: client/brain.py:77 client/brain.py:79 client/brain.py:79
-msgid "Please try again later."
+#: jasper.py:58
+msgid "How can I be of service?"
 msgstr ""
 
-#: client/populate.py:16 client/populate.py:16
+#: jasper.py:72
+msgid "Macsen Voice Control Center"
+msgstr ""
+
+#: jasper.py:73
+msgid "Use text input instead of a real microphone"
+msgstr ""
+
+#: jasper.py:74
+msgid "Disable the network connection check"
+msgstr ""
+
+#: jasper.py:75
+msgid "Run diagnose and exit"
+msgstr ""
+
+#: jasper.py:76
+msgid "Show debug messages"
+msgstr ""
+
+#: jasper.py:85
+msgid "      MACSEN - THE MULTILINGUAL TALKING COMPUTER      *"
+msgstr ""
+
+#: jasper.py:87
+msgid " Initial Developers:                                  *"
+msgstr ""
+
+#: jasper.py:91
+msgid "MACSEN is based on :                                            *"
+msgstr ""
+
+#: client/populate.py:16
 #, python-format
 msgid "Welcome to the profile populator for language %s"
 msgstr ""
 
-#: client/populate.py:17 client/populate.py:17
+#: client/populate.py:17
 msgid ""
 "If, at any step, you'd prefer not to enter the requested information, just "
 "hit 'Enter' with a blank field to continue."
 msgstr ""
 
-#: client/populate.py:32 client/populate.py:32
-msgid "Jasper uses your GMail to send notifications."
-msgstr ""
-
-#: client/populate.py:33 client/populate.py:33
-msgid ""
-"Alternatively, you can skip this step (or just fill in the email address if "
-"you want to receive email notifications) and setup a Mailgun account, as at "
-"http://jasperproject.github.io/documentation/software/#mailgun.\n"
-msgstr ""
-
-#: client/populate.py:42 client/populate.py:42
-msgid ""
-"Phone number (no country code). Any dashes or spaces will be removed for "
-"you: "
-msgstr ""
-
-#: client/populate.py:47 client/populate.py:47
-msgid "Phone carrier (for sending text notifications)."
-msgstr ""
-
-#: client/populate.py:48 client/populate.py:48
-msgid ""
-"If you have a US phone number, you can enter one of the following: 'AT&T', "
-"'Verizon', 'T-Mobile' (without the quotes). "
-msgstr ""
-
-#: client/populate.py:49 client/populate.py:49
-msgid ""
-"If your carrier isn't listed or you have an international number, go to "
-"http://www.emailtextmessages.com and enter the email suffix for your carrier"
-msgstr ""
-
-#: client/populate.py:50 client/populate.py:50
-msgid ""
-"(e.g., for Virgin Mobile, enter 'vmobl.com'; for T-Mobile Germany, enter 't-"
-"d1-sms.de')."
-msgstr ""
-
-#: client/populate.py:51 client/populate.py:51
-msgid "Carrier: "
-msgstr ""
-
-#: client/populate.py:69 client/populate.py:69
-msgid "Location saved as "
-msgstr ""
-
-#: client/populate.py:73 client/populate.py:73
-msgid "Location should be a 5-digit US zipcode (e.g., 08544)."
-msgstr ""
-
-#: client/populate.py:74 client/populate.py:74
-msgid ""
-"If you are outside the US, insert the name of your nearest big town/city. "
-"For weather requests."
-msgstr ""
-
-#: client/populate.py:75 client/populate.py:78 client/populate.py:75
-#: client/populate.py:78
-msgid "Location: "
-msgstr ""
-
-#: client/populate.py:77 client/populate.py:77
-msgid "Weather not found. Please try another location."
-msgstr ""
-
-#: client/populate.py:84
-msgid ""
-"Please enter a timezone from the list located in the TZ* column at http://en."
-"wikipedia.org/wiki/List_of_tz_database_time_zones, or none at all."
-msgstr ""
-
-#: client/populate.py:85 client/populate.py:93 client/populate.py:85
-#: client/populate.py:93
-msgid "Timezone: "
-msgstr ""
-
-#: client/populate.py:92 client/populate.py:92
-msgid "Not a valid timezone. Try again."
-msgstr ""
-
-#: client/populate.py:96 client/populate.py:96
-msgid ""
-"Would you prefer to have notifications sent by email (E) or text message "
-"(T)? "
-msgstr ""
-
-#: client/populate.py:98 client/populate.py:98
-msgid "Please choose email (E) or text message (T): "
-msgstr ""
-
-#: client/populate.py:108 client/populate.py:116 client/populate.py:126
-#: client/populate.py:127 client/populate.py:127
-msgid ""
-"If you would like to choose a specific STT engine, please specify which."
-msgstr ""
-
-#: client/populate.py:110 client/populate.py:115 client/populate.py:117
-#: client/populate.py:125 client/populate.py:128 client/populate.py:126
-#: client/populate.py:129 client/populate.py:126 client/populate.py:129
-#, python-format
-msgid ""
-"Available implementations: %s. (Press Enter to default to PocketSphinx): "
-msgstr ""
-
-#: client/populate.py:117 client/populate.py:124 client/populate.py:145
-#: client/populate.py:146 client/populate.py:146
-msgid "Please enter your API key: "
-msgstr ""
-
-#: client/populate.py:120 client/populate.py:127 client/populate.py:149
-#: client/populate.py:150 client/populate.py:150
-#, python-format
-msgid "Unrecognized STT engine. Available implementations: %s"
-msgstr ""
-
-#: client/populate.py:124 client/populate.py:158 client/populate.py:189
-#: client/populate.py:190 client/populate.py:190
-msgid "Writing to profile..."
-msgstr ""
-
-#: client/populate.py:130 client/populate.py:164 client/populate.py:195
-#: client/populate.py:196 client/populate.py:196
-msgid "Done."
-msgstr ""
-
-#: jasper.py:77 jasper.py:86 jasper.py:56 jasper.py:56
-#, python-format
-msgid "How can I be of service, %s?"
-msgstr ""
-
-#: jasper.py:80 jasper.py:89 jasper.py:58 jasper.py:58
-msgid "How can I be of service?"
-msgstr ""
-
-#: jasper.py:93 jasper.py:102 jasper.py:72 jasper.py:72
-msgid "Macsen Voice Control Center"
-msgstr ""
-
-#: jasper.py:94 jasper.py:103 jasper.py:73 jasper.py:73
-msgid "Use text input instead of a real microphone"
-msgstr ""
-
-#: jasper.py:95 jasper.py:104 jasper.py:74 jasper.py:74
-msgid "Disable the network connection check"
-msgstr ""
-
-#: jasper.py:96 jasper.py:105 jasper.py:75 jasper.py:75
-msgid "Run diagnose and exit"
-msgstr ""
-
-#: jasper.py:97 jasper.py:106 jasper.py:76 jasper.py:76
-msgid "Show debug messages"
-msgstr ""
-
-#: jasper.py:106 jasper.py:115 jasper.py:85 jasper.py:85
-msgid "      MACSEN - THE MULTILINGUAL TALKING COMPUTER      *"
-msgstr ""
-
-#: jasper.py:108 jasper.py:117 jasper.py:87 jasper.py:87
-msgid " Initial Developers:                                  *"
-msgstr ""
-
-#: jasper.py:112 jasper.py:121 jasper.py:91 jasper.py:91
-msgid "MACSEN is based on :                                            *"
-msgstr ""
-
-#: client/populate.py:114 client/populate.py:124 client/populate.py:125
-#: client/populate.py:125
-msgid "Speech Recognition Configuration"
-msgstr ""
-
-#: client/populate.py:142 client/populate.py:165 client/populate.py:166
-#: client/populate.py:166
-msgid "Text-to-Speech Configuration"
-msgstr ""
-
-#: client/populate.py:143 client/populate.py:166 client/populate.py:167
-#: client/populate.py:167
-#, python-format
-msgid "Available implementations: %s. (Press Enter to default to E-speak):"
-msgstr ""
-
-#: client/populate.py:144 client/populate.py:167 client/populate.py:168
-#: client/populate.py:168
-msgid ""
-"If you would like to choose a specific TTS engine, please specify which."
-msgstr ""
-
-#: client/populate.py:145 client/populate.py:169 client/populate.py:170
-#: client/populate.py:170
-#, python-format
-msgid "Available implementations: %s. (Press Enter to default to E-speak): "
-msgstr ""
-
-#: client/populate.py:151 client/populate.py:184 client/populate.py:185
-#: client/populate.py:185
-#, python-format
-msgid "Unrecognized TTS engine. Available implementations: %s"
-msgstr ""
-
-#: client/populate.py:84 client/populate.py:84
+#: client/populate.py:32
 msgid ""
 "Please enter a timezone from the list located in the TZ* column at http://en."
 "wikipedia.org/wiki/List_of_tz_database_time_zones, or none at all. E.g. "
 "'Europe/London' for Wales"
 msgstr ""
 
-#: client/populate.py:104 client/populate.py:104
+#: client/populate.py:33 client/populate.py:41
+msgid "Timezone: "
+msgstr ""
+
+#: client/populate.py:40
+msgid "Not a valid timezone. Try again."
+msgstr ""
+
+#: client/populate.py:46
 msgid "Microphone Configuration"
 msgstr ""
 
-#: client/populate.py:105
-msgid ""
-"Please state the microphone location. (Press Enter to default to "
-"'plughw:1,0' and Raspberry Pi)\n"
-msgstr ""
-
-#: client/populate.py:175 client/populate.py:176 client/populate.py:176
-msgid "Enter your Ivona access key : "
-msgstr ""
-
-#: client/populate.py:176 client/populate.py:177 client/populate.py:177
-msgid "Enter your Ivona secret key : "
-msgstr ""
-
-#: client/populate.py:105
-msgid ""
-"Please state the microphone location. (Press Enter to default to "
-"'plughw:1,0' and Raspberry Pi)"
-msgstr ""
-
-#: client/populate.py:106
-msgid "Microphone:"
-msgstr ""
-
-#: client/populate.py:105 client/populate.py:105
+#: client/populate.py:47
 msgid ""
 "Please state the microphone location. (Press Enter to default to "
 "'plughw:1,0' for Raspberry Pi)"
 msgstr ""
 
-#: client/populate.py:106 client/populate.py:106
+#: client/populate.py:48
 msgid "Microphone: "
+msgstr ""
+
+#: client/populate.py:67
+msgid "Speech Recognition Configuration"
+msgstr ""
+
+#: client/populate.py:68 client/populate.py:71
+#, python-format
+msgid ""
+"Available implementations: %s. (Press Enter to default to PocketSphinx): "
+msgstr ""
+
+#: client/populate.py:69
+msgid ""
+"If you would like to choose a specific STT engine, please specify which."
+msgstr ""
+
+#: client/populate.py:88
+msgid "Please enter your API key: "
+msgstr ""
+
+#: client/populate.py:92
+#, python-format
+msgid "Unrecognized STT engine. Available implementations: %s"
+msgstr ""
+
+#: client/populate.py:108
+msgid "Text-to-Speech Configuration"
+msgstr ""
+
+#: client/populate.py:109
+#, python-format
+msgid "Available implementations: %s. (Press Enter to default to E-speak):"
+msgstr ""
+
+#: client/populate.py:110
+msgid ""
+"If you would like to choose a specific TTS engine, please specify which."
+msgstr ""
+
+#: client/populate.py:112
+#, python-format
+msgid "Available implementations: %s. (Press Enter to default to E-speak): "
+msgstr ""
+
+#: client/populate.py:118
+msgid "Enter your Ivona access key : "
+msgstr ""
+
+#: client/populate.py:119
+msgid "Enter your Ivona secret key : "
+msgstr ""
+
+#: client/populate.py:127
+#, python-format
+msgid "Unrecognized TTS engine. Available implementations: %s"
+msgstr ""
+
+#: client/populate.py:132
+msgid "Writing to profile..."
+msgstr ""
+
+#: client/populate.py:138
+msgid "Done."
+msgstr ""
+
+#: client/brain.py:78
+msgid "I'm sorry. I had some trouble with that operation"
+msgstr ""
+
+#: client/brain.py:79
+msgid "Please try again later."
 msgstr ""
