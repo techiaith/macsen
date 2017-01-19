@@ -1,11 +1,7 @@
 # -*- coding: utf-8-*-
 import re
-import datetime
-import struct
-import urllib
+import random
 import feedparser
-import requests
-from client.app_utils import getTimezone
 
 WORDS = ["DIHAREB"]
 
@@ -21,11 +17,13 @@ def handle(text, mic, profile):
         profile -- contains information related to the user (e.g., phone
                    number)
     """
-    feed=feedparser.parse("http://aberth.com/diarhebion/feed/")
-    dihareb_html=feed.entries[0].summary_detail.value
-    dihareb_txt_start=len('<p>')
-    dihareb_txt_end=dihareb_html.index('&#8211;')
-    dihareb_txt=dihareb_html[dihareb_txt_start:dihareb_txt_end]
+    feed = feedparser.parse("http://aberth.com/diarhebion/feed/")
+    random_index = random.randint(0, len(feed.entries))
+    dihareb_html = feed.entries[random_index].summary_detail.value
+
+    dihareb_txt_start = len('<p>')
+    dihareb_txt_end = dihareb_html.index('.') #('&#8211;')
+    dihareb_txt = dihareb_html[dihareb_txt_start:dihareb_txt_end]
     mic.say(dihareb_txt)
 
 

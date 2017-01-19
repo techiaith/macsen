@@ -19,13 +19,9 @@ def handle(text, mic, profile):
         profile -- contains information related to the user (e.g., phone
                    number)
     """
-    profile=jasperprofile.profile.get_yml()
-    tz=profile["timezone"]
+    strhour = '{:02d}'.format(datetime.datetime.now().time().hour)
+    strminute = '{:02d}'.format(datetime.datetime.now().time().minute)
 
-
-    strhour='{:02d}'.format(datetime.datetime.now().time().hour)
-    strminute='{:02d}'.format(datetime.datetime.now().time().minute)
-   
     mic.say("Mae hi'n %s:%s" % (strhour, strminute))
 
 

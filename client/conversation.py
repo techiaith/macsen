@@ -38,10 +38,10 @@ class Conversation(object):
             self._logger.info("Keyword '%s' has been said!", self.persona)
             self._logger.debug("Started to listen actively with threshold: %r", threshold)
             #input = self.mic.activeListenToAllOptions(threshold)`
-            input = self.mic.activeListen(threshold)
+            audioinput = self.mic.activeListen(threshold)
             self._logger.debug("Stopped to listen actively with threshold: %r", threshold)
 
-            if input:
-                self.brain.query(input)
+            if audioinput:
+                self.brain.query(audioinput)
             else:
                 self.mic.say("Pardon?")

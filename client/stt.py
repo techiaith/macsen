@@ -18,6 +18,7 @@ import vocabcompiler
 import jasperprofile
 import datetime
 import pexpect
+import websocket_client
 
 class AbstractSTTEngine(object):
     """
@@ -202,8 +203,8 @@ class JuliusSTT(AbstractSTTEngine):
         self._tiedlist = tiedlist
         self._pattern = re.compile(r'sentence(\d+): <s> (.+) </s>')
 
-	self._logger.info("Loading JuliusSTT with hmmdefs %s and tiedlist %s " % (hmmdefs, tiedlist))
-	self._logger.info("dfa file %s" % self._vocabulary.dfa_file)
+        self._logger.info("Loading JuliusSTT with hmmdefs %s and tiedlist %s " % (hmmdefs, tiedlist))
+        self._logger.info("dfa file %s" % self._vocabulary.dfa_file)
 
         # Inital test run: we run this command once to log errors/warnings
         cmd = ['julius',
@@ -212,9 +213,9 @@ class JuliusSTT(AbstractSTTEngine):
                '-v', self._vocabulary.dict_file,
                '-h', self._hmmdefs,
                '-hlist', self._tiedlist,
-	       '-smpFreq', 48000,
+	           '-smpFreq', 48000,
                '-forcedict',
-	       '-lv', 4000]
+	           '-lv', 4000]
 
         cmd = [str(x) for x in cmd]
         self._logger.debug('Executing: %r', cmd)
@@ -241,15 +242,15 @@ class JuliusSTT(AbstractSTTEngine):
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-	profile = jasperprofile.profile.get_yml()
+        profile = jasperprofile.profile.get_yml()
         if 'julius' in profile:
-        	if 'hmmdefs' in profile['julius']:
-                	config['hmmdefs'] = profile['julius']['hmmdefs']
-                if 'tiedlist' in profile['julius']:
-                        config['tiedlist'] = profile['julius']['tiedlist']
-       
-	return config
-    
+            if 'hmmdefs' in profile['julius']:
+                config['hmmdefs'] = profile['julius']['hmmdefs']
+            if 'tiedlist' in profile['julius']:
+                config['tiedlist'] = profile['julius']['tiedlist']
+
+        return config
+
     def transcribe(self, fp, mode=None):
 
         cmd = ['julius',
@@ -258,9 +259,9 @@ class JuliusSTT(AbstractSTTEngine):
                '-v', self._vocabulary.dict_file,
                '-h', self._hmmdefs,
                '-hlist', self._tiedlist,
-	       '-smpFreq', 48000,
+               '-smpFreq', 48000,
                '-forcedict',
-	       '-lv',4000]
+               '-lv', 4000]
 
         cmd = [str(x) for x in cmd]
 
@@ -272,7 +273,7 @@ class JuliusSTT(AbstractSTTEngine):
             out_f.seek(0)
             results = [(int(i), text) for i, text in
                        self._pattern.findall(out_f.read())]
-            self._logger.info("Julius results %s" % results) 
+            self._logger.info("Julius results %s" % results)
 
         transcribed = [text for i, text in
                        sorted(results, key=lambda x: x[0])
@@ -296,32 +297,32 @@ class BangorSTT(AbstractSTTEngine):
     A Speech-to-Text for Welsh engine using an adapted Julius.
     """
     SLUG = 'bangor'
-   
+
     def __init__(self, jconf):
 
         #os.environ['ALSADEV'] = '/dev/dsp0'
-        profile = jasperprofile.profile.get_yml() 
+        profile = jasperprofile.profile.get_yml()
         os.environ['ALSADEV'] = profile['mic']
 
         self._logger = logging.getLogger(__name__)
         self._jconf = jconf
         self._pattern = re.compile(r'sentence1: <s> (.+) </s>')
-	self._logger.info("Loading BangorSTT with jconf %s " % jconf)
+        self._logger.info("Loading BangorSTT with jconf %s " % jconf)
         self._logger.info('Starting: julius -input mic -lv 10000 -C ' + self._jconf)
         self._child = pexpect.spawn('julius -input mic -lv 10000 -C ' + self._jconf, timeout=None)
-	
+
     @classmethod
     def get_config(cls):
         # FIXME: Replace this as soon as we have a config module
         config = {}
         # HMM dir
         # Try to get hmm_dir from config
-	profile = jasperprofile.profile.get_yml()
+        profile = jasperprofile.profile.get_yml()
         if 'bangor' in profile:
-                if 'jconf' in profile['bangor']:
-                        config['jconf'] = profile['bangor']['jconf']
+            if 'jconf' in profile['bangor']:
+                config['jconf'] = profile['bangor']['jconf']
 
-	return config
+        return config
 
     @classmethod
     def has_mic(cls):
@@ -330,34 +331,34 @@ class BangorSTT(AbstractSTTEngine):
     def process_julius_output(self, julius_text):
 
         self._logger.info('Processing Julius Result %s', julius_text)
-        transcribed = [] 
+        transcribed = []
 
         match_res = re.match(r'(.*)sentence1(\.*)', julius_text, re.S)
-        if match_res:           
-                julius_outtext_array = julius_text.split("\n")
-                for line in julius_outtext_array:
-                        if line.find('sentence1') != -1:
-                                sentence1 = line
-                        elif line.find('cmscore1') != -1:
-                                cmscore1 = line
-                        elif line.find('score1') != -1:
-                                score1 = line
+        if match_res:
+            julius_outtext_array = julius_text.split("\n")
+            for line in julius_outtext_array:
+                if line.find('sentence1') != -1:
+                    sentence1 = line
+                elif line.find('cmscore1') != -1:
+                    cmscore1 = line
+                elif line.find('score1') != -1:
+                    score1 = line
 
-                self._logger.info('sentence1: %s, cmscore1: %s, score1: %s' % (sentence1, cmscore1, score1))
-                err_flag= False
-                score1_val = float(score1.split()[1])
-                if score1_val < -28000:
-                        self._logger.info("score value too low")
-                        err_flag = True
+            self._logger.info('sentence1: %s, cmscore1: %s, score1: %s' % (sentence1, cmscore1, score1))
+            err_flag = False
+            score1_val = float(score1.split()[1])
+            if score1_val < -28000:
+                self._logger.info("score value too low")
+                err_flag = True
 
-                if (not err_flag):
-                        transcribed=self._pattern.findall(sentence1)
+            if not err_flag:
+                transcribed = self._pattern.findall(sentence1)
 
         self._logger.info('Completed Processing Julius Result :%s', transcribed)
-        
+
         return transcribed
 
-       
+
     def transcribe(self, fp, mode=None):
 
         self._logger.info('BangorSTT : Please speak......')
@@ -365,12 +366,12 @@ class BangorSTT(AbstractSTTEngine):
         try:
             #while True:
             self._child.expect("please speak")
-            juliusoutput=self._child.before                               
+            juliusoutput = self._child.before
             transcribed = self.process_julius_output(juliusoutput)
             #    if transcribed:
             #        break
 
-            self._logger.info("BangorSTT results %s" % transcribed) 
+            self._logger.info("BangorSTT results %s" , transcribed)
 
             if not transcribed:
                 transcribed.append('')
@@ -378,7 +379,7 @@ class BangorSTT(AbstractSTTEngine):
             self._logger.info('BangorSTT transcribed: %r', transcribed)
 
         except KeyboardInterrupt:
-            self._child.close(force=True)                
+            self._child.close(force=True)
 
         return transcribed
 
@@ -387,6 +388,59 @@ class BangorSTT(AbstractSTTEngine):
     def is_available(cls):
         return diagnose.check_executable('julius')
 
+
+class BangorCloudSTT(AbstractSTTEngine):
+    """
+    A Speech-to-Text for Welsh engine using cloud hosted web service
+    (provided via a websocket)
+    """
+    SLUG = 'bangorcloudstt'
+
+    def __init__(self, url):
+        self._logger = logging.getLogger(__name__)
+        self._websocket_url = url
+
+
+    @classmethod
+    def get_config(cls):
+        config = {}
+        profile = jasperprofile.profile.get_yml()
+        if 'bangorcloudstt' in profile:
+            if 'url' in profile['bangorcloudstt']:
+                config['url'] = profile['bangorcloudstt']['url']
+        return config
+
+
+    def transcribe(self, fp):
+
+        content_type = ''
+        rate = 32000
+
+        self._logger.info('Contacting BangorCloudSTT %r', fp)
+
+        wsclient = websocket_client.MyClient(fp,
+                                             self._websocket_url + '?%s' % (urllib.urlencode([("content-type", content_type)])),
+                                             byterate=rate,
+                                             save_adaptation_state_filename=None,
+                                             send_adaptation_state_filename=None)
+
+        wsclient.connect()
+        transcribedstring = wsclient.get_full_hyp()
+
+        self._logger.info('BangorCloudSTT transcribed: %r', transcribedstring)
+
+        transcribed = []
+        if not transcribedstring:
+            transcribed.append("")
+        else:
+            transcribed.append(transcribedstring)
+
+        return transcribed
+
+
+    @classmethod
+    def is_available(cls):
+        return diagnose.check_network_connection()
 
 
 class GoogleSTT(AbstractSTTEngine):

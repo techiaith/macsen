@@ -24,17 +24,17 @@ def handle(text, mic, profile):
     """
     mic.say("Gad i mi weld")
 
-    r = requests.get("http://www.golwg360.com")
-    data=r.text
+    rq = requests.get("http://golwg360.cymru/newyddion")
+    data=rq.text
     soup=BeautifulSoup(data)
 
     mic.say("Dyma penawdau gwefan newyddion golwg 3 6 0")
     
     for entry in soup(attrs={'class':'headline'}):
-	for headline in entry.find_all('a'):
-		testun_pennawd = ''.join([x for x in headline.text if ord(x) < 128])
-		print testun_pennawd
-		mic.say(testun_pennawd)
+        for headline in entry.find_all('a'):
+            testun_pennawd = ''.join([x for x in headline.text if ord(x) < 128])
+            print testun_pennawd
+            mic.say(testun_pennawd)
 
 
 def isValid(text):

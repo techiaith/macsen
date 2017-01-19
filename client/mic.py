@@ -98,13 +98,13 @@ class Mic:
         Listens for PERSONA in everyday sound. Times out after LISTEN_TIME, so
         needs to be restarted.
         """
-        THRESHOLD=False
+        THRESHOLD = False
         self._logger.info("Passive Listen.....")  
 
-        if self.passive_stt_engine.has_mic()==True:
+        if self.passive_stt_engine.has_mic() is True:
             transcribed = self.passive_stt_engine.transcribe(None)
             if transcribed and len(transcribed) > 0:
-                THRESHOLD=True
+                THRESHOLD = True
         else:
             # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
             THRESHOLD_MULTIPLIER = 1.8
@@ -187,19 +187,21 @@ class Mic:
             Returns the first matching string or None
         """
         self._logger.info("#### Active Listen Start..... ##### ")
-  
-        self._logger.info("Play beep_hi.wav")        
+
+        self._logger.info("Play beep_hi.wav")
         self.speaker.play(jasperpath.data('audio', 'beep_hi.wav'))
 
-        if self.active_stt_engine.has_mic()==True:
+        if self.active_stt_engine.has_mic() is True:
+            self._logger.info("#### Active Listen stt engine has the mic..... ##### ")
             transcribed = self.active_stt_engine.transcribe(None)
         else:
+            self._logger.info("#### Active Listen, jasper has the mic..... ##### ")
             transcribed = self.activeListenToAllOptions(THRESHOLD, LISTEN, MUSIC)
 
-        self._logger.info("Play beep_lo.wav")        
+        self._logger.info("Play beep_lo.wav")
         self.speaker.play(jasperpath.data('audio', 'beep_lo.wav'))
 
-        self._logger.info("#### Active Listen End..... ##### ")  
+        self._logger.info("#### Active Listen End..... ##### ")
 
         return transcribed
 
@@ -210,9 +212,9 @@ class Mic:
             Returns a list of the matching options or None
         """
         # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
-        RATE = 48000
+        RATE = 16000 # BangorSTT (Julius - 48000), BangorCloudSTT (Kaldi - 16000) 
         CHUNK = 1024
-        LISTEN_TIME = 12
+        LISTEN_TIME = 5 #12
 
         # check if no threshold provided
         if THRESHOLD is None:
