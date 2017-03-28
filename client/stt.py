@@ -347,7 +347,7 @@ class BangorSTT(AbstractSTTEngine):
             self._logger.info('sentence1: %s, cmscore1: %s, score1: %s' % (sentence1, cmscore1, score1))
             err_flag = False
             score1_val = float(score1.split()[1])
-            if score1_val < -28000:
+            if score1_val < -40000:
                 self._logger.info("score value too low")
                 err_flag = True
 

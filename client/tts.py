@@ -11,7 +11,8 @@ import os
 import platform
 import re
 import tempfile
-import signal, subprocess
+import signal
+import subprocess
 import pipes
 import logging
 import wave
@@ -82,7 +83,7 @@ class AbstractTTSEngine(object):
 
     @abstractmethod
     def default_voice(self, voice):
-	pass
+        pass
 
     def play(self, filename):
         # FIXME: Use platform-independent audio-output here
@@ -107,29 +108,13 @@ class AbstractMp3TTSEngine(AbstractTTSEngine):
         return (super(AbstractMp3TTSEngine, cls).is_available() and
                 diagnose.check_python_import('mad'))
 
-    
-    def play_mp3(self, filename):  
-        DEVNULL=open(os.devnull,'w')          
-        p = subprocess.call(["mpg123",filename], stdin=subprocess.PIPE,stdout=DEVNULL,stderr=subprocess.STDOUT)
-        #p = subprocess.Popen("mpg123 " + filename, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
-        #os.kill(os.getpgid(p.pid), signal.SIGTERM)
 
-
-        #mf = mad.MadFile(filename)
-        #with tempfile.NamedTemporaryFile(suffix='.wav') as f:
-        #    wav = wave.open(f, mode='wb')
-        #    wav.setframerate(mf.samplerate())
-        #    wav.setnchannels(1 if mf.mode() == mad.MODE_SINGLE_CHANNEL else 2)
-        #    # 4L is the sample width of 32 bit audio
-        #    wav.setsampwidth(4L)
-        #    frame = mf.read()
-        #    while frame is not None:
-        #        wav.writeframes(frame)
-        #        frame = mf.read()
-        #    wav.close()
-        #    self.play(f.name)
-
-
+    def play_mp3(self, filename):
+        DEVNULL = open(os.devnull, 'w')
+        p = subprocess.call(["mpg123", filename], \
+                            stdin=subprocess.PIPE, \
+                            stdout=DEVNULL, \
+                            stderr=subprocess.STDOUT)
 
 
 class DummyTTS(AbstractTTSEngine):
@@ -198,10 +183,10 @@ class EspeakTTS(AbstractTTSEngine):
         with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f:
             fname = f.name
         cmd = ['espeak', '-v', self.voice,
-                         '-p', self.pitch_adjustment,
-                         '-s', self.words_per_minute,
-                         '-w', fname,
-                         phrase]
+               '-p', self.pitch_adjustment,
+               '-s', self.words_per_minute,
+               '-w', fname,
+               phrase]
         cmd = [str(x) for x in cmd]
         self._logger.debug('Executing %s', ' '.join([pipes.quote(arg)
                                                      for arg in cmd]))
@@ -226,14 +211,14 @@ class FestivalTTS(AbstractTTSEngine):
     @classmethod
     def is_available(cls):
         if (super(cls, cls).is_available() and
-           diagnose.check_executable('festival')):
-           logger = logging.getLogger(__name__)
+                diagnose.check_executable('festival')):
+            logger = logging.getLogger(__name__)
 
         return True
 
     def default_voice(self, voice):
-	self.voice = voice
-	festival.execCommand('(' + voice + ')')
+        self.voice = voice
+        festival.execCommand('(' + voice + ')')
 
     def say(self, phrase):
         self._logger.debug("Saying '%s' with '%s' and voice '%s'", phrase, self.SLUG, self.voice)
@@ -382,8 +367,8 @@ class PicoTTS(AbstractTTSEngine):
     @property
     def languages(self):
         cmd = ['pico2wave', '-l', 'NULL',
-                            '-w', os.devnull,
-                            'NULL']
+               '-w', os.devnull,
+               'NULL']
         with tempfile.SpooledTemporaryFile() as f:
             subprocess.call(cmd, stderr=f)
             f.seek(0)
@@ -514,26 +499,23 @@ class MaryTTS(AbstractTTSEngine):
         return [line.split()[0] for line in r.text.splitlines()]
 
     @classmethod
-    def get_config(cls, language):
-        # FIXME: Replace this as soon as we have a config module
+    def get_config(cls):
         config = {}
-        # HMM dir
-        # Try to get hmm_dir from config
-        profile_path = jasperpath.config('profile.%s.yml' % language)
-        if os.path.exists(profile_path):
-            with open(profile_path, 'r') as f:
-                profile = yaml.safe_load(f)
-                if 'mary-tts' in profile:
-                    if 'server' in profile['mary-tts']:
-                        config['server'] = profile['mary-tts']['server']
-                    if 'port' in profile['mary-tts']:
-                        config['port'] = profile['mary-tts']['port']
-                    if 'language' in profile['mary-tts']:
-                        config['language'] = profile['mary-tts']['language']
-                    if 'voice' in profile['mary-tts']:
-                        config['voice'] = profile['mary-tts']['voice']
+        profile = jasperprofile.profile.get_yml()
+        if 'mary-tts' in profile:
+            if 'server' in profile['mary-tts']:
+                config['server'] = profile['mary-tts']['server']
+            if 'port' in profile['mary-tts']:
+                config['port'] = profile['mary-tts']['port']
+            if 'language' in profile['mary-tts']:
+                config['language'] = profile['mary-tts']['language']
+            if 'voice' in profile['mary-tts']:
+                config['voice'] = profile['mary-tts']['voice']
 
         return config
+
+    def default_voice(self, voice):
+        pass
 
     @classmethod
     def is_available(cls):
@@ -619,7 +601,7 @@ class IvonaTTS(AbstractMp3TTSEngine):
         return config
 
     def default_voice(self, voice):
-	pass
+        pass
 
     @classmethod
     def is_available(cls):

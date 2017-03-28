@@ -181,19 +181,27 @@ class Mic:
         return (False, transcribed)
 
 
-    def activeListen(self, THRESHOLD=None, LISTEN=True, MUSIC=False):
+    def activeListen(self, persona, THRESHOLD=None, LISTEN=True, MUSIC=False):
         """
             Records until a second of silence or times out after 12 seconds
             Returns the first matching string or None
         """
         self._logger.info("#### Active Listen Start..... ##### ")
-
+        self._logger.info("Ignoring %s", persona)
         self._logger.info("Play beep_hi.wav")
         self.speaker.play(jasperpath.data('audio', 'beep_hi.wav'))
 
         if self.active_stt_engine.has_mic() is True:
+            
             self._logger.info("#### Active Listen stt engine has the mic..... ##### ")
-            transcribed = self.active_stt_engine.transcribe(None)
+            continueLoop = True
+            while continueLoop:
+                transcribed = self.active_stt_engine.transcribe(None)
+                for text in transcribed:
+                    self._logger.info("Transcribed : %s", text)
+                    if text != persona:
+                        continueLoop = False
+
         else:
             self._logger.info("#### Active Listen, jasper has the mic..... ##### ")
             transcribed = self.activeListenToAllOptions(THRESHOLD, LISTEN, MUSIC)
@@ -212,7 +220,7 @@ class Mic:
             Returns a list of the matching options or None
         """
         # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
-        RATE = 16000 # BangorSTT (Julius - 48000), BangorCloudSTT (Kaldi - 16000) 
+        RATE = 48000 # BangorSTT (Julius - 48000), BangorCloudSTT (Kaldi - 16000) 
         CHUNK = 1024
         LISTEN_TIME = 5 #12
 

@@ -27,15 +27,15 @@ msgstr "Sut fedra i fod o wasanaeth?"
 
 #: jasper.py:72
 msgid "Macsen Voice Control Center"
-msgstr "Canolfan Rheoli macsen llais"
+msgstr "Canolfan Rheoli gyda Leferydd Macsen"
 
 #: jasper.py:73
 msgid "Use text input instead of a real microphone"
-msgstr "Defnyddio'r testun mewnbwn yn lle darlun Meicroffon"
+msgstr "Mewnbynnu gyda testun yn lle meicroffon"
 
 #: jasper.py:74
 msgid "Disable the network connection check"
-msgstr "Analluogi'r cysylltiad rhwydwaith gwiriwch"
+msgstr "Analluogi'r gwirio cysylltiad rhwydwaith"
 
 #: jasper.py:75
 msgid "Run diagnose and exit"
@@ -43,32 +43,32 @@ msgstr "Rhedeg ddadansoddi a gadael"
 
 #: jasper.py:76
 msgid "Show debug messages"
-msgstr "Dangos dadfygio'r negeseuon"
+msgstr "Dangos negeseuon dadfygio"
 
 #: jasper.py:85
 msgid "      MACSEN - THE MULTILINGUAL TALKING COMPUTER      *"
-msgstr "Cyfrifiadur - macsen multilingual talking *"
+msgstr "      MACSEN - Y CYFRIFIADUR LLEFERYDD AMLIEITHOG     *"
 
 #: jasper.py:87
 msgid " Initial Developers:                                  *"
-msgstr "Datblygwyr * cychwynnol:"
+msgstr " Datblygwyr cychwynnol:                               *"
 
 #: jasper.py:91
 msgid "MACSEN is based on :                                            *"
-msgstr "Macsen yn seiliedig ar *:"
+msgstr "Mae Macsen yn seiliedig ar                                      *:"
 
 #: client/populate.py:16
 #, python-format
 msgid "Welcome to the profile populator for language %s"
-msgstr "Croeso i'r proffil populator iaith ar gyfer% S"
+msgstr "Croeso i'r rhaglen ffurfweddu proffil ar gyfer iaith %s"
 
 #: client/populate.py:17
 msgid ""
 "If, at any step, you'd prefer not to enter the requested information, just "
 "hit 'Enter' with a blank field to continue."
 msgstr ""
-"Os, yn unrhyw un cam, nid yw'r flaen i gyflwyno' r wybodaeth angenrheidiol, "
-"goerau'n cyrraedd'enter' r maes gyda wag i barhau."
+"Os, ar unrhyw adeg, mae well gennych chi beidio rhoi'r gwybodaeth ofynir am, "
+"pwysych y bysell 'Enter' gyda'r faes yn wag er mwyn barhau."
 
 #: client/populate.py:32
 msgid ""
@@ -76,9 +76,9 @@ msgid ""
 "http://en.wikipedia.org/wiki/List_of_tz_database_time_zones, or none at all."
 " E.g. 'Europe/London' for Wales"
 msgstr ""
-"Rhowch enw'r cylch amser o' r rhestr lleoli yn y tz * colofn yn http: / / "
-"en.wikipedia.org / wiki / rhestr _ of _ tz _ gronfa ddata _ time _ zones, "
-"neu dim yn all. e.e.'Ewrop / Llundain' ar gyfer wales"
+"Rhowch enw'r cylch amser o'r rhestr yn y colofn TZ* ar dudalen"
+"http://en.wikipedia.org/wiki/List_of_tz_database_time_zones . " 
+" E.e. 'Europe/London' ar gyfer Cymru"
 
 #: client/populate.py:33 client/populate.py:41
 msgid "Timezone: "
@@ -86,19 +86,19 @@ msgstr "Cylch amser:"
 
 #: client/populate.py:40
 msgid "Not a valid timezone. Try again."
-msgstr "Nid yw'n ddilys timezone. ceisiwch eto."
+msgstr "Cylch amser annilys. Ceisiwch eto."
 
 #: client/populate.py:46
 msgid "Microphone Configuration"
-msgstr "Meicroffon ffurfweddiad"
+msgstr "Ffurfweddiad Meicroffon"
 
 #: client/populate.py:47
 msgid ""
 "Please state the microphone location. (Press Enter to default to "
 "'plughw:1,0' for Raspberry Pi)"
 msgstr ""
-"Rhowch'r cyflwr' r Meicroffon lleoliad. (pwyso Enter i'r rhagosodedig "
-"i'plughw: 1,0' ar gyfer raspberry pi)"
+"Rhowch lleoliad eich meicroffon. (pwyswch 'Enter' i rhoi'r rhagosodiad "
+"'plughw: 1,0' ar gyfer y Raspberry Pi)"
 
 #: client/populate.py:48
 msgid "Microphone: "
@@ -106,62 +106,62 @@ msgstr "Meicroffon:"
 
 #: client/populate.py:67
 msgid "Speech Recognition Configuration"
-msgstr "Graddfa dderbyn ffurfweddiad"
+msgstr "Ffurfweddiad Adnabod Lleferydd"
 
-#: client/populate.py:68 client/populate.py:71
+#: client/populate.py:68 client/populate.py:71 client/populate.py:112
 #, python-format
 msgid ""
-"Available implementations: %s. (Press Enter to default to PocketSphinx): "
+"Available implementations: %s. (Press Enter to default to %s): "
 msgstr ""
-"Ar gael implementations:% S. (pwyso Enter i'r rhagosodedig i pocketsphinx):"
+"Peiriannau ar gael %s. (pwyswch 'Enter' i ddewis y rhagosodiad %s):"
+
 
 #: client/populate.py:69
 msgid ""
 "If you would like to choose a specific STT engine, please specify which."
-msgstr "Os hoffech chi ddewis penodol peiriant stt, pennwch pa."
+msgstr "Os hoffech chi ddewis peiriant adnabod lleferydd penodol, pennwch yma pa un."
+
 
 #: client/populate.py:88
 msgid "Please enter your API key: "
-msgstr "Rhowch eich API allwedd:"
+msgstr "Rhowch eich allwedd API: "
+
 
 #: client/populate.py:92
 #, python-format
 msgid "Unrecognized STT engine. Available implementations: %s"
-msgstr "Heb ei adnabod stt engine. ar gael implementations:% S"
+msgstr "Heb adnabod peiriant adnabod lleferydd. Peiriannau ar gael yw: %s"
+
 
 #: client/populate.py:108
 msgid "Text-to-Speech Configuration"
-msgstr "Testun-i-graddfa ffurfweddiad"
+msgstr "Ffurfweddu Testun-i-Leferydd"
+
 
 #: client/populate.py:109
 #, python-format
-msgid "Available implementations: %s. (Press Enter to default to E-speak):"
+msgid "Available implementations: %s. (Press Enter to default to %s):"
 msgstr ""
-"Ar gael implementations:% S. (pwyso Enter i'r rhagosodedig i e-Siaradwch):"
+"Peiriannau ar gael: %s. (pwyswch 'Enter' i ddewis y rhagosodediad %s):"
 
 #: client/populate.py:110
 msgid ""
 "If you would like to choose a specific TTS engine, please specify which."
-msgstr "Os hoffech chi ddewis penodol peiriant tts, pennwch pa."
+msgstr "Os hoffech chi ddewis peiriant testun-i-leferydd benodol, pennwch yma pa un."
 
-#: client/populate.py:112
-#, python-format
-msgid "Available implementations: %s. (Press Enter to default to E-speak): "
-msgstr ""
-"Ar gael implementations:% S. (pwyso Enter i'r rhagosodedig i e-Siaradwch):"
 
 #: client/populate.py:118
 msgid "Enter your Ivona access key : "
-msgstr "Rhowch eich ivona allwedd Mynediad:"
+msgstr "Rhowch eich allwedd mynediad Ivona : "
 
 #: client/populate.py:119
 msgid "Enter your Ivona secret key : "
-msgstr "Rhowch eich ivona yn gyfrinach allwedd:"
+msgstr "Rhowch eich allwedd cyfrinachol Ivona : "
 
 #: client/populate.py:127
 #, python-format
 msgid "Unrecognized TTS engine. Available implementations: %s"
-msgstr "Heb ei adnabod tts engine. ar gael implementations:% S"
+msgstr "Heb adnabod peiriant testun-i-leferydd. Peiriannau sydd ar gael yw: %s"
 
 #: client/populate.py:132
 msgid "Writing to profile..."
@@ -169,7 +169,7 @@ msgstr "Ysgrifennu i'r proffil..."
 
 #: client/populate.py:138
 msgid "Done."
-msgstr "Gorffen."
+msgstr "Wedi Gorffen."
 
 #: client/brain.py:78
 msgid "I'm sorry. I had some trouble with that operation"
