@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 import logging
+
 from notifier import Notifier
 from brain import Brain
 
 
 class Conversation(object):
 
-    def __init__(self, persona, mic, profile):
+    def __init__(self, personas, mic, profile):
         self._logger = logging.getLogger(__name__)
-        self.persona = persona
+        self.personas = personas
         self.mic = mic
         self.profile = profile
         self.brain = Brain(mic, profile)
@@ -18,30 +19,29 @@ class Conversation(object):
         """
         Delegates user input to the handling function when activated.
         """
-        self._logger.info("Starting to handle conversation with keyword '%s'.",
-                          self.persona)
+        self._logger.info("Starting to handle conversation with keyword '%s'.", self.personas)
+
         while True:
             # Print notifications until empty
             notifications = self.notifier.getAllNotifications()
             for notif in notifications:
                 self._logger.info("Received notification: '%s'", str(notif))
 
-            self._logger.debug("Started listening for keyword '%s'", self.persona)
-            threshold, transcribed = self.mic.passiveListen(self.persona)
-            self._logger.debug("Stopped listening for keyword '%s'",
-                               self.persona)
+            self._logger.debug("Started listening for keywords '%s'", self.personas)
+            threshold, persona = self.mic.passiveListen(self.personas)
+            self._logger.debug("Stopped listening for keywords '%s'", self.personas)
 
-            if not transcribed or not threshold:
+            if not persona or not threshold:
                 self._logger.info("Nothing has been said or transcribed.")
                 continue
 
-            self._logger.info("Keyword '%s' has been said!", self.persona)
+            self._logger.info("Keyword '%s' has been said!", persona)
             self._logger.debug("Started to listen actively with threshold: %r", threshold)
-            #input = self.mic.activeListenToAllOptions(threshold)`
-            audioinput = self.mic.activeListen(self.persona, threshold)
+            audioinput = self.mic.activeListen(self.personas, threshold)
             self._logger.debug("Stopped to listen actively with threshold: %r", threshold)
 
             if audioinput:
-                self.brain.query(audioinput)
+                self.brain.query(persona, audioinput)
             else:
                 self.mic.say("Pardon?")
+

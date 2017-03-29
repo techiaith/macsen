@@ -37,10 +37,10 @@ class Mic:
         self._audio = pyaudio.PyAudio()
         self._logger.info("Initialization of PyAudio completed.")
 
-   
+
     def set_tts_default_voice(self, default_voice):
-	self.speaker.default_voice(default_voice)
- 
+        self.speaker.default_voice(default_voice)
+
     def __del__(self):
         self._audio.terminate()
 
@@ -92,7 +92,7 @@ class Mic:
 
         return THRESHOLD
 
-    def passiveListen(self, PERSONA):
+    def passiveListen(self, personas):
 
         """
         Listens for PERSONA in everyday sound. Times out after LISTEN_TIME, so
@@ -175,31 +175,35 @@ class Mic:
                 # check if PERSONA was said
                 transcribed = self.passive_stt_engine.transcribe(f)
 
-        if any(PERSONA in phrase for phrase in transcribed):
-            return (THRESHOLD, PERSONA)
+        for persona in personas:
+            if any(persona in phrase for phrase in transcribed):
+                return (THRESHOLD, persona)
 
         return (False, transcribed)
 
 
-    def activeListen(self, persona, THRESHOLD=None, LISTEN=True, MUSIC=False):
+    def activeListen(self, personas, THRESHOLD=None, LISTEN=True, MUSIC=False):
         """
             Records until a second of silence or times out after 12 seconds
             Returns the first matching string or None
         """
         self._logger.info("#### Active Listen Start..... ##### ")
-        self._logger.info("Ignoring %s", persona)
+        self._logger.info("Ignoring %s", personas)
         self._logger.info("Play beep_hi.wav")
         self.speaker.play(jasperpath.data('audio', 'beep_hi.wav'))
 
         if self.active_stt_engine.has_mic() is True:
-            
+
             self._logger.info("#### Active Listen stt engine has the mic..... ##### ")
+
             continueLoop = True
             while continueLoop:
                 transcribed = self.active_stt_engine.transcribe(None)
                 for text in transcribed:
                     self._logger.info("Transcribed : %s", text)
-                    if text != persona:
+                    if any(text in persona for persona in personas):
+                        continueLoop = True
+                    else:
                         continueLoop = False
 
         else:
@@ -295,8 +299,8 @@ class Mic:
             return self.active_stt_engine.transcribe(f)
 
 
-    def say(self, phrase,
+    def say(self, persona, phrase,
             OPTIONS=" -vdefault+m3 -p 40 -s 160 --stdout > say.wav"):
         # alter phrase before speaking
         phrase = alteration.clean(phrase)
-        self.speaker.say(phrase)
+        self.speaker.say(persona, phrase)

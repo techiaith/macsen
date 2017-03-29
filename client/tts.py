@@ -78,7 +78,7 @@ class AbstractTTSEngine(object):
         self._logger = logging.getLogger(__name__)
 
     @abstractmethod
-    def say(self, phrase, *args):
+    def say(self, persona, phrase, *args):
         pass
 
     @abstractmethod
@@ -178,7 +178,7 @@ class EspeakTTS(AbstractTTSEngine):
         return (super(cls, cls).is_available() and
                 diagnose.check_executable('espeak'))
 
-    def say(self, phrase):
+    def say(self, persona, phrase):
         self._logger.debug("Saying '%s' with '%s'", phrase, self.SLUG)
         with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f:
             fname = f.name
@@ -220,7 +220,7 @@ class FestivalTTS(AbstractTTSEngine):
         self.voice = voice
         festival.execCommand('(' + voice + ')')
 
-    def say(self, phrase):
+    def say(self, persona, phrase):
         self._logger.debug("Saying '%s' with '%s' and voice '%s'", phrase, self.SLUG, self.voice)
         wavFileName = festival.textToWavFile(phrase)
         self._logger.info("Wav file created: %s" % wavFileName)
@@ -273,7 +273,7 @@ class FliteTTS(AbstractTTSEngine):
                 diagnose.check_executable('flite') and
                 len(cls.get_voices()) > 0)
 
-    def say(self, phrase):
+    def say(self, persona, phrase):
         self._logger.debug("Saying '%s' with '%s'", phrase, self.SLUG)
         cmd = ['flite']
         if self.voice:
@@ -381,7 +381,7 @@ class PicoTTS(AbstractTTSEngine):
         langs = matchobj.group(1).split()
         return langs
 
-    def say(self, phrase):
+    def say(self, persona, phrase):
         self._logger.debug("Saying '%s' with '%s'", phrase, self.SLUG)
         with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f:
             fname = f.name
@@ -446,7 +446,7 @@ class GoogleTTS(AbstractMp3TTSEngine):
                  'th', 'tr', 'vi', 'cy']
         return langs
 
-    def say(self, phrase):
+    def say(self, persona, phrase):
         self._logger.debug("Saying '%s' with '%s'", phrase, self.SLUG)
         if self.language not in self.languages:
             raise ValueError("Language '%s' not supported by '%s'",
@@ -523,11 +523,11 @@ class MaryTTS(AbstractTTSEngine):
                 diagnose.check_network_connection())
 
     def _makeurl(self, path, query={}):
-        query_s = urllib.urlencode(query)
+        query_s = urllib.urlencode(query)        
         urlparts = ('http', self.netloc, path, query_s, '')
         return urlparse.urlunsplit(urlparts)
 
-    def say(self, phrase):
+    def say(self, persona, phrase):
         self._logger.debug("Saying '%s' with '%s'", phrase, self.SLUG)
         if self.language not in self.languages:
             raise ValueError("Language '%s' not supported by '%s'"
@@ -536,12 +536,14 @@ class MaryTTS(AbstractTTSEngine):
         if self.voice not in self.voices:
             raise ValueError("Voice '%s' not supported by '%s'"
                              % (self.voice, self.SLUG))
+
+    
         query = {'OUTPUT_TYPE': 'AUDIO',
                  'AUDIO': 'WAVE_FILE',
                  'INPUT_TYPE': 'TEXT',
-                 'INPUT_TEXT': phrase,
+                 'INPUT_TEXT': urllib.quote(phrase),
                  'LOCALE': self.language,
-                 'VOICE': self.voice}
+                 'VOICE': str.lower(persona)}
 
         r = self.session.get(self._makeurl('/process', query=query))
         with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f:
@@ -610,7 +612,7 @@ class IvonaTTS(AbstractMp3TTSEngine):
         #        diagnose.check_python_import('pyvona') and
         #        diagnose.check_network_connection())
 
-    def say(self, phrase):
+    def say(self, persona, phrase):
 
         self._logger.debug("Saying '%s' with '%s'", phrase, self.SLUG)
 
@@ -620,9 +622,9 @@ class IvonaTTS(AbstractMp3TTSEngine):
         self._logger.debug("Play mp3 %s" % tmpfile)
         self.play_mp3(tmpfile)
         #os.remove(tmpfile)
-        
+
         #self._pyvonavoice.speak(phrase)
-        
+
 
 
 def get_default_engine_slug():

@@ -142,7 +142,7 @@ msgstr "Ffurfweddu Testun-i-Leferydd"
 #, python-format
 msgid "Available implementations: %s. (Press Enter to default to %s):"
 msgstr ""
-"Peiriannau ar gael: %s. (pwyswch 'Enter' i ddewis y rhagosodediad %s):"
+"Peiriannau ar gael: %s. (pwyswch 'Enter' i ddewis y rhagosodiad %s):"
 
 #: client/populate.py:110
 msgid ""

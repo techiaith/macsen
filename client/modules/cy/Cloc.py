@@ -7,7 +7,7 @@ import jasperprofile
 
 WORDS = ["GLOCH"]
 
-def handle(text, mic, profile):
+def handle(persona, text, mic, profile):
     """
     Responds to user-input, typically speech text, with a summary of
     the relevant weather for the requested date (typically, weather
@@ -22,14 +22,14 @@ def handle(text, mic, profile):
     strhour = '{:02d}'.format(datetime.datetime.now().time().hour)
     strminute = '{:02d}'.format(datetime.datetime.now().time().minute)
 
-    mic.say("Mae hi'n %s:%s" % (strhour, strminute))
+    mic.say(persona, "Mae hi'n %s:%s" % (strhour, strminute))
 
 
-def isValid(text):
+def isValid(persona, text):
     """
         Returns True if the text is related to the weather.
 
         Arguments:
         text -- user-input, typically transcribed speech
     """
-    return bool(re.search(r'\bgloch\b', text, re.IGNORECASE))
+    return bool(re.search(r'\bgloch\b', text, re.IGNORECASE)) and persona=="MACSEN"

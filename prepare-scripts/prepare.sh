@@ -7,6 +7,7 @@ sudo pip install --upgrade setuptools
 sudo pip install -r client/requirements.txt
 sudo pip install python-dateutil feedparser
 sudo pip install polib
+sudo pip install ws4py
 
 sudo mkdir -p /usr/share/festival/voices/welsh
 cd /usr/share/festival/voices/welsh

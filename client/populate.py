@@ -89,9 +89,18 @@ def run(macsen_language):
 			lexicon_archive_member='lexicon')
 
         if profile["stt_engine"] == "bangorcloudstt":
-            profile["bangorcloudstt"] = dict(
-                url='ws://techiaith.cymru/asr/macsen/client/ws/speech'
-            )
+
+            #ws://techiaith.cymru/asr/macsen/client/ws/speech
+            bangorcloudstt_url = raw_input("Rhowch cyfeiriad gwe ar gyfer bangorcloudstt: " +
+                                           "\n" +
+                                           "(Pwyswch 'Enter' i dewis y rhagosodiad: " +
+                                           "ws://techiaith.cymru/asr/macsen/client/ws/speech " +
+                                           " - NID YW'R CYFEIRIAD YMA YN DDIBYNNOL)")
+
+            if not bangorcloudstt_url:
+                bangorcloudstt_url = "ws://techiaith.cymru/asr/macsen/client/ws/speech"
+
+            profile["bangorcloudstt"] = dict(url=bangorcloudstt_url)
 
 
 
@@ -157,6 +166,7 @@ def run(macsen_language):
     print(_("Writing to profile..."))
     if not os.path.exists(jasperpath.CONFIG_PATH):
         os.makedirs(jasperpath.CONFIG_PATH)
+
     outputFileName = 'profile.%s.yml' % macsen_language
     outputFile = open(jasperpath.config(outputFileName), "w")
     yaml.dump(profile, outputFile, default_flow_style=False)

@@ -44,11 +44,12 @@ class Jasper(object):
                 self.mic.set_tts_default_voice(tts_engine_default_voice)
             else:
                 self._logger.warning("Profile does not contain a default voice for Festival." +
-					                            " Will use the Festival installation default")
+					                                " Will use the Festival installation default")
 
     def run(self):
 
         #self.introduction()
+        personas = ["MACSEN", "LLYWYDD"]
 
         first_name = client.jasperprofile.profile.get('first_name', '')
         if first_name:
@@ -56,10 +57,11 @@ class Jasper(object):
         else:
             salutation = _("How can I be of service?")
 
-        self.mic.say(salutation)
+        self.mic.say(personas[0], salutation)
 
-        conversation = Conversation("LLYWYDD", self.mic, client.jasperprofile.profile.get_yml())
-        conversation.handleForever()    
+        conversation = Conversation(personas, self.mic, client.jasperprofile.profile.get_yml())
+        conversation.handleForever()
+
 
     def introduction(self):
 

@@ -10,7 +10,7 @@ from client.app_utils import getTimezone
 
 WORDS = ["TYWYDD"]
 
-def handle(text, mic, profile):
+def handle(persona, text, mic, profile):
     """
     Responds to user-input, typically speech text, with a summary of
     the relevant weather for the requested date (typically, weather
@@ -22,14 +22,14 @@ def handle(text, mic, profile):
         profile -- contains information related to the user (e.g., phone
                    number)
     """
-    mic.say("Bydd heddiw yn ddiwrnod cymylog gydag ysbeidiau heulog")
+    mic.say(persona, "Bydd heddiw yn ddiwrnod cymylog gydag ysbeidiau heulog")
 
 
-def isValid(text):
+def isValid(persona, text):
     """
         Returns True if the text is related to the weather.
 
         Arguments:
         text -- user-input, typically transcribed speech
     """
-    return bool(re.search(r'\btywydd\b', text, re.IGNORECASE))
+    return bool(re.search(r'\btywydd\b', text, re.IGNORECASE)) and persona == "MACSEN"
