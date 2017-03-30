@@ -43,5 +43,5 @@ class Conversation(object):
             if audioinput:
                 self.brain.query(persona, audioinput)
             else:
-                self.mic.say("Pardon?")
+                self.mic.say(self.personas[0], "Pardon?")
 
