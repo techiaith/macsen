@@ -28,11 +28,11 @@ def handle(persona, text, mic, profile):
     data=rq.text
     soup=BeautifulSoup(data)
 
-    mic.say(persona, "Dyma penawdau gwefan newyddion golwg 3 6 0")
+    mic.say(persona, "Dyma penawdau gwefan newyddion golwg tri chwech dim")
     
     for entry in soup(attrs={'class':'headline'}):
         for headline in entry.find_all('a'):
-            testun_pennawd = ''.join([x for x in headline.text if ord(x) < 128])
+            testun_pennawd = headline.text #''.join([x for x in headline.text if ord(x) < 128])
             print testun_pennawd
             mic.say(persona, testun_pennawd)
 
@@ -44,4 +44,6 @@ def isValid(persona, text):
         Arguments:
         text -- user-input, typically transcribed speech
     """
+    print persona, text
     return bool(re.search(r'\bnewyddion\b', text, re.IGNORECASE)) and persona=="MACSEN"
+

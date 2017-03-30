@@ -52,6 +52,7 @@ except ImportError:
 import diagnose
 import jasperpath
 
+from pygame import mixer
 
 class AbstractTTSEngine(object):
     """
@@ -67,6 +68,9 @@ class AbstractTTSEngine(object):
     def get_instance(cls):
         config = cls.get_config()
         instance = cls(**config)
+        
+        mixer.init(16000)
+
         return instance
 
     @classmethod
@@ -88,16 +92,22 @@ class AbstractTTSEngine(object):
     def play(self, filename):
         # FIXME: Use platform-independent audio-output here
         # See issue jasperproject/jasper-client#188
-        cmd = ['aplay', str(filename)]
-        self._logger.debug('Executing %s', ' '.join([pipes.quote(arg)
-                                                     for arg in cmd]))
-        with tempfile.TemporaryFile() as f:
-            subprocess.call(cmd, stdout=f, stderr=f)
-            f.seek(0)
-            output = f.read()
-            if output:
-                self._logger.debug("Output was: '%s'", output)
-
+        
+	#cmd = ['aplay', str(filename)]
+        #self._logger.debug('Executing %s', ' '.join([pipes.quote(arg)
+        #                                             for arg in cmd]))
+        #with tempfile.TemporaryFile() as f:
+        #    subprocess.call(cmd, stdout=f, stderr=f)
+        #    f.seek(0)
+        #    output = f.read()
+        #    if output:
+        #        self._logger.debug("Output was: '%s'", output)
+        sound = mixer.Sound(filename)
+        sound.play()
+        playingsound=True
+        while playingsound:
+            playingsound = mixer.get_busy() 
+            time.sleep(0.1)
 
 class AbstractMp3TTSEngine(AbstractTTSEngine):
     """
@@ -537,11 +547,13 @@ class MaryTTS(AbstractTTSEngine):
             raise ValueError("Voice '%s' not supported by '%s'"
                              % (self.voice, self.SLUG))
 
-    
+        phraseutf8 = phrase.encode('utf-8')
+        self._logger.debug("SAYING: %s" % phraseutf8)
+ 
         query = {'OUTPUT_TYPE': 'AUDIO',
                  'AUDIO': 'WAVE_FILE',
                  'INPUT_TYPE': 'TEXT',
-                 'INPUT_TEXT': urllib.quote(phrase),
+                 'INPUT_TEXT': phraseutf8,
                  'LOCALE': self.language,
                  'VOICE': str.lower(persona)}
 

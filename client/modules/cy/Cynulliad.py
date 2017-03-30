@@ -25,7 +25,7 @@ def handle(persona, text, mic, profile):
     if ("CYNULLIAD" in text):
         mic.say(persona,"Cynulliad Cenedlaethol Cymru yw'r corff sy'n cael ei ethol yn ddemocrataidd i gynrychioli buddiannau Cymru a'i phobl, i ddeddfu ar gyfer Cymru, i gytuno ar drethi yng Nghymru, ac i ddwyn Llywodraeth Cymru i gyfrif")
     elif ("SENEDD" in text):
-        mic.say(persona,"Y Senedd yw prif adeilad cyhoeddus y Cynulliad Cenedlaethol, a phrif ganolfan democratiaeth a datganoli yng Nghymru. Mae'n adeilad agored – adeilad y mae croeso i chi ddod iddo, i wylio'r Cynulliad wrth ei waith")
+        mic.say(persona,"Y Senedd yw prif adeilad cyhoeddus y Cynulliad Cenedlaethol, a phrif ganolfan democratiaeth a datganoli yng Nghymru. Mae'n adeilad agored. Adeilad y mae croeso i chi ddod iddo, i wylio'r Cynulliad wrth ei waith")
     elif ("LLYWODRAETH" in text):
         mic.say(persona,"Llywodraeth Cymru yw llywodraeth ddatganoledig Cymru. Mae'n gweithio i wella bywydau pobl yng Nghymru, a gwneud ein gwlad yn lle gwell i fyw a gweithio")
 
