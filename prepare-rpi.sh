@@ -7,7 +7,7 @@ sudo modprobe snd_bcm2835
 sudo amixer cset numid=3 1
 
 cd $HOME/src/julius-cy
-./setup-rpi.sh
+./setup.sh
 ./compile.sh
 cd -
 

@@ -107,7 +107,7 @@ def run(macsen_language):
     ###########################################################################
     # Text to Speech Configuration
     ###########################################################################
-    default_tts = 'espeak-tts'
+    default_tts = "festival-tts"
     if macsen_language == 'cy':
         tts_engines = {
             "festival-tts":"voice_cb_cy_llg_diphone",
@@ -122,7 +122,6 @@ def run(macsen_language):
                 "port":"59125"
             }
         }
-        default_tts = "festival-tts"
     else:
         tts_engines = {
             "espeak-tts":None,
@@ -135,11 +134,12 @@ def run(macsen_language):
 			 "\n" +
 			 _("Available implementations: %s. (Press Enter to default to %s): ") % (tts_engines.keys(), default_tts))
 
+    print "TTS : " + response
     if response in tts_engines:
         profile["tts_engine"] = response
 
         if response == "festival-tts":
-            profile["festival-tts"] = tts_engines[response]
+            profile["tts_default_voice"] = tts_engines["festival-tts"]
 
         if macsen_language == "cy":
             if response == "ivona-tts":
@@ -160,6 +160,7 @@ def run(macsen_language):
     else:
 	    print(_("Unrecognized TTS engine. Available implementations: %s") % tts_engines.keys())
 	    profile["tts_engine"] = default_tts
+            profile["tts_default_voice"] = tts_engines[default_tts] 
 
 
     # write to profile
