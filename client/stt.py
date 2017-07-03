@@ -213,7 +213,7 @@ class JuliusSTT(AbstractSTTEngine):
                '-v', self._vocabulary.dict_file,
                '-h', self._hmmdefs,
                '-hlist', self._tiedlist,
-	           '-smpFreq', 48000,
+	           '-smpFreq', 16000,
                '-forcedict',
 	           '-lv', 4000]
 
@@ -259,7 +259,7 @@ class JuliusSTT(AbstractSTTEngine):
                '-v', self._vocabulary.dict_file,
                '-h', self._hmmdefs,
                '-hlist', self._tiedlist,
-               '-smpFreq', 48000,
+               '-smpFreq', 16000,
                '-forcedict',
                '-lv', 4000]
 
@@ -300,9 +300,7 @@ class BangorSTT(AbstractSTTEngine):
 
     def __init__(self, jconf):
 
-        #os.environ['ALSADEV'] = '/dev/dsp0'
         profile = jasperprofile.profile.get_yml()
-        os.environ['ALSADEV'] = profile['mic']
 
         self._logger = logging.getLogger(__name__)
         self._jconf = jconf

@@ -52,9 +52,8 @@ class Mic:
     def fetchThreshold(self):
 
         # TODO: Consolidate variables from the next three functions
-        # TODO: load a RATE from the profile. (bangor needs 48000)
         THRESHOLD_MULTIPLIER = 1.8
-        RATE = 48000
+        RATE = 16000
         CHUNK = 1024
 
         # number of seconds to allow to establish threshold
@@ -106,9 +105,8 @@ class Mic:
             if transcribed and len(transcribed) > 0:
                 THRESHOLD = True
         else:
-            # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
             THRESHOLD_MULTIPLIER = 1.8
-            RATE = 48000
+            RATE = 16000
             CHUNK = 1024
 
             # number of seconds to allow to establish threshold
@@ -223,8 +221,7 @@ class Mic:
             Records until a second of silence or times out after 12 seconds
             Returns a list of the matching options or None
         """
-        # TODO: load a RATE from the profile. (bangor julius-cy needs 48000)
-        RATE = 48000 # BangorSTT (Julius - 48000), BangorCloudSTT (Kaldi - 16000) 
+        RATE = 16000 
         CHUNK = 1024
         LISTEN_TIME = 5 #12
 
