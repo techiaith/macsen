@@ -12,6 +12,9 @@ class Mic:
     def __init__(self, speaker, passive_stt_engine, active_stt_engine):
         self.speaker = speaker 
         return
+ 
+    def set_tts_default_voice(self, default_voice):
+        self.speaker.default_voice(default_voice)
 
     def passiveListen(self, PERSONA):
         input = raw_input("PERSONA: ")
