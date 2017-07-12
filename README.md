@@ -1,5 +1,7 @@
 MACSEN
 ======
+
+[![Join the chat at https://gitter.im/Techiaith/macsen](https://badges.gitter.im/Techiaith/macsen.svg)](https://gitter.im/Techiaith/macsen?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 (*[click here](README_en.md) for the English version of this README*)
 
 Mae Macsen yn feddalwedd cynorthwyydd personol digidol Cymraeg cod agored. Mae'n rhedeg ar y Raspberry Pi. Yma ceir ffeiliau a sgriptiau yn ogystal â dogfennaeth ar gyfer gosod ac addasu Macsen eich hunain.
