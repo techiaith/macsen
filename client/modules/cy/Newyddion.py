@@ -7,6 +7,7 @@ import feedparser
 import requests
 from bs4 import BeautifulSoup
 from client.app_utils import getTimezone
+import unidecode
 
 WORDS = ["NEWYDDION"]
 
@@ -24,18 +25,18 @@ def handle(persona, text, mic, profile):
     """
     mic.say(persona, "Gad i mi weld")
 
-    rq = requests.get("http://golwg360.cymru/newyddion")
+    rq = requests.get("https://golwg360.cymru/ffrwd")
     data=rq.text
     soup=BeautifulSoup(data)
 
     mic.say(persona, "Dyma penawdau gwefan newyddion golwg tri chwech dim")
-    
-    for entry in soup(attrs={'class':'headline'}):
-        for headline in entry.find_all('a'):
-            testun_pennawd = headline.text #''.join([x for x in headline.text if ord(x) < 128])
-            print testun_pennawd
-            mic.say(persona, testun_pennawd)
 
+    for headline in soup.find_all('title'):
+        testun_pennawd = unidecode.unidecode(headline.text)
+        if testun_pennawd != 'Golwg360':
+           print testun_pennawd
+           mic.say(persona, testun_pennawd)
+  
 
 def isValid(persona, text):
     """
