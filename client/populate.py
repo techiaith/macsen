@@ -116,7 +116,7 @@ def run(macsen_language):
                 "language":"cy-GB"
             },
             "mary-tts":{
-                "voice":"macsen",
+                "voice":"wispr",
                 "language":"cy",
                 "server":"localhost",
                 "port":"59125"

@@ -480,9 +480,10 @@ class MaryTTS(AbstractTTSEngine):
 
     SLUG = "mary-tts"
 
-    def __init__(self, server="mary.dfki.de", port="59125", language="en_GB",
-                 voice="dfki-spike"):
+    def __init__(self, server="localhost", port="59125", language="cy",
+                 voice="wispr"):
         super(self.__class__, self).__init__()
+
         self.server = server
         self.port = port
         self.netloc = '{server}:{port}'.format(server=self.server,
@@ -549,13 +550,14 @@ class MaryTTS(AbstractTTSEngine):
 
         phraseutf8 = phrase.encode('utf-8')
         self._logger.debug("SAYING: %s" % phraseutf8)
+
  
         query = {'OUTPUT_TYPE': 'AUDIO',
                  'AUDIO': 'WAVE_FILE',
                  'INPUT_TYPE': 'TEXT',
                  'INPUT_TEXT': phraseutf8,
                  'LOCALE': self.language,
-                 'VOICE': str.lower(persona)}
+                 'VOICE': self.voice}
 
         r = self.session.get(self._makeurl('/process', query=query))
         with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f:
