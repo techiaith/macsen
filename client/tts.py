@@ -8,6 +8,7 @@ Speaker methods:
     is_available - returns True if the platform supports this implementation
 """
 import os
+import time
 import platform
 import re
 import tempfile
@@ -15,6 +16,7 @@ import signal
 import subprocess
 import pipes
 import logging
+import pexpect
 import wave
 import urllib
 import urlparse
@@ -484,6 +486,13 @@ class MaryTTS(AbstractTTSEngine):
                  voice="wispr"):
         super(self.__class__, self).__init__()
 
+        maryttsps = os.popen("ps auxw | grep marytts-server | grep -v grep").read()
+        maryttspscount = maryttsps.count('marytts-server')
+        if maryttspscount==0: 
+	    self._logger.info("Starting MaryTTS...")
+            self._child = pexpect.spawn('/home/pi/src/marytts/scripts/mary.sh', timeout=None)
+            time.sleep(5)
+        
         self.server = server
         self.port = port
         self.netloc = '{server}:{port}'.format(server=self.server,
@@ -491,6 +500,9 @@ class MaryTTS(AbstractTTSEngine):
         self.language = language
         self.voice = voice
         self.session = requests.Session()
+
+
+
 
     @property
     def languages(self):
