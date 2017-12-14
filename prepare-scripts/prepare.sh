@@ -30,6 +30,19 @@ cd $HOME/src/julius-cy
 ./compile.sh
 cd -
 
+cd $HOME/src/
+if [ ! -d "marytts" ]; then
+	git clone https://github.com/techiaith/marytts.git
+fi
+cd -
+
+cd $HOME/src/marytts
+./scripts/setup.sh
+./scripts/update-marytts-server-cy.sh
+./scripts/voice-download.sh wispr
+cd -
+
+
 PYTHONPATH=${PYTHONPATH}:${HOME}/src/macsen/client
 export PYTHONPATH
 
