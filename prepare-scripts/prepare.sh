@@ -20,8 +20,7 @@ cd -
 mkdir -p $HOME/src/
 cd $HOME/src/
 if [ ! -d "julius-cy" ]; then 
-	#wget --progress=dot:mega -O - https://github.com/techiaith/julius-cy/archive/v1.0.tar.gz | tar -zxf -
-	git clone --branch v2.2 https://github.com/techiaith/julius-cy.git
+	git clone --branch v2.3 https://github.com/techiaith/julius-cy.git
 fi 
 cd -
 
