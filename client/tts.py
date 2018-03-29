@@ -14,6 +14,7 @@ import re
 import tempfile
 import signal
 import subprocess
+import shlex
 import pipes
 import logging
 import pexpect
@@ -486,12 +487,19 @@ class MaryTTS(AbstractTTSEngine):
                  voice="wispr"):
         super(self.__class__, self).__init__()
 
+        marytts_home = '/home/pi/src/marytts'
+        marytts_version = '5.2'
+        
+        marytts_base = os.path.join(marytts_home, 'target', "marytts-" + marytts_version)
+
         maryttsps = os.popen("ps auxw | grep marytts-server | grep -v grep").read()
         maryttspscount = maryttsps.count('marytts-server')
-        if maryttspscount==0: 
-	    self._logger.info("Starting MaryTTS...")
-            self._child = pexpect.spawn('/home/pi/src/marytts/scripts/mary.sh', timeout=None)
-            time.sleep(5)
+        if maryttspscount==0:         
+            self._logger.info("Starting MaryTTS Server...")
+            cmd = 'java -showversion -Xms40m -Xmx1g -cp "%s/lib/*" -Dmary.base="%s" marytts.server.Mary' % (marytts_base, marytts_base,)
+            popen_cmd = shlex.split(cmd)
+            self.marytts_pid = subprocess.Popen(popen_cmd).pid
+            self._logger.info("Started MaryTTS server successfully pid:%s" % (self.marytts_pid))
         
         self.server = server
         self.port = port
@@ -500,8 +508,6 @@ class MaryTTS(AbstractTTSEngine):
         self.language = language
         self.voice = voice
         self.session = requests.Session()
-
-
 
 
     @property
@@ -515,11 +521,13 @@ class MaryTTS(AbstractTTSEngine):
             raise
         return r.text.splitlines()
 
+
     @property
     def voices(self):
         r = self.session.get(self._makeurl('/voices'))
         r.raise_for_status()
         return [line.split()[0] for line in r.text.splitlines()]
+
 
     @classmethod
     def get_config(cls):
@@ -551,7 +559,7 @@ class MaryTTS(AbstractTTSEngine):
         return urlparse.urlunsplit(urlparts)
 
     def say(self, persona, phrase):
-        self._logger.debug("Saying '%s' with '%s'", phrase, self.SLUG)
+        print ("Saying '%s' with '%s'", phrase, self.SLUG)
         if self.language not in self.languages:
             raise ValueError("Language '%s' not supported by '%s'"
                              % (self.language, self.SLUG))

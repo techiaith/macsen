@@ -49,7 +49,7 @@ class Jasper(object):
     def run(self):
 
         #self.introduction()
-        personas = ["MACSEN", "LLYWYDD"]
+        personas = ["MACSEN", "LLYWYDD", "WICIPEDIA"]
 
         first_name = client.jasperprofile.profile.get('first_name', '')
         if first_name:

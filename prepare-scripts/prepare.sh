@@ -9,6 +9,7 @@ sudo pip install python-dateutil feedparser
 sudo pip install polib
 sudo pip install ws4py
 sudo pip install unidecode
+sudo pip install wikipedia
 
 sudo mkdir -p /usr/share/festival/voices/welsh
 cd /usr/share/festival/voices/welsh
@@ -36,9 +37,9 @@ fi
 cd -
 
 cd $HOME/src/marytts
-./scripts/setup.sh
-./scripts/update-marytts-server-cy.sh
-./scripts/voice-download.sh wispr
+source scripts/setup.sh
+source scripts/update-marytts-server-cy.sh
+source scripts/voice-download.sh wispr
 cd -
 
 
