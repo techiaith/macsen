@@ -21,7 +21,7 @@ cd -
 mkdir -p $HOME/src/
 cd $HOME/src/
 if [ ! -d "julius-cy" ]; then 
-	git clone --branch v2.3 https://github.com/techiaith/julius-cy.git
+	git clone --branch v2.4 https://github.com/techiaith/julius-cy.git
 fi 
 cd -
 
